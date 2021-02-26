@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"sourceMap": true,
+		"outDir": "dist",
+		"noImplicitAny": true,
+		"module": "es2015",
+		"target": "es5",
+		"moduleResolution": "node",
+		"removeComments": false,
+		"preserveConstEnums": true,
+		"declaration": true,
+		"declarationMap": true,
+		"declarationDir": "dist",
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"allowJs": true,
+		"isolatedModules": true,
+		"typeRoots": ["./node_modules/@types", "./src/typings"],
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+		"allowUnreachableCode": false,
+		"lib": ["es2017", "dom"]
+	},
+	"compileOnSave": true,
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", ".vscode", "dist", "build", "testing", "test", "docs", "docs-src"]
+}
