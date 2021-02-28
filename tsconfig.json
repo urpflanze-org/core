@@ -8,6 +8,7 @@
 		"moduleResolution": "node",
 		"removeComments": false,
 		"preserveConstEnums": true,
+		"baseUrl": ".",
 		"declaration": true,
 		"declarationMap": true,
 		"declarationDir": "dist",
@@ -15,7 +16,7 @@
 		"strict": true,
 		"allowJs": true,
 		"isolatedModules": true,
-		"typeRoots": ["./node_modules/@types", "./src/typings"],
+		"typeRoots": ["./node_modules/@types"],
 		"strictBindCallApply": true,
 		"strictFunctionTypes": true,
 		"strictNullChecks": true,
@@ -24,6 +25,5 @@
 		"lib": ["es2017", "dom"]
 	},
 	"compileOnSave": true,
-	"include": ["src/**/*"],
-	"exclude": ["node_modules", ".vscode", "dist", "build", "testing", "test", "docs", "docs-src"]
+	"include": ["src/**/*"]
 }
