@@ -1,8 +1,8 @@
-import Bounding from '../math/bounding'
+import { Bounding } from '../math/bounding'
 import { IRecursionRepetition, IRepetition, ISceneChildPropArguments } from '../types/scene-child'
 import { IParentBufferIndex, IShapeBounding, IShapeRecursiveProps, IShapeRecursiveSettings } from '../types/shape-base'
 
-import Shape from '../shapes/Shape'
+import { Shape } from '../shapes/Shape'
 
 /**
  * @category Core.Shapes
@@ -411,4 +411,4 @@ class ShapeRecursive extends Shape<IShapeRecursiveProps> {
 	}
 }
 
-export default ShapeRecursive
+export { ShapeRecursive }

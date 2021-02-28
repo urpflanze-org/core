@@ -1,5 +1,5 @@
-import Bounding from '../math/bounding'
-import ShapePrimitive from '../shapes/ShapePrimitive'
+import { Bounding } from '../math/bounding'
+import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { ISceneChildPropArguments } from '../types/scene-child'
 import { EShapePrimitiveAdaptMode } from '../types/shape-base'
 import { IShapeBufferSettings } from '../types/shape-primitives'
@@ -182,4 +182,4 @@ class ShapeBuffer extends ShapePrimitive {
 	}
 }
 
-export default ShapeBuffer
+export { ShapeBuffer }

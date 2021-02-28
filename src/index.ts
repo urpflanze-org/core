@@ -15,29 +15,29 @@ glMatrix.setMatrixArrayType(Array)
  * Core
  */
 
-export { default as Scene } from './Scene'
-export { default as SceneChild } from './SceneChild'
+export { Scene } from './Scene'
+export { SceneChild } from './SceneChild'
 
-export { default as Group } from './Group'
+export { Group } from './Group'
 
 // Shapes
-export { default as ShapeBase } from './shapes/ShapeBase'
-export { default as ShapePrimitive } from './shapes/ShapePrimitive'
-export { default as ShapeLoop } from './shapes/ShapeLoop'
-export { default as ShapeBuffer } from './shapes/ShapeBuffer'
-export { default as Shape } from './shapes/Shape'
-export { default as ShapeRecursive } from './shapes/ShapeRecursive'
+export { ShapeBase } from './shapes/ShapeBase'
+export { ShapePrimitive } from './shapes/ShapePrimitive'
+export { ShapeLoop } from './shapes/ShapeLoop'
+export { ShapeBuffer } from './shapes/ShapeBuffer'
+export { Shape } from './shapes/Shape'
+export { ShapeRecursive } from './shapes/ShapeRecursive'
 
-export { default as Line } from './shapes/primitives/Line'
-export { default as Triangle } from './shapes/primitives/Triangle'
-export { default as Rect } from './shapes/primitives/Rect'
-export { default as Polygon } from './shapes/primitives/Polygon'
-export { default as Circle } from './shapes/primitives/Circle'
+export { Line } from './shapes/primitives/Line'
+export { Triangle } from './shapes/primitives/Triangle'
+export { Rect } from './shapes/primitives/Rect'
+export { Polygon } from './shapes/primitives/Polygon'
+export { Circle } from './shapes/primitives/Circle'
 
-export { default as Rose } from './shapes/primitives/Rose'
-export { default as Spiral } from './shapes/primitives/Spiral'
-export { default as Lissajous } from './shapes/primitives/Lissajous'
-export { default as SuperShape } from './shapes/primitives/SuperShape'
+export { Rose } from './shapes/primitives/Rose'
+export { Spiral } from './shapes/primitives/Spiral'
+export { Lissajous } from './shapes/primitives/Lissajous'
+export { SuperShape } from './shapes/primitives/SuperShape'
 
 // Utilities
 export type { ICancelablePromise } from './Utilities'
@@ -54,9 +54,6 @@ export {
 	angle2FromRepetition,
 	distanceFromRepetition,
 } from './Utilities'
-
-export type { IColor, IConvertedColor } from './Color'
-export { hslToRgb, parseColor, parseColorAndConvert, rgbToHsl } from './Color'
 
 export { default as Vec2 } from './math/Vec2'
 

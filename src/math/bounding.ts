@@ -75,4 +75,4 @@ const Bounding = {
 	},
 }
 
-export default Bounding
+export { Bounding }

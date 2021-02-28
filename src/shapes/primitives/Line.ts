@@ -1,7 +1,7 @@
 import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
 import { IShapeBufferSettings } from '../../types/shape-primitives'
 
-import ShapeBuffer from '../ShapeBuffer'
+import { ShapeBuffer } from '../ShapeBuffer'
 
 /**
  *
@@ -27,4 +27,4 @@ class Line extends ShapeBuffer {
 	}
 }
 
-export default Line
+export { Line }

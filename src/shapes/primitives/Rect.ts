@@ -1,6 +1,6 @@
 import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
 import { IShapeBufferSettings } from '../../types/shape-primitives'
-import ShapeBuffer from '../../shapes/ShapeBuffer'
+import { ShapeBuffer } from '../../shapes/ShapeBuffer'
 
 /**
  *
@@ -24,4 +24,4 @@ class Rect extends ShapeBuffer {
 	}
 }
 
-export default Rect
+export { Rect }

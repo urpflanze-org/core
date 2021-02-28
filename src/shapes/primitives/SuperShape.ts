@@ -1,4 +1,4 @@
-import ShapeLoop from '../ShapeLoop'
+import { ShapeLoop } from '../ShapeLoop'
 import { ISuperShapeProps, ISuperShapeSettings } from '../../types/shape-primitives'
 import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
 import { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
@@ -78,4 +78,4 @@ class SuperShape extends ShapeLoop<ISuperShapeProps> {
 	}
 }
 
-export default SuperShape
+export { SuperShape }

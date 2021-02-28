@@ -1,8 +1,8 @@
 import { ISceneSettings } from './types/scene'
 
-import SceneChild from './SceneChild'
-import Group from './Group'
-import Shape from './shapes/Shape'
+import { SceneChild } from './SceneChild'
+import { Group } from './Group'
+import { Shape } from './shapes/Shape'
 import { IStreamArguments } from './types/scene-child'
 
 /**
@@ -378,4 +378,4 @@ class Scene {
 	}
 }
 
-export default Scene
+export { Scene }

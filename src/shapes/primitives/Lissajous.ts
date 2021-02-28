@@ -1,5 +1,5 @@
 import { PI2 } from '../../math'
-import ShapeLoop from '../../shapes/ShapeLoop'
+import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
 import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
 import { ILissajousProps, ILissajousSettings } from '../../types/shape-primitives'
@@ -66,4 +66,4 @@ class Lissajous extends ShapeLoop<ILissajousProps> {
 	}
 }
 
-export default Lissajous
+export { Lissajous }

@@ -1,10 +1,10 @@
 import { ISceneChildPropArguments, ISceneChildProps, ISceneChildSettings, IStreamArguments } from './types/scene-child'
 import { IBufferIndex, IShapeBounding } from './types/shape-base'
 
-import Scene from './Scene'
-import SceneChild from './SceneChild'
-import ShapeBase from './shapes/ShapeBase'
-import Bounding from './math/bounding'
+import { Scene } from './Scene'
+import { SceneChild } from './SceneChild'
+import { ShapeBase } from './shapes/ShapeBase'
+import { Bounding } from './math/bounding'
 
 /**
  * A SceneChild container, propagates properties to children
@@ -394,4 +394,4 @@ class Group extends SceneChild {
 	// }
 }
 
-export default Group
+export { Group }

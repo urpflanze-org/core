@@ -70,15 +70,16 @@ export function cancelablePromise<T>(promise: Promise<T>): ICancelablePromise<T>
 }
 
 // isDef: (object: any): boolean => typeof object !== 'undefined' && object !== null,
-
+//@ts-ignore
+const measurement = typeof performance !== 'undefined' ? performance : Date
 /**
  * Get current timestamp in milliseconds
  *
- * @ignore
+ * @category Utilities
  * @returns {number}
  */
 export function now(): number {
-	return performance.now()
+	return measurement.now()
 }
 
 // aOr: (...args: Array<any>): any => {

@@ -1,6 +1,6 @@
 import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
 import { IShapeBufferSettings } from '../../types/shape-primitives'
-import ShapeBuffer from '../ShapeBuffer'
+import { ShapeBuffer } from '../ShapeBuffer'
 
 /**
  * Triangle ShapeBuffer
@@ -23,4 +23,4 @@ class Triangle extends ShapeBuffer {
 	}
 }
 
-export default Triangle
+export { Triangle }

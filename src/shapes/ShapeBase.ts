@@ -16,8 +16,8 @@ import * as glme from '../math/gl-matrix-extensions'
 import Vec2 from '../math/Vec2'
 import { PI2 } from '../math'
 
-import Bounding from '../math/bounding'
-import SceneChild from '../SceneChild'
+import { Bounding } from '../math/bounding'
+import { SceneChild } from '../SceneChild'
 
 const tmpMatrix = mat4.create()
 const transformMatrix = mat4.create()
@@ -116,7 +116,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	/**
 	 * With this parameter the shape will be created at each repetition,
 	 * useful if you want to encapsulate this shape in another and use its <mark>repetition</mark> object.
-	 * In the case of ShapePrimitive fillColor, strokeColor and lineWidth don't need to as they are generated during the buffer stream.
+	 * In the case of ShapePrimitive the style prop don't need to as they are generated during the buffer stream.
 	 *
 	 * @public
 	 * @type {boolean}
@@ -144,7 +144,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 
 	/**
 	 * With this parameter the shape will be created at each recursion,
-	 * In the case of ShapePrimitive fillColor, strokeColor and lineWidth don't need to as they are generated during the buffer stream.
+	 * In the case of ShapePrimitive style prop don't need to as they are generated during the buffer stream.
 	 *
 	 * @public
 	 * @type {boolean}
@@ -732,4 +732,4 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	}
 }
 
-export default ShapeBase
+export { ShapeBase }

@@ -1,7 +1,7 @@
-import ShapeBase from './ShapeBase'
-import SceneChild from '../SceneChild'
+import { ShapeBase } from './ShapeBase'
+import { SceneChild } from '../SceneChild'
 import { IParentBufferIndex, IShapeBounding, IShapeSettings } from '../types/shape-base'
-import Scene from '../Scene'
+import { Scene } from '../Scene'
 import { IRecursionRepetition, IRepetition, ISceneChildPropArguments, ISceneChildProps } from '../types/scene-child'
 import { IBufferIndex } from '../types/shape-base'
 
@@ -238,4 +238,4 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	}
 }
 
-export default Shape
+export { Shape }

@@ -1,4 +1,4 @@
-import ShapeBase from './ShapeBase'
+import { ShapeBase } from './ShapeBase'
 
 import {
 	EShapePrimitiveAdaptMode,
@@ -11,7 +11,7 @@ import {
 import { IRecursionRepetition, IRepetition, ISceneChildPropArguments } from '../types/scene-child'
 import { vec2 } from 'gl-matrix'
 import * as glme from '../math/gl-matrix-extensions'
-import Bounding from '../math/bounding'
+import { Bounding } from '../math/bounding'
 
 /**
  * @category Core.Abstract
@@ -253,4 +253,4 @@ abstract class ShapePrimitive<
 	}
 }
 
-export default ShapePrimitive
+export { ShapePrimitive }

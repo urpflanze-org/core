@@ -1,5 +1,5 @@
 import { IPolygonProps, IPolygonSettings } from '../../types/shape-primitives'
-import ShapeLoop from '../../shapes/ShapeLoop'
+import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
 import { ISceneChildPropArguments } from '../../types/scene-child'
 import { PI2 } from '../../math'
@@ -38,4 +38,4 @@ class Polygon extends ShapeLoop<IPolygonProps> {
 	}
 }
 
-export default Polygon
+export { Polygon }

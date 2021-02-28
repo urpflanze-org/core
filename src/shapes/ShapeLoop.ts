@@ -6,11 +6,11 @@ import {
 	TShapeLoopGeneratorFormula,
 } from '../types/shape-primitives'
 import { EShapePrimitiveAdaptMode } from '../types/shape-base'
-import Bounding from '../math/bounding'
+import { Bounding } from '../math/bounding'
 import { PI2 } from '../math'
 
-import ShapePrimitive from '../shapes/ShapePrimitive'
-import ShapeBase from './ShapeBase'
+import { ShapePrimitive } from '../shapes/ShapePrimitive'
+import { ShapeBase } from './ShapeBase'
 
 /**
  *
@@ -331,4 +331,4 @@ class ShapeLoop<K extends IShapeLoopProps = IShapeLoopProps> extends ShapePrimit
 	}
 }
 
-export default ShapeLoop
+export { ShapeLoop }

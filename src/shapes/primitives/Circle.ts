@@ -1,5 +1,5 @@
 import { PI2 } from '../../math'
-import ShapeLoop from '../ShapeLoop'
+import { ShapeLoop } from '../ShapeLoop'
 import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
 import { IShapeLoopSettings } from '../../types/shape-primitives'
 
@@ -38,4 +38,4 @@ class Circle extends ShapeLoop {
 	}
 }
 
-export default Circle
+export { Circle }

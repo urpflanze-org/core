@@ -1,7 +1,7 @@
 import { ISceneChildPropArguments, ISceneChildProps, ISceneChildSettings, IStreamArguments } from './types/scene-child'
 import { IBufferIndex, IShapeBounding } from './types/shape-base'
 
-import Scene from './Scene'
+import { Scene } from './Scene'
 
 /**
  * Autoincrement sceneChild default id
@@ -233,4 +233,4 @@ abstract class SceneChild {
 	abstract clearBuffer(bClearIndexed: boolean, bPropagateToParents: boolean): void
 }
 
-export default SceneChild
+export { SceneChild }

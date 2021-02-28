@@ -1,4 +1,4 @@
-import ShapeLoop from '../ShapeLoop'
+import { ShapeLoop } from '../ShapeLoop'
 import { ISpiralProps, ISpiralSettings, TSpiralType } from '../../types/shape-primitives'
 import { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
 import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
@@ -125,4 +125,4 @@ class Spiral extends ShapeLoop<ISpiralProps> {
 	}
 }
 
-export default Spiral
+export { Spiral }

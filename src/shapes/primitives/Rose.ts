@@ -1,4 +1,4 @@
-import ShapeLoop from '../../shapes/ShapeLoop'
+import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { IRoseProps, IRoseSettings } from '../../types/shape-primitives'
 import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
 import { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
@@ -84,4 +84,4 @@ class Rose extends ShapeLoop<IRoseProps> {
 	}
 }
 
-export default Rose
+export { Rose }

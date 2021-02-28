@@ -1,4 +1,4 @@
-import ShapeBase from '../shapes/ShapeBase'
+import { ShapeBase } from '../shapes/ShapeBase'
 import { IBufferIndex } from '../types/shape-base'
 import { vec2 } from 'gl-matrix'
 
