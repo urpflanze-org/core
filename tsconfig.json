@@ -3,7 +3,7 @@
 		"sourceMap": true,
 		"outDir": "dist",
 		"noImplicitAny": true,
-		"module": "es2015",
+		"module": "umd",
 		"target": "es5",
 		"moduleResolution": "node",
 		"removeComments": false,

@@ -30,8 +30,7 @@
 		"watch": "tsc --watch",
 		"lint": "eslint src --ext .ts",
 		"prepublishOnly": "npm run build",
-		"generate-docs": "node_modules/.bin/generate-docs",
-		"generate-references": "node_modules/.bin/generate-references"
+		"generate-docs": "node_modules/.bin/generate-docs"
 	},
 	"publishConfig": {},
 	"dependencies": {
@@ -39,7 +38,10 @@
 		"simplex-noise": "^2.4.0"
 	},
 	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^4.16.1",
 		"@urpflanze/typedoc-docs": "^0.0.3",
+		"eslint": "^7.21.0",
+		"eslint-config-prettier": "^8.1.0",
 		"typescript": "4.2"
 	}
 }

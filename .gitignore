@@ -1,7 +1,11 @@
+# Remove environment files
 node_modules
-
 dist
-
+testing 
 .vscode
 
-package-lock.json
+# Remove docs folder, github action will be generate it
+docs
+
+
+
