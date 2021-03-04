@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
 
       - name: Generate docs
         run: npm install && npm run generate-docs
