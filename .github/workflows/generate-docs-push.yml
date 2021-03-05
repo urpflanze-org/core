@@ -18,9 +18,6 @@ jobs:
       - name: Generate docs
         run: npm install && npm run generate-docs
 
-      - name: Push docs
-        uses: actions/checkout@master
-
       - name: Commit and Push docs
         uses: actions-js/push@v1.2
         with:
