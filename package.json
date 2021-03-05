@@ -30,7 +30,7 @@
 		"watch": "tsc --watch",
 		"lint": "eslint src --ext .ts",
 		"prepublishOnly": "npm run build",
-		"generate-docs": "node_modules/.bin/generate-docs"
+		"generate-docs": "npx generate-docs"
 	},
 	"publishConfig": {},
 	"dependencies": {
