@@ -1,6 +1,6 @@
 import { ISceneChildPropArguments, IShapeLoopRepetition, TSceneChildProp } from '../types/scene-child'
 import { vec2 } from 'gl-matrix'
-import { IShapePrimitiveProps, IShapePrimitiveSettings } from './shape-base'
+import { EAdaptMode, IShapePrimitiveProps, IShapePrimitiveSettings } from './shape-base'
 
 /**
  *
@@ -18,6 +18,12 @@ export interface IShapeBufferSettings extends IShapeBufferProps, IShapePrimitive
 	 * @order -30
 	 */
 	shape?: Float32Array | Array<number>
+
+	/**
+	 * Adapt buffer mode, see <a href="[base_url]/EAdaptMode">EAdaptMode</a> for more details
+	 * @order -16
+	 */
+	adaptMode?: EAdaptMode
 }
 
 /**
