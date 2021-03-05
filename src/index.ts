@@ -40,9 +40,7 @@ export { Lissajous } from './shapes/primitives/Lissajous'
 export { SuperShape } from './shapes/primitives/SuperShape'
 
 // Utilities
-export type { ICancelablePromise } from './Utilities'
 export {
-	cancelablePromise,
 	lerp,
 	clamp,
 	relativeClamp,

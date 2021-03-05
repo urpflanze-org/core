@@ -12,6 +12,7 @@ export const log = (n: number, base: number) => Math.log(n) / Math.log(base)
  * @category Core.Utilities
  */
 export const PI2 = Math.PI * 2
+
 /**
  * @category Core.Utilities
  */

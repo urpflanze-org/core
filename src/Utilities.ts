@@ -1,10 +1,8 @@
-import SimplexNoise from 'simplex-noise'
+import * as SimplexNoise from 'simplex-noise'
 
 import { ERepetitionType, IRepetition } from './types/scene-child'
 
-// import SceneChild from 'SceneChild'
 import { vec2 } from 'gl-matrix'
-// import Scene from 'Scene'
 
 /**
  * @ignore
@@ -23,54 +21,7 @@ export const parseFunction = {
 	},
 }
 
-/**
- * Cancellable Promice Interface
- *
- * @ignore
- */
-export interface ICancelablePromise<T> {
-	promise: Promise<T>
-	resolved: () => boolean
-	canceled: () => boolean
-	cancel: () => void
-}
-
-/**
- * Create Cancellable Promise
- *
- * @ignore
- * @template T
- * @param {Promise<T>} promise
- * @returns {ICancelablePromise<T>}
- */
-export function cancelablePromise<T>(promise: Promise<T>): ICancelablePromise<T> {
-	let resolved = false
-	let canceled = false
-
-	const wrappedPromise = new Promise<T>((resolve, reject) => {
-		promise
-			.then(val => {
-				resolved = true
-				canceled ? reject('canceled') : resolve(val)
-			})
-			.catch(error => {
-				resolved = true
-				canceled ? reject('canceled') : reject(error)
-			})
-	})
-
-	return {
-		promise: wrappedPromise,
-		resolved: () => resolved,
-		canceled: () => canceled,
-		cancel: () => {
-			canceled = true
-		},
-	}
-}
-
 // isDef: (object: any): boolean => typeof object !== 'undefined' && object !== null,
-//@ts-ignore
 const measurement = typeof performance !== 'undefined' ? performance : Date
 /**
  * Get current timestamp in milliseconds
@@ -247,7 +198,7 @@ export function angleFromRepetition(repetition: IRepetition, offsetFromCenter: v
 		return x === 0 ? 0 : Math.atan(y / x)
 	}
 
-	return (repetition.angle - Math.PI) / 2
+	return (repetition.current - Math.PI) / 2
 }
 
 /**
@@ -277,7 +228,7 @@ export function angle2FromRepetition(repetition: IRepetition, offsetFromCenter: 
 		return x === 0 ? 0 : Math.atan2(y, x)
 	}
 
-	return repetition.angle - Math.PI
+	return repetition.current - Math.PI
 }
 
 /**
