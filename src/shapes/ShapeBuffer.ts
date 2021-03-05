@@ -1,8 +1,10 @@
+import type { ISceneChildPropArguments } from '../types/scene-child'
+import type { IShapeBounding } from '../types/shape-base'
+import { EAdaptMode } from '../types/shape-base'
+import type { IShapeBufferSettings } from '../types/shape-primitives'
+
 import { Bounding } from '../math/bounding'
 import { ShapePrimitive } from '../shapes/ShapePrimitive'
-import { ISceneChildPropArguments } from '../types/scene-child'
-import { EShapePrimitiveAdaptMode } from '../types/shape-base'
-import { IShapeBufferSettings } from '../types/shape-primitives'
 
 /**
  * @category Core.Shapes
@@ -26,20 +28,31 @@ class ShapeBuffer extends ShapePrimitive {
 	protected shapeBuffer?: Float32Array
 
 	/**
+	 * Adapt buffer mode, see <a href="[base_url]/EAdaptMode">EAdaptMode</a> for more details
+	 *
+	 * @type {EAdaptMode}
+	 */
+	public adaptMode: EAdaptMode
+
+	/**
 	 * Creates an instance of ShapeBuffer.
 	 *
 	 * @param {IShapeBufferSettings} [settings={}]
 	 */
 	constructor(settings: IShapeBufferSettings = {}) {
 		settings.type = settings.type || 'ShapeBuffer'
-		settings.adaptMode = settings.adaptMode ?? EShapePrimitiveAdaptMode.Scale
+		settings.adaptMode = settings.adaptMode ?? EAdaptMode.Scale
 
 		super(settings)
+
+		this.adaptMode = settings.adaptMode ?? EAdaptMode.None
 
 		if (typeof settings.shape === 'undefined') {
 			console.warn('[Urpflanze:ShapeBuffer] ShapeBuffer require a buffer passed from `shape` property')
 			this.shape = ShapeBuffer.EMPTY_BUFFER
-		} else this.shape = Float32Array.from(settings.shape)
+		} else {
+			this.shape = ShapeBuffer.adapt(settings.shape, EAdaptMode.Fill)
+		}
 
 		this.bStatic = this.isStatic()
 		this.bStaticIndexed = this.isStaticIndexed()
@@ -55,7 +68,6 @@ class ShapeBuffer extends ShapePrimitive {
 		super.clearBuffer(bClearIndexed, bPropagateToParents)
 
 		this.shapeBuffer = undefined
-		// this.shapeBuffer = ShapeBuffer.buffer2Dto3D(this.shapeBuffer)
 	}
 
 	/**
@@ -66,10 +78,7 @@ class ShapeBuffer extends ShapePrimitive {
 	protected bindBuffer(propArguments: ISceneChildPropArguments) {
 		const sideLength = this.getRepetitionSideLength(propArguments)
 
-		const shapeBuffer =
-			this.adaptMode !== EShapePrimitiveAdaptMode.None
-				? ShapePrimitive.adaptBuffer(this.shape, this.adaptMode)
-				: Float32Array.from(this.shape)
+		const shapeBuffer = this.shape
 
 		const tmpBounding = [undefined, undefined, undefined, undefined]
 
@@ -91,7 +100,7 @@ class ShapeBuffer extends ShapePrimitive {
 	 * @param {ISceneChildPropArguments} propArguments
 	 * @returns {number}
 	 */
-	public getBufferLength(propArguments?: ISceneChildPropArguments): number {
+	public getBufferLength(/*propArguments?: ISceneChildPropArguments*/): number {
 		if (this.buffer && this.buffer.length > 0) return this.buffer.length
 
 		return this.shape.length * this.getRepetitionCount()
@@ -119,7 +128,7 @@ class ShapeBuffer extends ShapePrimitive {
 	 * @param {(Float32Array)} [shape]
 	 */
 	public setShape(shape: Float32Array): void {
-		this.shape = shape
+		this.shape = ShapeBuffer.adapt(shape, EAdaptMode.Fill)
 
 		this.clearBuffer(true)
 	}
@@ -179,6 +188,86 @@ class ShapeBuffer extends ShapePrimitive {
 		}
 
 		return subdivided
+	}
+
+	/**
+	 * Return adaptMode
+	 *
+	 * @returns {EAdaptMode}
+	 * @memberof ShapeBase
+	 */
+	public getAdaptMode(): EAdaptMode {
+		return this.adaptMode as EAdaptMode
+	}
+
+	/**
+	 * Set adaptMode
+	 *
+	 * @param {EAdaptMode} bAdapted
+	 * @memberof ShapeBase
+	 */
+	public adapt(adaptMode: EAdaptMode): void {
+		this.adaptMode = adaptMode
+
+		this.shape = ShapeBuffer.adapt(this.shape, EAdaptMode.Fill)
+
+		this.clearBuffer(true)
+	}
+
+	/**
+	 * Return adapted buffer between [-1,-1] and [1,1]
+	 *
+	 * @public
+	 * @static
+	 * @param {Float32Array} input
+	 * @param {EAdaptMode} mode
+	 * @returns {Float32Array}
+	 * @memberof ShapeBuffer
+	 */
+	public static adapt(input: Float32Array | Array<number>, mode: EAdaptMode, rect?: IShapeBounding): Float32Array {
+		if (mode === EAdaptMode.None) return Float32Array.from(input)
+
+		const output: Float32Array = new Float32Array(input.length)
+
+		if (!rect) {
+			rect = ShapeBuffer.getBounding(input)
+		}
+
+		const scale =
+			rect.width >= 2 || rect.height >= 2 || (mode >= EAdaptMode.Fill && (rect.width < 2 || rect.height < 2))
+				? 2 / Math.max(rect.width, rect.height)
+				: 1
+
+		const translateX = mode >= EAdaptMode.Center ? rect.cx : 0
+		const translateY = mode >= EAdaptMode.Center ? rect.cy : 0
+
+		for (let i = 0, len = input.length; i < len; i += 2) {
+			output[i] = (input[i] - translateX) * scale
+			output[i + 1] = (input[i + 1] - translateY) * scale
+		}
+
+		return output
+	}
+
+	/**
+	 * Get buffer bounding
+	 *
+	 * @static
+	 * @param {Float32Array | Array<number>} buffer
+	 * @returns {IShapeBounding}
+	 * @memberof ShapePrimitive
+	 */
+	public static getBounding(buffer: Float32Array | Array<number>, bounding?: IShapeBounding): IShapeBounding {
+		if (typeof bounding === 'undefined') bounding = Bounding.empty()
+		const tmp_bounding = [undefined, undefined, undefined, undefined]
+
+		for (let i = 0, len = buffer.length; i < len; i += 2) {
+			Bounding.add(tmp_bounding, buffer[i], buffer[i + 1])
+		}
+
+		Bounding.bind(bounding, tmp_bounding)
+
+		return bounding
 	}
 }
 

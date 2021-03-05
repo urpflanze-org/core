@@ -1,8 +1,9 @@
-import { ShapeLoop } from '../../shapes/ShapeLoop'
-import { IRoseProps, IRoseSettings } from '../../types/shape-primitives'
-import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
-import { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
 import { vec2 } from 'gl-matrix'
+
+import type { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
+import type { IRoseProps, IRoseSettings } from '../../types/shape-primitives'
+
+import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { PI2 } from '../../math'
 
 /**
@@ -24,7 +25,6 @@ class Rose extends ShapeLoop<IRoseProps> {
 	constructor(settings: IRoseSettings = {}) {
 		settings.type = 'Rose'
 		settings.loopDependencies = (settings.loopDependencies || []).concat(['n', 'd'])
-		settings.adaptMode = settings.adaptMode ?? EShapePrimitiveAdaptMode.Scale
 
 		super(settings, true)
 
@@ -46,9 +46,9 @@ class Rose extends ShapeLoop<IRoseProps> {
 			},
 
 			vertex: (shapeLoopRepetition: IShapeLoopRepetition): vec2 => {
-				const f = Math.cos(this.k * shapeLoopRepetition.angle)
+				const f = Math.cos(this.k * shapeLoopRepetition.current)
 
-				return [f * Math.cos(shapeLoopRepetition.angle), f * Math.sin(shapeLoopRepetition.angle)]
+				return [f * Math.cos(shapeLoopRepetition.current), f * Math.sin(shapeLoopRepetition.current)]
 			},
 		}
 

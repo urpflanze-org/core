@@ -1,4 +1,4 @@
-import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
+import { EAdaptMode } from '../../types/shape-base'
 import { IShapeBufferSettings } from '../../types/shape-primitives'
 
 import { ShapeBuffer } from '../ShapeBuffer'
@@ -19,7 +19,7 @@ class Line extends ShapeBuffer {
 	constructor(settings: IShapeBufferSettings = {}) {
 		settings.type = 'Line'
 		settings.shape = [-1, 0, 1, 0]
-		settings.adaptMode = EShapePrimitiveAdaptMode.None
+		settings.adaptMode = EAdaptMode.None
 
 		settings.bClosed = false
 

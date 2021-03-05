@@ -1,4 +1,4 @@
-import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
+import { EAdaptMode } from '../../types/shape-base'
 import { IShapeBufferSettings } from '../../types/shape-primitives'
 import { ShapeBuffer } from '../../shapes/ShapeBuffer'
 
@@ -18,7 +18,7 @@ class Rect extends ShapeBuffer {
 	constructor(settings: IShapeBufferSettings = {}) {
 		settings.type = 'Rect'
 		settings.shape = [-1, -1, 1, -1, 1, 1, -1, 1]
-		settings.adaptMode = EShapePrimitiveAdaptMode.None
+		settings.adaptMode = EAdaptMode.None
 
 		super(settings)
 	}

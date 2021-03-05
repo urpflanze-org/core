@@ -1,7 +1,7 @@
-import { IPolygonProps, IPolygonSettings } from '../../types/shape-primitives'
+import type { ISceneChildPropArguments } from '../../types/scene-child'
+import type { IPolygonProps, IPolygonSettings } from '../../types/shape-primitives'
+
 import { ShapeLoop } from '../../shapes/ShapeLoop'
-import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
-import { ISceneChildPropArguments } from '../../types/scene-child'
 import { PI2 } from '../../math'
 
 /**
@@ -15,7 +15,6 @@ class Polygon extends ShapeLoop<IPolygonProps> {
 	constructor(settings: IPolygonSettings = {}) {
 		settings.type = settings.type || 'Polygon'
 		settings.loopDependencies = (settings.loopDependencies || []).concat(['sideNumber'])
-		settings.adaptMode = settings.adaptMode ?? EShapePrimitiveAdaptMode.None
 
 		super(settings, true)
 
@@ -28,7 +27,7 @@ class Polygon extends ShapeLoop<IPolygonProps> {
 				return PI2 / this.getProp('sideNumber', propArguments, 5)
 			},
 			vertex: shapeLoopRepetition => {
-				return [Math.cos(shapeLoopRepetition.angle), Math.sin(shapeLoopRepetition.angle)]
+				return [Math.cos(shapeLoopRepetition.current), Math.sin(shapeLoopRepetition.current)]
 			},
 		}
 

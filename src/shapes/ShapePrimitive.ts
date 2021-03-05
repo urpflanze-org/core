@@ -1,7 +1,7 @@
+import { vec2 } from 'gl-matrix'
 import { ShapeBase } from './ShapeBase'
 
 import {
-	EShapePrimitiveAdaptMode,
 	IBufferIndex,
 	IParentBufferIndex,
 	IShapeBounding,
@@ -9,7 +9,6 @@ import {
 	IShapePrimitiveSettings,
 } from '../types/shape-base'
 import { IRecursionRepetition, IRepetition, ISceneChildPropArguments } from '../types/scene-child'
-import { vec2 } from 'gl-matrix'
 import * as glme from '../math/gl-matrix-extensions'
 import { Bounding } from '../math/bounding'
 
@@ -24,16 +23,9 @@ abstract class ShapePrimitive<
 	 * Props retrived by drawer
 	 *
 	 * @public
-	 * @type {T extends IDrawerStreamProps}
+	 * @type {T}
 	 */
 	public style: T
-
-	/**
-	 * Adapt buffer mode, see <a href="[base_url]/EShapePrimitiveAdaptMode">EShapePrimitiveAdaptMode</a> for more details
-	 *
-	 * @type {EShapePrimitiveAdaptMode}
-	 */
-	public adaptMode: EShapePrimitiveAdaptMode
 
 	/**
 	 * Define shape is closed, default true
@@ -65,7 +57,6 @@ abstract class ShapePrimitive<
 				: (glme.toVec2(settings.sideLength) as [number, number])
 
 		this.style = settings.style || ({} as T)
-		this.adaptMode = settings.adaptMode ?? EShapePrimitiveAdaptMode.None
 		this.bClosed = settings.bClosed ?? true
 	}
 
@@ -123,7 +114,7 @@ abstract class ShapePrimitive<
 			// singleRepetitionBounding,
 			repetition: {
 				type: repetition.type,
-				angle: repetition.angle,
+				current: repetition.current,
 				index: repetition.index,
 				count: repetition.count,
 				offset: repetition.offset,
@@ -170,86 +161,6 @@ abstract class ShapePrimitive<
 	 */
 	public setClosed(bClosed: boolean): void {
 		this.bClosed = bClosed
-	}
-
-	/**
-	 * Return adaptMode
-	 *
-	 * @returns {EShapePrimitiveAdaptMode}
-	 * @memberof ShapeBase
-	 */
-	public getAdaptMode(): EShapePrimitiveAdaptMode {
-		return this.adaptMode as EShapePrimitiveAdaptMode
-	}
-
-	/**
-	 * Set adaptMode
-	 *
-	 * @param {EShapePrimitiveAdaptMode} bAdapted
-	 * @memberof ShapeBase
-	 */
-	public adapt(adaptMode: EShapePrimitiveAdaptMode): void {
-		this.adaptMode = adaptMode
-
-		this.clearBuffer(true)
-	}
-
-	/**
-	 * Get buffer bounding
-	 *
-	 * @static
-	 * @param {Float32Array} buffer
-	 * @returns {IShapeBounding}
-	 * @memberof ShapePrimitive
-	 */
-	public static getBounding(buffer: Float32Array, bounding?: IShapeBounding): IShapeBounding {
-		if (typeof bounding === 'undefined') bounding = Bounding.empty()
-		const tmp_bounding = [undefined, undefined, undefined, undefined]
-
-		for (let i = 0, len = buffer.length; i < len; i += 2) {
-			Bounding.add(tmp_bounding, buffer[i], buffer[i + 1])
-		}
-
-		Bounding.bind(bounding, tmp_bounding)
-
-		return bounding
-	}
-
-	/**
-	 * Return adapted buffer between [-1,-1] and [1,1]
-	 *
-	 * @public
-	 * @static
-	 * @param {Float32Array} input
-	 * @param {EShapePrimitiveAdaptMode} mode
-	 * @returns {Float32Array}
-	 * @memberof ShapePrimitive
-	 */
-	public static adaptBuffer(input: Float32Array, mode: EShapePrimitiveAdaptMode, rect?: IShapeBounding): Float32Array {
-		if (mode === EShapePrimitiveAdaptMode.None) return Float32Array.from(input)
-
-		const output: Float32Array = new Float32Array(input.length)
-
-		if (!rect) {
-			rect = ShapePrimitive.getBounding(input)
-		}
-
-		const scale =
-			rect.width >= 2 ||
-			rect.height >= 2 ||
-			(mode >= EShapePrimitiveAdaptMode.Fill && (rect.width < 2 || rect.height < 2))
-				? 2 / Math.max(rect.width, rect.height)
-				: 1
-
-		const translateX = mode >= EShapePrimitiveAdaptMode.Center ? rect.cx : 0
-		const translateY = mode >= EShapePrimitiveAdaptMode.Center ? rect.cy : 0
-
-		for (let i = 0, len = input.length; i < len; i += 2) {
-			output[i] = (input[i] - translateX) * scale
-			output[i + 1] = (input[i + 1] - translateY) * scale
-		}
-
-		return output
 	}
 }
 

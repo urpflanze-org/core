@@ -130,7 +130,7 @@ export interface IShapeSettings extends IShapeBaseSettings {
  *
  * @category Core.Enums
  */
-export enum EShapePrimitiveAdaptMode {
+export enum EAdaptMode {
 	/**
 	 * The buffer is not changed
 	 * @order 1
@@ -173,12 +173,6 @@ export interface IShapePrimitiveProps extends ISceneChildProps {
  * @category Core.Props and Settings Interfaces
  */
 export interface IShapePrimitiveSettings<T = { [key: string]: any }> extends IShapePrimitiveProps, IShapeBaseSettings {
-	/**
-	 * Adapt buffer mode, see <a href="[base_url]/EShapePrimitiveAdaptMode">EShapePrimitiveAdaptMode</a> for more details
-	 * @order -16
-	 */
-	adaptMode?: EShapePrimitiveAdaptMode
-
 	/**
 	 * Callback to apply transform at any vertex
 	 * @order -15.5
