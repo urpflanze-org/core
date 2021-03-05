@@ -56,11 +56,11 @@ export interface IBaseRepetition {
  */
 export interface IShapeLoopRepetition extends IBaseRepetition {
 	/**
-	 * angle of current repetition, from 0 to Math.PI * 2
+	 * current value of repetition
 	 *
 	 * @order 4
 	 */
-	angle: number
+	current: number
 }
 
 /**

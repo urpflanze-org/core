@@ -1,7 +1,7 @@
+import type { IShapeLoopSettings } from '../../types/shape-primitives'
+
 import { PI2 } from '../../math'
 import { ShapeLoop } from '../ShapeLoop'
-import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
-import { IShapeLoopSettings } from '../../types/shape-primitives'
 
 /**
  *
@@ -18,7 +18,6 @@ class Circle extends ShapeLoop {
 	 */
 	constructor(settings: IShapeLoopSettings = {}) {
 		settings.type = 'Circle'
-		settings.adaptMode = EShapePrimitiveAdaptMode.None
 
 		super(settings, true)
 
@@ -29,7 +28,7 @@ class Circle extends ShapeLoop {
 				const sideLength = this.getRepetitionSideLength(propArguments)
 				return (1 / Math.pow(sideLength[0] * sideLength[1], 0.25)) * ShapeLoop.PId2
 			},
-			vertex: shapeLoopRepetition => [Math.cos(shapeLoopRepetition.angle), Math.sin(shapeLoopRepetition.angle)],
+			vertex: shapeLoopRepetition => [Math.cos(shapeLoopRepetition.current), Math.sin(shapeLoopRepetition.current)],
 		}
 
 		this.bStaticLoop = this.isStaticLoop()

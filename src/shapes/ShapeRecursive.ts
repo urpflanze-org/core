@@ -280,7 +280,7 @@ class ShapeRecursive extends Shape<IShapeRecursiveProps> {
 				// singleRepetitionBounding,
 				repetition: {
 					type: repetition.type,
-					angle: repetition.angle,
+					current: repetition.current,
 					index: repetition.index,
 					count: repetition.count,
 					offset: repetition.offset,

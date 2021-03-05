@@ -61,7 +61,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	 */
 	public static getEmptyRepetition: () => IRepetition = () => ({
 		type: ERepetitionType.Ring,
-		angle: 0,
+		current: 0,
 		...ShapeBase.getEmptySimpleRepetition(),
 		row: ShapeBase.getEmptySimpleRepetition(),
 		col: ShapeBase.getEmptySimpleRepetition(),
@@ -410,7 +410,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 				repetition.index = currentIndex + 1
 				repetition.offset = repetitionCount > 1 ? currentIndex / (repetitionCount - 1) : 1
 
-				repetition.angle = repetitionType === ERepetitionType.Ring ? (PI2 / repetitionCount) * currentIndex : 0
+				repetition.current = repetitionType === ERepetitionType.Ring ? (PI2 / repetitionCount) * currentIndex : 0
 				colRepetition.index = currentColRepetition + 1
 				colRepetition.offset = repetitionColCount > 1 ? currentColRepetition / (repetitionColCount - 1) : 1
 				rowRepetition.index = currentRowRepetition + 1
@@ -446,7 +446,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 					switch (repetitionType) {
 						case ERepetitionType.Ring:
 							offset = vec3.fromValues(distance[0], 0, 0)
-							vec3.rotateZ(offset, offset, glme.VEC3_ZERO, repetition.angle + displace)
+							vec3.rotateZ(offset, offset, glme.VEC3_ZERO, repetition.current + displace)
 							break
 						case ERepetitionType.Matrix:
 							offset = vec3.fromValues(
@@ -511,7 +511,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 							mat4.translate(repetitionMatrix, repetitionMatrix, sceneCenter)
 						}
 						if (repetitionType === ERepetitionType.Ring)
-							mat4.rotateZ(repetitionMatrix, repetitionMatrix, repetition.angle + displace)
+							mat4.rotateZ(repetitionMatrix, repetitionMatrix, repetition.current + displace)
 					}
 
 					Bounding.clear(tmpSingleRepetitionBounding)
@@ -719,7 +719,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	): ISceneChildPropArguments {
 		// prettier-ignore
 		const repetition: IRepetition = {
-			type: ERepetitionType.Ring, angle: 0, index: 1, offset: 1, count: 1,
+			type: ERepetitionType.Ring, current: 0, index: 1, offset: 1, count: 1,
 			row: { index: 1, offset: 1, count: 1 },
 			col: { index: 1, offset: 1, count: 1 },
 		}

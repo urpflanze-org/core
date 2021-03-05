@@ -1,7 +1,6 @@
 import { PI2 } from '../../math'
 import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
-import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
 import { ILissajousProps, ILissajousSettings } from '../../types/shape-primitives'
 import { vec2 } from 'gl-matrix'
 
@@ -26,7 +25,6 @@ class Lissajous extends ShapeLoop<ILissajousProps> {
 	constructor(settings: ILissajousSettings = {}) {
 		settings.type = 'Lissajous'
 		settings.loopDependencies = (settings.loopDependencies || []).concat(['wx', 'wy', 'wz'])
-		settings.adaptMode = EShapePrimitiveAdaptMode.None
 
 		super(settings, true)
 
@@ -47,8 +45,8 @@ class Lissajous extends ShapeLoop<ILissajousProps> {
 			},
 			vertex: (shapeLoopRepetition: IShapeLoopRepetition): vec2 => {
 				return this.wx === this.wy
-					? [Math.cos(shapeLoopRepetition.angle + this.wz), Math.sin(shapeLoopRepetition.angle)]
-					: [Math.cos(this.wx * shapeLoopRepetition.angle + this.wz), Math.sin(this.wy * shapeLoopRepetition.angle)]
+					? [Math.cos(shapeLoopRepetition.current + this.wz), Math.sin(shapeLoopRepetition.current)]
+					: [Math.cos(this.wx * shapeLoopRepetition.current + this.wz), Math.sin(this.wy * shapeLoopRepetition.current)]
 			},
 		}
 

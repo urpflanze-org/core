@@ -1,13 +1,13 @@
-import { IShapeLoopRepetition, ISceneChildPropArguments } from '../types/scene-child'
-import {
+import type { IShapeLoopRepetition, ISceneChildPropArguments } from '../types/scene-child'
+import type {
 	IShapeLoopGenerator,
 	IShapeLoopProps,
 	IShapeLoopSettings,
 	TShapeLoopGeneratorFormula,
 } from '../types/shape-primitives'
-import { EShapePrimitiveAdaptMode } from '../types/shape-base'
-import { Bounding } from '../math/bounding'
+
 import { PI2 } from '../math'
+import { Bounding } from '../math/bounding'
 
 import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { ShapeBase } from './ShapeBase'
@@ -216,7 +216,7 @@ class ShapeLoop<K extends IShapeLoopProps = IShapeLoopProps> extends ShapePrimit
 	 * @returns {Float32Array}
 	 */
 	protected generateLoopBuffer(propArguments: ISceneChildPropArguments): Float32Array {
-		const { start, inc, end, count } = this.getLoop(propArguments)
+		const { start, inc, /*end,*/ count } = this.getLoop(propArguments)
 
 		const sideLength = this.getRepetitionSideLength(propArguments)
 		const getVertex = (this.props.loop && this.props.loop.vertex
@@ -226,7 +226,7 @@ class ShapeLoop<K extends IShapeLoopProps = IShapeLoopProps> extends ShapePrimit
 		const shapeLoop: IShapeLoopRepetition = {
 			index: 0,
 			offset: 0,
-			angle: 0,
+			current: 0,
 			count: count,
 		}
 
@@ -234,16 +234,14 @@ class ShapeLoop<K extends IShapeLoopProps = IShapeLoopProps> extends ShapePrimit
 		const bufferLength = vertexLength * 2
 		const currentOrSingleLoopBuffer = new Float32Array(bufferLength)
 
-		const bNoAdapt = this.adaptMode === EShapePrimitiveAdaptMode.None
-
 		const tmpBounding = [undefined, undefined, undefined, undefined]
 
 		for (let i = 0, j = 0; i < vertexLength; i++, j += 2) {
-			const angle = start + inc * i
+			const current = start + inc * i
 			const offset = shapeLoop.count > 1 ? i / (shapeLoop.count - 1) : 1
 			// const angle = (end - start) * offset + start
 
-			shapeLoop.angle = angle
+			shapeLoop.current = current
 			shapeLoop.index = i + 1
 			shapeLoop.offset = offset
 
@@ -252,35 +250,13 @@ class ShapeLoop<K extends IShapeLoopProps = IShapeLoopProps> extends ShapePrimit
 			currentOrSingleLoopBuffer[j] = vertex[0]
 			currentOrSingleLoopBuffer[j + 1] = vertex[1]
 
-			if (bNoAdapt) {
-				currentOrSingleLoopBuffer[j] *= sideLength[0]
-				currentOrSingleLoopBuffer[j + 1] *= sideLength[1]
+			currentOrSingleLoopBuffer[j] *= sideLength[0]
+			currentOrSingleLoopBuffer[j + 1] *= sideLength[1]
 
-				Bounding.add(tmpBounding, currentOrSingleLoopBuffer[j], currentOrSingleLoopBuffer[j + 1])
-			}
+			Bounding.add(tmpBounding, currentOrSingleLoopBuffer[j], currentOrSingleLoopBuffer[j + 1])
 		}
 
-		if (bNoAdapt) {
-			Bounding.bind(this.currentGenerationPrimitiveBounding, tmpBounding)
-		} else {
-			/**
-			 * Adapt and apply side length
-			 */
-			const buffer = ShapePrimitive.adaptBuffer(currentOrSingleLoopBuffer, this.adaptMode as EShapePrimitiveAdaptMode)
-
-			Bounding.clear(tmpBounding)
-
-			for (let i = 0; i < bufferLength; i += 2) {
-				buffer[i] = buffer[i] * sideLength[0]
-				buffer[i + 1] = buffer[i + 1] * sideLength[1]
-
-				Bounding.add(tmpBounding, buffer[i], buffer[i + 1])
-			}
-
-			Bounding.bind(this.currentGenerationPrimitiveBounding, tmpBounding)
-
-			return buffer
-		}
+		Bounding.bind(this.currentGenerationPrimitiveBounding, tmpBounding)
 
 		return currentOrSingleLoopBuffer
 	}

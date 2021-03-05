@@ -1,8 +1,9 @@
-import { ShapeLoop } from '../ShapeLoop'
-import { ISuperShapeProps, ISuperShapeSettings } from '../../types/shape-primitives'
-import { EShapePrimitiveAdaptMode } from '../../types/shape-base'
-import { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
 import { vec2 } from 'gl-matrix'
+
+import type { ISuperShapeProps, ISuperShapeSettings } from '../../types/shape-primitives'
+import type { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
+
+import { ShapeLoop } from '../ShapeLoop'
 import { PI2 } from '../../math'
 
 /**
@@ -29,7 +30,6 @@ class SuperShape extends ShapeLoop<ISuperShapeProps> {
 	constructor(settings: ISuperShapeSettings = {}) {
 		settings.type = 'SuperShape'
 		settings.loopDependencies = (settings.loopDependencies || []).concat(['a', 'b', 'm', 'n1', 'n2', 'n3'])
-		settings.adaptMode = settings.adaptMode ?? EShapePrimitiveAdaptMode.Scale
 
 		super(settings, true)
 
@@ -49,7 +49,7 @@ class SuperShape extends ShapeLoop<ISuperShapeProps> {
 			},
 
 			vertex: (shapeLoopRepetition: IShapeLoopRepetition): vec2 => {
-				const angle = shapeLoopRepetition.angle
+				const angle = shapeLoopRepetition.current
 				const m = (this.m * angle) / 4
 				const a = Math.abs(Math.cos(m) / this.a) ** this.n2
 				const b = Math.abs(Math.sin(m) / this.b) ** this.n3
