@@ -1,0 +1,101 @@
+<p><img height="60" src="https://raw.githubusercontent.com/urpflanze-org/core/master/docs/assets/images/logo-for-github.svg"></p>
+<h2 id="sinossi">Sinossi</h2>
+<p>Questo pacchetto è il core utilizzato dalla libreria javascript Urpflanze per la generazione della scena.</p>
+<p>Si occupa di creare forme bidimensioni, ripeterle, manipolarle e incapsularle.</p>
+<p>Puoi utilizzarlo nel browser o in node.</p>
+<h2 id="motivazioni">Motivazioni</h2>
+<p>La creazione di questa libreria nasce dall'esigenze di creare delle API semplici per
+gestire le ripetizione di forme primitive e la possibilità di applicare trasformazioni ad ognuna di esse.</p>
+<p>Un'altra esigenza - che poi è diventata una delle feature principali - era quella di poter incapsulare il risultato di una generazione e gestirla come se fosse una nuova forma.</p>
+<h2 id="installazione">Installazione</h2>
+<p>Puoi installare la libreria con il comando</p>
+<pre class="prettyprint"><code class="bash language-bash">npm i @urpflanze/core --save
+</code></pre>
+<p>Al termine è possibile importare Urpflanze nel codice</p>
+<pre class="prettyprint"><code class="javascript language-javascript">/**
+ * Full importing
+ */
+import * as Urpflanze from '@urpflanze/core'
+
+const scene = new Urpflanze.Scene()
+
+/**
+ * Selective import
+ */
+import { Scene } from '@urpflanze/core'
+
+const scene = new Scene()
+</code></pre>
+<h2 id="creazionediunaforma">Creazione di una forma</h2>
+<h3 id="shapebuffer">ShapeBuffer</h3>
+<p>La <em>ShapeBuffer</em> è la forma a cui puoi passare un buffer di punti.
+Essa accetta la proprietà <strong>shape</strong> che è un array di punti [x0, y0, x1, y1, …, xn, yn].
+L'Array di punti verrà adattato tra un range di -1 ed 1.</p>
+<p>Example:</p>
+<pre class="prettyprint"><code class="javascript language-javascript">import { ShapeBuffer } from '@urpflanze/core'
+
+const rect = new ShapeBuffer({
+    shape: [-1, -1, 1, -1, 1, 1, -1, -1],
+    sideLength: [10, 10],
+})
+
+rect.generate()
+
+console.log(rect.getBuffer())
+
+// Output:
+// Float32Array(8) [
+//   -10, -10,  10, -10,
+//    10,  10, -10, -10
+// ]
+</code></pre>
+<h3 id="shapeloop">ShapeLoop</h3>
+<p>La <em>ShapeLoop</em> è una forma generata pertendo da un ciclo,
+è consigliato restituire i valori tra un range di -1 ed 1</p>
+<pre class="prettyprint"><code class="javascript language-javascript">import { ShapeLoop } from '@urpflanze/core'
+
+const circle = new Urpflanze.ShapeLoop({
+    sideLength: [10, 10],
+    loop: {
+        start: 0,
+        end: Math.PI * 2,
+        inc: (Math.PI * 2) / 100, // (end - start) / 100 for generate 100 points
+        vertex: shapeLoopRepetition =&gt; [
+            // shapeLoopRepetition.current start from 0 and end to 2 PI,
+            // so you can use it as a angle
+            Math.cos(shapeLoopRepetition.current),
+            Math.sin(shapeLoopRepetition.current),
+        ],
+    },
+    bClosed: true, // flag to determinate the shape is closed
+})
+
+circle.generate()
+
+console.log(circle.getBuffer().length)
+
+// Output:
+// 200 / 2 = 100 points
+</code></pre>
+<h2 id="formeprimitive">Forme primitive</h2>
+<p>In questo pacchetto sono già presenti delle forme di base:</p>
+<h4 id="shapebuffer-1">ShapeBuffer</h4>
+<ul>
+<li><code>Line</code></li>
+<li><code>Triangle</code></li>
+<li><code>Rect</code></li>
+</ul>
+<h4 id="shapeloop-1">ShapeLoop</h4>
+<ul>
+<li><a href="#"><code>Polygon</code></a></li>
+<li><code>Circle</code></li>
+<li><code>Lissajous</code></li>
+<li><code>Spiral</code></li>
+<li><code>Rose</code></li>
+<li><code>SuperShape</code></li>
+</ul>
+<h3 id="propriet">Proprietà</h3>
+<h2 id="ripetizioni">Ripetizioni</h2>
+<h2 id="incapsulamento">Incapsulamento</h2>
+<h2 id="ricorsione">Ricorsione</h2>
+<h2 id="aggiuntaallascenaeanimazioni">Aggiunta alla scena e Animazioni</h2>
