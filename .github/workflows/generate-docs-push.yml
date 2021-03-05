@@ -14,7 +14,7 @@ jobs:
         uses: actions/setup-node@v1
 
       - name: Generate docs
-        run: npm install && npm run generate-docs
+        run: npm ci && npm run generate-docs
 
       - name: Push docs
         uses: actions/checkout@master
