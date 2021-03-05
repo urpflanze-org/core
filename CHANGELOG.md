@@ -1,4 +1,9 @@
-## 0.3.3-beta (February x, 2021)
+## 0.4.0-beta (March x, 2021)
+
+- Adapt buffer moved in shape buffer
+- Rename 'angle' to 'current' into IShapeLoopRepetition
+
+## 0.3.3-beta (February 24, 2021)
 
 - Fix recursion on not primitive shape
 
