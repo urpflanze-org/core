@@ -15,8 +15,11 @@ jobs:
         with:
           node-version: '14'
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Generate docs
-        run: npm install && npm run generate-docs
+        run: npm run generate-docs
 
       - name: Commit and Push docs
         uses: actions-js/push@v1.2
