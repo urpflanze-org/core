@@ -1,4 +1,4 @@
-## 0.4.0 (March x, 2021)
+## 0.4.0 (March 5, 2021)
 
 - Adapt buffer moved in shape buffer
 - Rename 'angle' to 'current' into IShapeLoopRepetition
