@@ -1,11 +1,10 @@
 import { ShapeBase } from '../shapes/ShapeBase'
 import { IBufferIndex } from '../types/shape-base'
-import { vec2 } from 'gl-matrix'
 
 /**
  * Repetition type enumerator.
  *
- * @category Core.Enums
+ * @category Core.Repetition
  * @internal
  */
 export enum ERepetitionType {
@@ -27,7 +26,7 @@ export enum ERepetitionType {
 /**
  * Base repetition
  *
- * @category Core.Interfaces
+ * @category Core.Repetition
  */
 export interface IBaseRepetition {
 	/**
@@ -52,7 +51,7 @@ export interface IBaseRepetition {
 /**
  *
  *
- * @category Core.Interfaces
+ * @category Core.Repetition
  */
 export interface IShapeLoopRepetition extends IBaseRepetition {
 	/**
@@ -66,7 +65,7 @@ export interface IShapeLoopRepetition extends IBaseRepetition {
 /**
  *
  *
- * @category Core.Interfaces
+ * @category Core.Repetition
  */
 export interface IRecursionRepetition extends IBaseRepetition {
 	level: IBaseRepetition
@@ -82,7 +81,7 @@ export interface IRecursionRepetition extends IBaseRepetition {
 /**
  * Information about propArguments repetition
  *
- * @category Core.Interfaces
+ * @category Core.Repetition
  */
 export interface IRepetition extends IShapeLoopRepetition {
 	/**
@@ -117,11 +116,11 @@ export interface ISceneChildProps {
 	 * If an array (1) is passed the repetition will be nxn,
 	 * if an array (2) the repetition will be mxn [rows x columns]
 	 *
-	 * @type {(TSceneChildProp<number | vec2>)}
+	 * @type {(TSceneChildProp<number | [number, number]>)}
 	 * @memberof ISceneChildProps
 	 * @order 1
 	 */
-	repetitions?: TSceneChildProp<number | vec2> // number of shape repetitions
+	repetitions?: TSceneChildProp<number | [number, number]> // number of shape repetitions
 
 	/**
 	 * If the repeat is Ring, pass a numerical value
@@ -129,11 +128,11 @@ export interface ISceneChildProps {
 	 * If the repeat is Matrix, pass an array (2) which refers
 	 * to the distance between columns and rows.
 	 *
-	 * @type {(TSceneChildProp<number | vec2>)}
+	 * @type {(TSceneChildProp<number | [number, number]>)}
 	 * @memberof ISceneChildProps
 	 * @order 2
 	 */
-	distance?: TSceneChildProp<number | vec2>
+	distance?: TSceneChildProp<number | [number, number]>
 
 	/**
 	 * For Ring repeats, define the starting angle of the repeat
@@ -183,20 +182,20 @@ export interface ISceneChildProps {
 	/**
 	 * scale transformation
 	 *
-	 * @type {(TSceneChildProp<number | vec2>)}
+	 * @type {(TSceneChildProp<number | [number, number]>)}
 	 * @memberof ISceneChildProps
 	 * @order 8
 	 */
-	scale?: TSceneChildProp<number | vec2>
+	scale?: TSceneChildProp<number | [number, number]>
 
 	/**
 	 * tranlsate transformation
 	 *
-	 * @type {(TSceneChildProp<number | vec2>)}
+	 * @type {(TSceneChildProp<number | [number, number]>)}
 	 * @memberof ISceneChildProps
 	 * @order 9
 	 */
-	translate?: TSceneChildProp<number | vec2>
+	translate?: TSceneChildProp<number | [number, number]>
 
 	/**
 	 * rotateX transformation in degeress
@@ -232,7 +231,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 13
 	 */
-	transformOrigin?: TSceneChildProp<number | vec2>
+	transformOrigin?: TSceneChildProp<number | [number, number]>
 
 	/**
 	 * perspective of rotation between 0 and 1
@@ -246,11 +245,11 @@ export interface ISceneChildProps {
 	/**
 	 * perspective origin between [-1, -1] and [1, 1]
 	 *
-	 * @type {(TSceneChildProp<number | vec2>)}
+	 * @type {(TSceneChildProp<number | [number, number]>)}
 	 * @memberof ISceneChildProps
 	 * @order 15
 	 */
-	perspectiveOrigin?: TSceneChildProp<number | vec2>
+	perspectiveOrigin?: TSceneChildProp<number | [number, number]>
 }
 
 /**
@@ -331,7 +330,7 @@ export type TSceneChildProp<T> = T | { (propArguments: ISceneChildPropArguments)
  * starting from frameBufferIndex up to frameBuffeIndex + frameLength,
  * the fill or strtoke color of the frame is also present
  *
- * @category Core.Interfaces
+ * @category Core.Stream
  */
 export interface IStreamArguments {
 	/**

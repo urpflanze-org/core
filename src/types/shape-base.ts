@@ -14,7 +14,7 @@ import { ShapePrimitive } from '../shapes/ShapePrimitive'
 /**
  * Parent object for index the buffer
  *
- * @category Core.Interfaces
+ * @category Core.Stream
  */
 export interface IParentBufferIndex {
 	/**
@@ -47,7 +47,7 @@ export interface IParentBufferIndex {
 /**
  * Object for index the buffer
  *
- * @category Core.Interfaces
+ * @category Core.Stream
  */
 export interface IBufferIndex {
 	/**

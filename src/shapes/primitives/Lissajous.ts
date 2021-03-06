@@ -2,7 +2,6 @@ import { PI2 } from '../../math'
 import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
 import { ILissajousProps, ILissajousSettings } from '../../types/shape-primitives'
-import { vec2 } from 'gl-matrix'
 
 /**
  * Lissajous shape
@@ -43,7 +42,7 @@ class Lissajous extends ShapeLoop<ILissajousProps> {
 				const sideLength = this.getRepetitionSideLength(propArguments)
 				return (1 / Math.pow(sideLength[0] * sideLength[1], 0.25)) * ratio
 			},
-			vertex: (shapeLoopRepetition: IShapeLoopRepetition): vec2 => {
+			vertex: (shapeLoopRepetition: IShapeLoopRepetition): [number, number] => {
 				return this.wx === this.wy
 					? [Math.cos(shapeLoopRepetition.current + this.wz), Math.sin(shapeLoopRepetition.current)]
 					: [Math.cos(this.wx * shapeLoopRepetition.current + this.wz), Math.sin(this.wy * shapeLoopRepetition.current)]

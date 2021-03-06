@@ -1,5 +1,3 @@
-import { vec2 } from 'gl-matrix'
-
 import type { ISpiralProps, ISpiralSettings, TSpiralType } from '../../types/shape-primitives'
 import type { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
 
@@ -63,7 +61,7 @@ class Spiral extends ShapeLoop<ISpiralProps> {
 
 				return rep / (radius * twists)
 			},
-			vertex: (shapeLoopRepetition: IShapeLoopRepetition): vec2 => {
+			vertex: (shapeLoopRepetition: IShapeLoopRepetition): [number, number] => {
 				const r = this.r(shapeLoopRepetition.current)
 				return [r * Math.cos(shapeLoopRepetition.current), r * Math.sin(shapeLoopRepetition.current)]
 			},

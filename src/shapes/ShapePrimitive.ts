@@ -1,4 +1,3 @@
-import { vec2 } from 'gl-matrix'
 import { ShapeBase } from './ShapeBase'
 
 import {
@@ -54,7 +53,7 @@ abstract class ShapePrimitive<
 				? undefined
 				: typeof settings.sideLength === 'function'
 				? settings.sideLength
-				: (glme.toVec2(settings.sideLength) as [number, number])
+				: glme.toVec2(settings.sideLength)
 
 		this.style = settings.style || ({} as T)
 		this.bClosed = settings.bClosed ?? true
@@ -70,7 +69,7 @@ abstract class ShapePrimitive<
 		return typeof this.props.sideLength !== 'function' && super.isStatic()
 	}
 
-	public getRepetitionSideLength(propArguments: ISceneChildPropArguments): vec2 {
+	public getRepetitionSideLength(propArguments: ISceneChildPropArguments): [number, number] {
 		if (this.bStatic) {
 			// not set default value into constructor because it can be overridden by group
 			if (typeof this.props.sideLength === 'undefined') {

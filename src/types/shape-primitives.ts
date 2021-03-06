@@ -1,5 +1,4 @@
 import { ISceneChildPropArguments, IShapeLoopRepetition, TSceneChildProp } from '../types/scene-child'
-import { vec2 } from 'gl-matrix'
 import { EAdaptMode, IShapePrimitiveProps, IShapePrimitiveSettings } from './shape-base'
 
 /**
@@ -33,7 +32,7 @@ export interface IShapeBufferSettings extends IShapeBufferProps, IShapePrimitive
 export type TShapeLoopGeneratorFormula = (
 	shapeLoopRepetition: IShapeLoopRepetition,
 	propArguments: ISceneChildPropArguments
-) => vec2
+) => [number, number]
 
 /**
  * Object to create a shape from a loop from <mark>start</mark>

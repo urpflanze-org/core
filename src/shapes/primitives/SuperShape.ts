@@ -1,5 +1,3 @@
-import { vec2 } from 'gl-matrix'
-
 import type { ISuperShapeProps, ISuperShapeSettings } from '../../types/shape-primitives'
 import type { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
 
@@ -48,7 +46,7 @@ class SuperShape extends ShapeLoop<ISuperShapeProps> {
 				return Math.PI / Math.pow(sideLength[0] * sideLength[1], 0.5)
 			},
 
-			vertex: (shapeLoopRepetition: IShapeLoopRepetition): vec2 => {
+			vertex: (shapeLoopRepetition: IShapeLoopRepetition): [number, number] => {
 				const angle = shapeLoopRepetition.current
 				const m = (this.m * angle) / 4
 				const a = Math.abs(Math.cos(m) / this.a) ** this.n2

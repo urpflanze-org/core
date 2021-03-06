@@ -179,10 +179,10 @@ export function noise(seed = 'random', x = 0, y = 0, z = 0): number {
  * @category Utilities
  *
  * @param {IRepetition} repetition
- * @param {vec2} offsetFromCenter
+ * @param {[number, number]} offsetFromCenter
  * @returns {number}
  */
-export function angleFromRepetition(repetition: IRepetition, offsetFromCenter: vec2 = [0, 0]): number {
+export function angleFromRepetition(repetition: IRepetition, offsetFromCenter: [number, number] = [0, 0]): number {
 	if (repetition.type == ERepetitionType.Matrix) {
 		const centerMatrix = vec2.fromValues(
 			((repetition.col.count as number) - 1) / 2,
@@ -209,10 +209,10 @@ export function angleFromRepetition(repetition: IRepetition, offsetFromCenter: v
  * @category Utilities
  *
  * @param {IRepetition} repetition
- * @param {vec2} offsetFromCenter
+ * @param {[number, number]} offsetFromCenter
  * @returns {number}
  */
-export function angle2FromRepetition(repetition: IRepetition, offsetFromCenter: vec2 = [0, 0]): number {
+export function angle2FromRepetition(repetition: IRepetition, offsetFromCenter: [number, number] = [0, 0]): number {
 	if (repetition.type == ERepetitionType.Matrix) {
 		const centerMatrix = vec2.fromValues(
 			((repetition.col.count as number) - 1) / 2,
@@ -238,10 +238,10 @@ export function angle2FromRepetition(repetition: IRepetition, offsetFromCenter: 
  * @category Utilities
  *
  * @param {IRepetition} repetition
- * @param {vec2} offsetFromCenter offset relative to distance prop
+ * @param {[number, number]} offsetFromCenter offset relative to distance prop
  * @returns {number}
  */
-export function distanceFromRepetition(repetition: IRepetition, offsetFromCenter: vec2 = [0, 0]): number {
+export function distanceFromRepetition(repetition: IRepetition, offsetFromCenter: [number, number] = [0, 0]): number {
 	if (repetition.type == ERepetitionType.Matrix) {
 		const centerMatrix = vec2.fromValues(0.5, 0.5)
 

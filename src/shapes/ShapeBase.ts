@@ -296,7 +296,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	public getProp<K extends keyof GShapeBaseProps>(
 		key: K,
 		propArguments?: ISceneChildPropArguments,
-		defaultValue?: number | vec2
+		defaultValue?: number | [number, number]
 	): any {
 		let attribute: any = (this.props as any)[key] as any
 
