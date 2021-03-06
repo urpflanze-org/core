@@ -61,7 +61,7 @@ export function resolveType(type) {
 			return `<a href="#/ref/${type.name}">${type.name}</a>`
 		}
 
-		if (type.type === 'union') {
+		if (type.type === 'union' && type.types) {
 			return type.types.map(resolveType).join(' | ')
 		}
 
