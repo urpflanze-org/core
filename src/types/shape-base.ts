@@ -165,7 +165,7 @@ export interface IShapePrimitiveProps extends ISceneChildProps {
 	 * scalar that multiplies the buffer or loop
 	 * @order -20
 	 */
-	sideLength?: TSceneChildProp<number | Array<number>>
+	sideLength?: TSceneChildProp<number | [number, number]>
 }
 
 /**
