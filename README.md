@@ -179,9 +179,9 @@ Ogni oggetto che estende una IBaseRepetition contiene le seguenti proprietà:
 ```javascript
 new Urpflanze.Rect({
 	repetitions: 8,
+	sideLength: 25,
 	distance: ({ repetition }) => repetition.offset * 100,
 	scale: ({ repetition }) => repetition.offset,
-	sideLength: 25,
 })
 ```
 
