@@ -43,7 +43,7 @@ const Vec2 = {
 	 * @param {Array<number>} b
 	 * @returns {number}
 	 */
-	distance: (a: Array<number>, b: Array<number>): number => Math.hypot(b[0] - a[0], b[1] - a[1]),
+	distance: (a: Array<number>, b: Array<number>): number => Math.hypot(a[0] - b[0], a[1] - b[1]),
 
 	/**
 	 * dot product

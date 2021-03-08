@@ -2,7 +2,8 @@ import * as SimplexNoise from 'simplex-noise'
 
 import { ERepetitionType, IRepetition } from './types/scene-child'
 
-import { vec2 } from 'gl-matrix'
+import Vec2 from './math/Vec2'
+import { PI2 } from './math'
 
 /**
  * @ignore
@@ -161,7 +162,7 @@ const noises: {
  * @param {number} [x=0]
  * @param {number} [y=0]
  * @param {number} [z=0]
- * @returns {number}
+ * @returns {number} between -1 and 1
  */
 export function noise(seed = 'random', x = 0, y = 0, z = 0): number {
 	if (typeof noises[seed] === 'undefined') {
@@ -180,25 +181,22 @@ export function noise(seed = 'random', x = 0, y = 0, z = 0): number {
  *
  * @param {IRepetition} repetition
  * @param {[number, number]} offsetFromCenter
- * @returns {number}
+ * @returns {number} between -Math.PI / 2 and Math.PI / 2
  */
 export function angleFromRepetition(repetition: IRepetition, offsetFromCenter: [number, number] = [0, 0]): number {
-	if (repetition.type == ERepetitionType.Matrix) {
-		const centerMatrix = vec2.fromValues(
-			((repetition.col.count as number) - 1) / 2,
-			((repetition.row.count as number) - 1) / 2
-		)
+	if (repetition.type === ERepetitionType.Matrix) {
+		const centerMatrix = [(repetition.col.count - 1) / 2, (repetition.row.count - 1) / 2]
 
 		centerMatrix[0] += centerMatrix[0] * offsetFromCenter[0]
 		centerMatrix[1] += centerMatrix[1] * offsetFromCenter[1]
 
-		const x = (repetition.col.index as number) - 1 - centerMatrix[0]
-		const y = (repetition.row.index as number) - 1 - centerMatrix[1]
+		const x = repetition.col.index - 1 - centerMatrix[0]
+		const y = repetition.row.index - 1 - centerMatrix[1]
 
 		return x === 0 ? 0 : Math.atan(y / x)
 	}
 
-	return (repetition.current - Math.PI) / 2
+	return (repetition.angle - Math.PI) / 2
 }
 
 /**
@@ -210,25 +208,22 @@ export function angleFromRepetition(repetition: IRepetition, offsetFromCenter: [
  *
  * @param {IRepetition} repetition
  * @param {[number, number]} offsetFromCenter
- * @returns {number}
+ * @returns {number} between -Math.PI an Math.PI
  */
 export function angle2FromRepetition(repetition: IRepetition, offsetFromCenter: [number, number] = [0, 0]): number {
-	if (repetition.type == ERepetitionType.Matrix) {
-		const centerMatrix = vec2.fromValues(
-			((repetition.col.count as number) - 1) / 2,
-			((repetition.row.count as number) - 1) / 2
-		)
+	if (repetition.type === ERepetitionType.Matrix) {
+		const centerMatrix = [(repetition.col.count - 1) / 2, (repetition.row.count - 1) / 2]
 
 		centerMatrix[0] += centerMatrix[0] * offsetFromCenter[0]
 		centerMatrix[1] += centerMatrix[1] * offsetFromCenter[1]
 
-		const x = (repetition.col.index as number) - 1 - centerMatrix[0]
-		const y = (repetition.col.index as number) - 1 - centerMatrix[1]
+		const x = repetition.col.index - 1 - centerMatrix[0]
+		const y = repetition.row.index - 1 - centerMatrix[1]
 
 		return x === 0 ? 0 : Math.atan2(y, x)
 	}
 
-	return repetition.current - Math.PI
+	return repetition.angle - Math.PI
 }
 
 /**
@@ -239,48 +234,19 @@ export function angle2FromRepetition(repetition: IRepetition, offsetFromCenter: 
  *
  * @param {IRepetition} repetition
  * @param {[number, number]} offsetFromCenter offset relative to distance prop
- * @returns {number}
+ * @returns {number} between 0 and 1
  */
 export function distanceFromRepetition(repetition: IRepetition, offsetFromCenter: [number, number] = [0, 0]): number {
-	if (repetition.type == ERepetitionType.Matrix) {
-		const centerMatrix = vec2.fromValues(0.5, 0.5)
+	if (repetition.type === ERepetitionType.Matrix) {
+		const centerMatrix = [0.5, 0.5]
 
 		centerMatrix[0] += centerMatrix[0] * offsetFromCenter[0]
 		centerMatrix[1] += centerMatrix[1] * offsetFromCenter[1]
 
-		const current = vec2.fromValues(
-			repetition.col.offset - 0.5 / repetition.col.count,
-			repetition.row.offset - 0.5 / repetition.row.count
-		)
+		const current = [repetition.col.offset, repetition.row.offset]
 
-		return vec2.distance(current, centerMatrix)
+		return Vec2.distance(current, centerMatrix)
 	}
 
 	return 1
 }
-
-// /**
-//  * Get value percentage of scene width.
-//  *
-//  * @param {number} percentage
-//  * @param {SceneChild} sceneChild
-//  * @returns {number}
-//  */
-// percW: (percentage: number, sceneChild: SceneChild | Scene): number => {
-// 	if (sceneChild instanceof Scene) return (sceneChild.width * percentage) / 100
-
-// 	return sceneChild && sceneChild.scene ? (sceneChild.scene.width * percentage) / 100 : percentage
-// },
-
-// /**
-//  * Get value percentage of scene height.
-//  *
-//  * @param {number} percentage
-//  * @param {SceneChild} sceneChild
-//  * @returns {number}
-//  */
-// percH: (percentage: number, sceneChild: SceneChild | Scene): number => {
-// 	if (sceneChild instanceof Scene) return (sceneChild.height * percentage) / 100
-
-// 	return sceneChild && sceneChild.scene ? (sceneChild.scene.height * percentage) / 100 : percentage
-// },
