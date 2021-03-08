@@ -139,7 +139,7 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 				// singleRepetitionBounding,
 				repetition: {
 					type: repetition.type,
-					current: repetition.current,
+					angle: repetition.angle,
 					index: repetition.index,
 					count: repetition.count,
 					offset: repetition.offset,
@@ -187,7 +187,7 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 			// singleRepetitionBounding: current.singleRepetitionBounding,
 			repetition: {
 				type: current.repetition.type,
-				current: current.repetition.current,
+				angle: current.repetition.angle,
 				index: current.repetition.index,
 				count: current.repetition.count,
 				offset: current.repetition.offset,

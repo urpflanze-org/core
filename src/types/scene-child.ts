@@ -53,25 +53,7 @@ export interface IBaseRepetition {
  *
  * @category Core.Repetition
  */
-export interface IShapeLoopRepetition {
-	/**
-	 * Index of current vertex
-	 * @order 1
-	 */
-	index: number
-
-	/**
-	 * Offset of current vertex from 0 to 1
-	 * @order 2
-	 */
-	offset: number
-
-	/**
-	 * Number of ticks
-	 * @order 3
-	 */
-	count: number
-
+export interface IShapeLoopRepetition extends IBaseRepetition {
 	/**
 	 * current tick value
 	 *
@@ -101,7 +83,13 @@ export interface IRecursionRepetition extends IBaseRepetition {
  *
  * @category Core.Repetition
  */
-export interface IRepetition extends IShapeLoopRepetition {
+export interface IRepetition extends IBaseRepetition {
+	/**
+	 * Define the type of repetition
+	 * @order 4
+	 */
+	angle: number
+
 	/**
 	 * Define the type of repetition
 	 * @order 5
