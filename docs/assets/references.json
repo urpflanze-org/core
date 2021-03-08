@@ -2397,7 +2397,7 @@
 		"type": "Function",
 		"source": {
 			"fileName": "Utilities.ts",
-			"line": 215,
+			"line": 213,
 			"character": 36
 		},
 		"category": "Utilities"
@@ -2442,7 +2442,7 @@
 		"type": "Function",
 		"source": {
 			"fileName": "Utilities.ts",
-			"line": 185,
+			"line": 186,
 			"character": 35
 		},
 		"category": "Utilities"
@@ -2487,7 +2487,7 @@
 		"type": "Function",
 		"source": {
 			"fileName": "Utilities.ts",
-			"line": 118,
+			"line": 119,
 			"character": 21
 		},
 		"category": "Utilities"
@@ -2533,7 +2533,7 @@
 		"type": "Function",
 		"source": {
 			"fileName": "Utilities.ts",
-			"line": 244,
+			"line": 239,
 			"character": 38
 		},
 		"category": "Utilities"
@@ -2575,7 +2575,7 @@
 		"type": "Function",
 		"source": {
 			"fileName": "Utilities.ts",
-			"line": 100,
+			"line": 101,
 			"character": 20
 		},
 		"category": "Utilities"
@@ -2629,7 +2629,7 @@
 		"type": "Function",
 		"source": {
 			"fileName": "Utilities.ts",
-			"line": 166,
+			"line": 167,
 			"character": 21
 		},
 		"category": "Utilities"
@@ -2646,7 +2646,7 @@
 		"type": "Function",
 		"source": {
 			"fileName": "Utilities.ts",
-			"line": 32,
+			"line": 33,
 			"character": 19
 		},
 		"category": "Utilities"
@@ -2707,7 +2707,7 @@
 		"type": "Function",
 		"source": {
 			"fileName": "Utilities.ts",
-			"line": 139,
+			"line": 140,
 			"character": 29
 		},
 		"category": "Utilities"
@@ -2736,7 +2736,7 @@
 		"type": "Function",
 		"source": {
 			"fileName": "Utilities.ts",
-			"line": 53,
+			"line": 54,
 			"character": 25
 		},
 		"category": "Utilities"
@@ -2765,7 +2765,7 @@
 		"type": "Function",
 		"source": {
 			"fileName": "Utilities.ts",
-			"line": 68,
+			"line": 69,
 			"character": 25
 		},
 		"category": "Utilities"
@@ -5192,7 +5192,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 88,
+			"line": 70,
 			"character": 37
 		},
 		"extends": [
@@ -5255,17 +5255,17 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 104,
+			"line": 86,
 			"character": 28
 		},
 		"extends": [
-			"IShapeLoopRepetition"
+			"IBaseRepetition"
 		],
 		"description": "Information about propArguments repetition",
 		"properties": [
 			{
 				"name": "index",
-				"description": "Index of current vertex",
+				"description": "Index of repetition, from 1 to count",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -5274,7 +5274,7 @@
 			},
 			{
 				"name": "offset",
-				"description": "Offset of current vertex from 0 to 1",
+				"description": "Current repetition offset from 0 (first repetition) to 1 (last repetition)",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -5283,7 +5283,7 @@
 			},
 			{
 				"name": "count",
-				"description": "Number of ticks",
+				"description": "Number of repetitions",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -5291,8 +5291,8 @@
 				"order": 3
 			},
 			{
-				"name": "current",
-				"description": "current tick value",
+				"name": "angle",
+				"description": "Define the type of repetition",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -6411,7 +6411,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 314,
+			"line": 302,
 			"character": 41
 		},
 		"description": "Object argument for sceneChild props",
@@ -6480,7 +6480,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 130,
+			"line": 118,
 			"character": 33
 		},
 		"description": "Props interface.\nRemember: any size refere to dimension of a scene.",
@@ -6857,7 +6857,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 277,
+			"line": 265,
 			"character": 36
 		},
 		"extends": [
@@ -9385,10 +9385,13 @@
 			"line": 56,
 			"character": 37
 		},
+		"extends": [
+			"IBaseRepetition"
+		],
 		"properties": [
 			{
 				"name": "index",
-				"description": "Index of current vertex",
+				"description": "Index of repetition, from 1 to count",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -9397,7 +9400,7 @@
 			},
 			{
 				"name": "offset",
-				"description": "Offset of current vertex from 0 to 1",
+				"description": "Current repetition offset from 0 (first repetition) to 1 (last repetition)",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -9406,7 +9409,7 @@
 			},
 			{
 				"name": "count",
-				"description": "Number of ticks",
+				"description": "Number of repetitions",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -13542,7 +13545,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 353,
+			"line": 341,
 			"character": 33
 		},
 		"description": "Object passed to the drawer where it is possible to draw the current frame\nstarting from frameBufferIndex up to frameBuffeIndex + frameLength,\nthe fill or strtoke color of the frame is also present",
@@ -14815,7 +14818,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 344,
+			"line": 332,
 			"character": 27
 		},
 		"description": "Value or callable",
@@ -17392,7 +17395,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 88,
+			"line": 70,
 			"character": 37
 		},
 		"extends": [
@@ -17455,17 +17458,17 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 104,
+			"line": 86,
 			"character": 28
 		},
 		"extends": [
-			"IShapeLoopRepetition"
+			"IBaseRepetition"
 		],
 		"description": "Information about propArguments repetition",
 		"properties": [
 			{
 				"name": "index",
-				"description": "Index of current vertex",
+				"description": "Index of repetition, from 1 to count",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -17474,7 +17477,7 @@
 			},
 			{
 				"name": "offset",
-				"description": "Offset of current vertex from 0 to 1",
+				"description": "Current repetition offset from 0 (first repetition) to 1 (last repetition)",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -17483,7 +17486,7 @@
 			},
 			{
 				"name": "count",
-				"description": "Number of ticks",
+				"description": "Number of repetitions",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -17491,8 +17494,8 @@
 				"order": 3
 			},
 			{
-				"name": "current",
-				"description": "current tick value",
+				"name": "angle",
+				"description": "Define the type of repetition",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -17538,7 +17541,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 314,
+			"line": 302,
 			"character": 41
 		},
 		"description": "Object argument for sceneChild props",
@@ -17607,7 +17610,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 130,
+			"line": 118,
 			"character": 33
 		},
 		"description": "Props interface.\nRemember: any size refere to dimension of a scene.",
@@ -17984,7 +17987,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 277,
+			"line": 265,
 			"character": 36
 		},
 		"extends": [
@@ -18427,10 +18430,13 @@
 			"line": 56,
 			"character": 37
 		},
+		"extends": [
+			"IBaseRepetition"
+		],
 		"properties": [
 			{
 				"name": "index",
-				"description": "Index of current vertex",
+				"description": "Index of repetition, from 1 to count",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -18439,7 +18445,7 @@
 			},
 			{
 				"name": "offset",
-				"description": "Offset of current vertex from 0 to 1",
+				"description": "Current repetition offset from 0 (first repetition) to 1 (last repetition)",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -18448,7 +18454,7 @@
 			},
 			{
 				"name": "count",
-				"description": "Number of ticks",
+				"description": "Number of repetitions",
 				"type": {
 					"type": "intrinsic",
 					"name": "number"
@@ -18473,7 +18479,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 353,
+			"line": 341,
 			"character": 33
 		},
 		"description": "Object passed to the drawer where it is possible to draw the current frame\nstarting from frameBufferIndex up to frameBuffeIndex + frameLength,\nthe fill or strtoke color of the frame is also present",
@@ -18538,7 +18544,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 344,
+			"line": 332,
 			"character": 27
 		},
 		"description": "Value or callable",

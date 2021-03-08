@@ -1,8 +1,8 @@
 <p><img height="60" src="https://raw.githubusercontent.com/urpflanze-org/core/master/docs/assets/images/logo-for-github.svg"></p>
 <h2 id="sinossi">Sinossi</h2>
-<p>Questo pacchetto è il core utilizzato dalla libreria javascript Urpflanze per la generazione della scena.</p>
-<p>Si occupa di creare forme bidimensioni, ripeterle, manipolarle e incapsularle.</p>
-<p>Puoi utilizzarlo nel browser o in node.</p>
+<p>Questo pacchetto è il core utilizzato dalla libreria javascript Urpflanze per la generazione della scena.
+Si occupa di creare forme bidimensioni, ripeterle, manipolarle e incapsularle.
+Puoi utilizzarlo nel browser o in node.</p>
 <h2 id="motivazioni">Motivazioni</h2>
 <p>La creazione di questa libreria nasce dall'esigenze di creare delle API semplici per
 gestire le ripetizione di forme primitive e la possibilità di applicare trasformazioni ad ognuna di esse.</p>
@@ -11,7 +11,7 @@ gestire le ripetizione di forme primitive e la possibilità di applicare trasfor
 <p>Puoi installare la libreria con il comando</p>
 <pre class="prettyprint"><code class="bash language-bash">npm i @urpflanze/core --save
 </code></pre>
-<p>Al termine è possibile importare Urpflanze nel codice</p>
+<p>Al termine è possibile importare Urpflanze nel tuo progetto</p>
 <pre class="prettyprint"><code class="javascript language-javascript">/**
  * Full importing
  */
@@ -39,7 +39,7 @@ const rect = new ShapeBuffer({
     sideLength: [10, 10],
 })
 
-rect.generate()
+rect.generate() // Apply properties
 
 console.log(rect.getBuffer())
 
@@ -80,22 +80,72 @@ console.log(circle.getBuffer().length)
 <h2 id="formeprimitive">Forme primitive</h2>
 <p>In questo pacchetto sono già presenti delle forme di base:</p>
 <h4 id="shapebuffer-1">ShapeBuffer</h4>
-<ul>
-<li><code>Line</code></li>
-<li><code>Triangle</code></li>
-<li><code>Rect</code></li>
-</ul>
+<p><a href="docs.urpflanze.org/core/#/ref/Line"><code>Line</code></a>
+<a href="docs.urpflanze.org/core/#/ref/Triangle"><code>Triangle</code></a>
+<a href="docs.urpflanze.org/core/#/ref/Rect"><code>Rect</code></a></p>
 <h4 id="shapeloop-1">ShapeLoop</h4>
-<ul>
-<li><a href="#"><code>Polygon</code></a></li>
-<li><code>Circle</code></li>
-<li><code>Lissajous</code></li>
-<li><code>Spiral</code></li>
-<li><code>Rose</code></li>
-<li><code>SuperShape</code></li>
-</ul>
-<h3 id="propriet">Proprietà</h3>
+<p><a href="docs.urpflanze.org/core/#/ref/Polygon"><code>Polygon</code></a>
+<a href="docs.urpflanze.org/core/#/ref/Circle"><code>Circle</code></a>
+<a href="docs.urpflanze.org/core/#/ref/Lissajous"><code>Lissajous</code></a>
+<a href="docs.urpflanze.org/core/#/ref/Spiral"><code>Spiral</code></a>
+<a href="docs.urpflanze.org/core/#/ref/Rose"><code>Rose</code></a>
+<a href="docs.urpflanze.org/core/#/ref/SuperShape"><code>SuperShape</code></a></p>
 <h2 id="ripetizioni">Ripetizioni</h2>
+<p>Con Urpflanze puoi ripetere le forme in modo circolare o a matrice.</p>
+<h3 id="ripetizionicircolari">Ripetizioni circolari</h3>
+<p>Per questo tipo di ripetizioni puoi settare un valore numerico alla proprietà <code>repetitions</code> per indicare il numero di volte che dovrà ripetersi e la proprietà <code>distance</code> per indicare la distanza dal centro.</p>
+<pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
+    repetitions: 8,
+    distance: 100,
+    sideLength: 25,
+})
+</code></pre>
+<p><img src="./docs/assets/images/readme/repetition-ring-1.png" alt="repetition ring" /></p>
+<p>Di base le forme verranno ruotate verso il centro, se si vuol evitare quest'effetto bisogna ruotare la vorma inversemente all'angolo corrente della ripetizione.</p>
+<pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
+    repetitions: 8,
+    sideLength: 25,
+    distance: 100,
+    rotateZ: ({ repetition }) =&gt; -repetition.angle,
+})
+</code></pre>
+<p><img src="./docs/assets/images/readme/repetition-ring-2.png" alt="repetition ring" /></p>
+<h3 id="ripetizioniamatrice">Ripetizioni a matrice</h3>
+<p>Per ripetere la forma come una matrice basterà passare alla proprietà <code>repetitions</code> un Array di numeri che indicano il numero di righe e di colonne. Anche la proprietà <code>distance</code> in questo caso sarà un Array contenente la distanza tra le righe e le colonne.</p>
+<pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
+    repetitions: [3, 4],
+    sideLength: 20,
+    distance: [80, 50],
+})
+</code></pre>
+<p><img src="./docs/assets/images/readme/repetition-matrix-1.png" alt="repetition ring" /></p>
+<h2 id="gestireleripetizioni">Gestire le ripetizioni</h2>
+<p>Per gestire le ripetizioni possiamo passare alle proprietà una funzione al posto di una costante. Possiamo l'argomento della funzione che è di tipo <a href="https://docs.urpflanze.org/urpflanze/#/ref/ISceneChildPropArguments">ISceneChildPropArguments</a>.</p>
+<p>Ogni oggetto che estende una IBaseRepetition contiene le seguenti proprietà:</p>
+<ul>
+<li><code>index</code> l'indice corrente, da 1 a count</li>
+<li><code>count</code> il numero totale di ripetizioni</li>
+<li><code>offset</code> un indice che va da 0 ad 1 che non dipende dal numero di ripetizioni. Ad esempio, se il numero di ripetizioni sono 3, il valore di offset sarà 0 - 0.5 - 1</li>
+</ul>
+<h3 id="esempi">Esempi</h3>
+<pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
+    repetitions: 8,
+    distance: ({ repetition }) =&gt; repetition.offset * 100,
+    scale: ({ repetition }) =&gt; repetition.offset,
+    sideLength: 25,
+})
+</code></pre>
+<p><img src="./docs/assets/images/readme/repetition-1.png" alt="repetition" /></p>
+<pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
+    repetitions: [5],
+    sideLength: 25,
+    distance: 50,
+    scale: ({ repetition }) =&gt; {
+        return Urpflanze.distanceFromRepetition(repetition, [0, 0])
+    },
+})
+</code></pre>
+<p><img src="./docs/assets/images/readme/repetition-2.png" alt="repetition" /></p>
 <h2 id="incapsulamento">Incapsulamento</h2>
 <h2 id="ricorsione">Ricorsione</h2>
 <h2 id="aggiuntaallascenaeanimazioni">Aggiunta alla scena e Animazioni</h2>
