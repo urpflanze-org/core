@@ -15,7 +15,6 @@
 <li><a href="#ripetizioni">Ripetizioni</a><ul>
 <li><a href="#ripetizioni-circolari">Ripetizioni circolari</a></li>
 <li><a href="#ripetizioni-a-matrice">Ripetizioni a matrice</a></li></ul></li>
-<li><a href="#">!repetition ring</a></li>
 <li><a href="#gestire-le-ripetizioni">Gestire le ripetizioni</a><ul>
 <li><a href="#esempi">Esempi</a></li>
 <li><a href="#lista-di-tutte-le-proprietà">Lista di tutte le proprietà</a></li></ul></li>
@@ -141,7 +140,7 @@ console.log(circle.getBuffer().length)
     sideLength: 25,
 })
 </code></pre>
-<p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-ring-1.png" alt="repetition ring" /></p>
+<p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-ring-1.png" alt="" /></p>
 <p>Di base le forme verranno ruotate verso il centro, se si vuol evitare quest'effetto bisogna ruotare la vorma inversemente all'angolo corrente della ripetizione.</p>
 <pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
     repetitions: 8,
@@ -150,7 +149,7 @@ console.log(circle.getBuffer().length)
     rotateZ: ({ repetition }) =&gt; -repetition.angle,
 })
 </code></pre>
-<p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-ring-2.png" alt="repetition ring" /></p>
+<p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-ring-2.png" alt="" /></p>
 <h3 id="ripetizioniamatrice">Ripetizioni a matrice</h3>
 <p>Per ripetere la forma come una matrice basterà passare alla proprietà <code>repetitions</code> un Array di numeri che indicano il numero di righe e di colonne. Anche la proprietà <code>distance</code> in questo caso sarà un Array contenente la distanza tra le righe e le colonne.</p>
 <pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
@@ -159,7 +158,7 @@ console.log(circle.getBuffer().length)
     distance: [80, 50],
 })
 </code></pre>
-<h2 id="repetitionringhttpsdocsurpflanzeorgcoreassetsimagesreadmerepetitionmatrix1png"><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-matrix-1.png" alt="repetition ring" /></h2>
+<p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-matrix-1.png" alt="" /></p>
 <hr />
 <h2 id="gestireleripetizioni">Gestire le ripetizioni</h2>
 <p>Per gestire le ripetizioni possiamo passare alle proprietà una funzione al posto di una costante. Possiamo l'argomento della funzione che è di tipo <a href="https://docs.urpflanze.org/urpflanze/#/ref/ISceneChildPropArguments">ISceneChildPropArguments</a>.</p>
@@ -177,7 +176,7 @@ console.log(circle.getBuffer().length)
     scale: ({ repetition }) =&gt; repetition.offset,
 })
 </code></pre>
-<p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-1.png" alt="repetition" /></p>
+<p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-1.png" alt="" /></p>
 <pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
     repetitions: [4],
     sideLength: 25,
@@ -188,7 +187,7 @@ console.log(circle.getBuffer().length)
     }
 })
 </code></pre>
-<p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-2.png" alt="repetition" /></p>
+<p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-2.png" alt="" /></p>
 <h3 id="listadituttelepropriethttpsdocsurpflanzeorgcorerefishapebasesettings"><a href="https://docs.urpflanze.org/core/#/ref/IShapeBaseSettings">Lista di tutte le proprietà</a></h3>
 <hr />
 <h2 id="incapsulamento">Incapsulamento</h2>
@@ -219,9 +218,9 @@ const final = new Urpflanze.Shape({
     rotateY: Urpflanze.toRadians(60),
 })
 </code></pre>
-<p>|                                           lines                                            |                                         container                                          |                                           final                                            |
-| :----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: |
-| <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-1.png" alt="encapsulation" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-2.png" alt="encapsulation" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-3.png" alt="encapsulation" /> |</p>
+<p>|                                     lines                                     |                                   container                                   |                                     final                                     |
+| :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
+| <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-1.png" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-2.png" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-3.png" alt="" /> |</p>
 <h3 id="group">Group</h3>
 <pre class="prettyprint"><code class="javascript language-javascript">const group = new Urpflanze.Group({
     repetitions: 4,
@@ -245,9 +244,9 @@ const shape = new Urpflanze.Shape({
     rotateZ: ({ repetition }) =&gt; -repetition.angle,
 })
 </code></pre>
-<p>|                                   group                                    |                                   shape                                    |
-| :------------------------------------------------------------------------: | :------------------------------------------------------------------------: |
-| <img src="https://docs.urpflanze.org/core/assets/images/readme/group-1.png" alt="group" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/group-2.png" alt="group" /> |</p>
+<p>|                                 group                                 |                                 shape                                 |
+| :-------------------------------------------------------------------: | :-------------------------------------------------------------------: |
+| <img src="https://docs.urpflanze.org/core/assets/images/readme/group-1.png" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/group-2.png" alt="" /> |</p>
 <h3 id="usareleripetizionidichiincapsula">Usare le ripetizioni di chi incapsula</h3>
 <p>Puoi utilizzare l'oggetto <code>repetition</code> di chi incapsula una forma settando la proprietà <code>bUseParent</code>.
 Questo parametro è opzionale poiché verrà generatoro un nuovo buffer di punti ad ogni ripetizione di chi incapsula.</p>
@@ -269,7 +268,7 @@ const container = new Urpflanze.Shape({
     scale: 0.4,
 })
 </code></pre>
-<p><img src="https://docs.urpflanze.org/core/assets/images/readme/parent-rep-1.png" alt="parent repetition" /></p>
+<p><img src="https://docs.urpflanze.org/core/assets/images/readme/parent-rep-1.png" alt="" /></p>
 <hr />
 <h2 id="ricorsione">Ricorsione</h2>
 <p>Un'altra possibilità è utilizzare la <code>ShapeRecursive</code> per ripetere qualsiasi <code>Shape</code> su ogni suo punto.</p>
@@ -285,7 +284,7 @@ const container = new Urpflanze.ShapeRecursive({
     recursions: 4,
 })
 </code></pre>
-<p><img src="https://docs.urpflanze.org/core/assets/images/readme/recursion-1.png" alt="recursion" /></p>
+<p><img src="https://docs.urpflanze.org/core/assets/images/readme/recursion-1.png" alt="" /></p>
 <hr />
 <h2 id="lascena">La Scena</h2>
 <p>Puoi utilizzare le forme in modo indipendente oppure puoi aggiungerle ad una scene.
