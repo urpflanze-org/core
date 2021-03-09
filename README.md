@@ -1,5 +1,31 @@
 <img height="60" src="https://raw.githubusercontent.com/urpflanze-org/core/master/docs/assets/images/logo-for-github.svg">
 
+## Menu
+
+- [Menu](#menu)
+- [Sinossi](#sinossi)
+- [Motivazioni](#motivazioni)
+- [Donate](#donate)
+- [Installazione](#installazione)
+- [Creazione di una forma](#creazione-di-una-forma)
+	- [ShapeBuffer](#shapebuffer)
+	- [ShapeLoop](#shapeloop)
+- [Forme primitive](#forme-primitive)
+		- [ShapeBuffer](#shapebuffer-1)
+		- [ShapeLoop](#shapeloop-1)
+- [Ripetizioni](#ripetizioni)
+	- [Ripetizioni circolari](#ripetizioni-circolari)
+	- [Ripetizioni a matrice](#ripetizioni-a-matrice)
+- [Gestire le ripetizioni](#gestire-le-ripetizioni)
+	- [Esempi](#esempi)
+	- [Lista di tutte le proprietà](#lista-di-tutte-le-proprietà)
+- [Incapsulamento](#incapsulamento)
+	- [Shape](#shape)
+	- [Group](#group)
+	- [Usare le ripetizioni di chi incapsula](#usare-le-ripetizioni-di-chi-incapsula)
+- [Ricorsione](#ricorsione)
+- [La Scena](#la-scena)
+
 ## Sinossi
 
 Questo pacchetto è il **core** utilizzato dalla libreria javascript [Urpflanze](https://github.com/urpflanze-org/urpflanze) per la generazione della scena.
@@ -26,32 +52,6 @@ Ho in mente anche un [editor](https://github.com/urpflanze-org/editor) web (open
 
 ![](https://img.shields.io/badge/bitcoin-1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq-f7931a.svg?logo=bitcoin)
 ![](https://img.shields.io/badge/ethereum-0x9086c4bb7015c1d6dc79162d02e7e1239c982c01-ecf0f1.svg?logo=ethereum)
-
-## Menu
-
-- [Sinossi](#sinossi)
-- [Motivazioni](#motivazioni)
-- [Donate](#donate)
-- [Menu](#menu)
-- [Installazione](#installazione)
-- [Creazione di una forma](#creazione-di-una-forma)
-	- [ShapeBuffer](#shapebuffer)
-	- [ShapeLoop](#shapeloop)
-- [Forme primitive](#forme-primitive)
-		- [ShapeBuffer](#shapebuffer-1)
-		- [ShapeLoop](#shapeloop-1)
-- [Ripetizioni](#ripetizioni)
-	- [Ripetizioni circolari](#ripetizioni-circolari)
-	- [Ripetizioni a matrice](#ripetizioni-a-matrice)
-- [Gestire le ripetizioni](#gestire-le-ripetizioni)
-	- [Esempi](#esempi)
-	- [Lista di tutte le proprietà](#lista-di-tutte-le-proprietà)
-- [Incapsulamento](#incapsulamento)
-	- [Shape](#shape)
-	- [Group](#group)
-	- [Usare le ripetizioni di chi incapsula](#usare-le-ripetizioni-di-chi-incapsula)
-- [Ricorsione](#ricorsione)
-- [La Scena](#la-scena)
 
 ## Installazione
 
