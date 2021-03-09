@@ -3,7 +3,6 @@ import * as SimplexNoise from 'simplex-noise'
 import { ERepetitionType, IRepetition } from './types/scene-child'
 
 import Vec2 from './math/Vec2'
-import { PI2 } from './math'
 
 /**
  * @ignore
