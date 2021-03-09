@@ -17,8 +17,9 @@ Un'altra esigenza - che poi è diventata una delle feature principali - era quel
 
 Sto cercando di creare uno strumento per chi vuole avvicinarsi al mondo della programmazione
 o per i programmatori che vogliono avvicinarsi al mondo del coding creativo.
+
 Ho dedicato molto tempo e ne dedicherò altro per supportare questo progetto.
-Ho in mente anche uno editor web (sempre open-source) dove si potranno utilizzare le features di questa libreria nel browser. [Puoi vedere qui un'anteprima](https://editor.urpflanze.org)
+Ho in mente anche un [editor](https://github.com/urpflanze-org/editor) web (open-source) dove si potranno utilizzare le features di questa libreria nel browser. [Puoi vedere qui un'anteprima](https://editor.urpflanze.org)
 
 [![](https://img.shields.io/badge/donate-paypal-003087.svg?logo=paypal)](https://www.paypal.me/genbs)
 [![](https://img.shields.io/badge/donate-ko--fi-29abe0.svg?logo=ko-fi)](https://ko-fi.com/urpflanze)
@@ -51,7 +52,6 @@ Ho in mente anche uno editor web (sempre open-source) dove si potranno utilizzar
 	- [Usare le ripetizioni di chi incapsula](#usare-le-ripetizioni-di-chi-incapsula)
 - [Ricorsione](#ricorsione)
 - [La Scena](#la-scena)
-- [Animazioni](#animazioni)
 
 ## Installazione
 
@@ -375,5 +375,3 @@ console.log(rect.getBounding())
 // }
 // # left, top point: (25, 25) | right, bottom point: (75, 75)
 ```
-
-## Animazioni
