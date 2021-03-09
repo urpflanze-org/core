@@ -3,16 +3,23 @@
 	"version": "0.4.0",
 	"description": "Create 2d primitive shapes, encapsulate and repeat them by handling each repetition and generate recursive shapes",
 	"license": "GPL-3.0-or-later",
+	"docs": "https://docs.urpflanze.org/core",
+	"keywords": [
+		"urpflanze",
+		"creativecoding",
+		"mathart",
+		"typescript"
+	],
 	"author": {
 		"name": "Gennaro Bosone",
 		"email": "gennaro.bs@gmail.com",
 		"url": "https://github.com/genbs"
 	},
+	"homepage": "https://urpflanze.org/core/",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/urpflanze-org/core.git"
 	},
-	"homepage": "https://urpflanze.org/core/",
 	"bugs": {
 		"url": "https://github.com/urpflanze-org/core/issues",
 		"email": "gennaro.bs@gmail.com"
