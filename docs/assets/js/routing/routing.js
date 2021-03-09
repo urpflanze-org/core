@@ -28,26 +28,31 @@ export function goto(page) {
 
 	activateLink(page)
 	if (currentPage !== page) {
-		currentPage = page
 		closeMenu()
 
-		const endpoint = `pages${page.substr(1)}.html`
-
 		if (page.indexOf('ref') >= 0) {
+			currentPage = page
 			loadReference(page.substr(6))
 			onLoadContent()
 		} else if (page.indexOf('#/examples') === 0) {
+			currentPage = page
 			routeExample(page.substr(2)).then(data => {
 				content.innerHTML = data
 				onLoadContent()
 			})
 		} else {
-			fetch(endpoint)
-				.then(reponse => reponse.text())
-				.then(data => {
-					content.innerHTML = data
-					onLoadContent()
+			const endpoint = `pages${page.substr(1)}.html`
+			try {
+				fetch(endpoint).then(response => {
+					if (response.status === 200) {
+						response.text().then(data => {
+							currentPage = page
+							content.innerHTML = data
+							onLoadContent()
+						})
+					}
 				})
+			} catch {}
 		}
 	}
 }
