@@ -16,7 +16,6 @@
 - [Ripetizioni](#ripetizioni)
 	- [Ripetizioni circolari](#ripetizioni-circolari)
 	- [Ripetizioni a matrice](#ripetizioni-a-matrice)
-- [!repetition ring](#)
 - [Gestire le ripetizioni](#gestire-le-ripetizioni)
 	- [Esempi](#esempi)
 	- [Lista di tutte le proprietà](#lista-di-tutte-le-proprietà)
@@ -186,7 +185,7 @@ new Urpflanze.Rect({
 })
 ```
 
-![repetition ring](https://docs.urpflanze.org/core/assets/images/readme/repetition-ring-1.png)
+![](https://docs.urpflanze.org/core/assets/images/readme/repetition-ring-1.png)
 
 Di base le forme verranno ruotate verso il centro, se si vuol evitare quest'effetto bisogna ruotare la vorma inversemente all'angolo corrente della ripetizione.
 
@@ -199,7 +198,7 @@ new Urpflanze.Rect({
 })
 ```
 
-![repetition ring](https://docs.urpflanze.org/core/assets/images/readme/repetition-ring-2.png)
+![](https://docs.urpflanze.org/core/assets/images/readme/repetition-ring-2.png)
 
 ### Ripetizioni a matrice
 
@@ -213,7 +212,7 @@ new Urpflanze.Rect({
 })
 ```
 
-## ![repetition ring](https://docs.urpflanze.org/core/assets/images/readme/repetition-matrix-1.png)
+![](https://docs.urpflanze.org/core/assets/images/readme/repetition-matrix-1.png)
 
 ---
 
@@ -238,7 +237,7 @@ new Urpflanze.Rect({
 })
 ```
 
-![repetition](https://docs.urpflanze.org/core/assets/images/readme/repetition-1.png)
+![](https://docs.urpflanze.org/core/assets/images/readme/repetition-1.png)
 
 ```javascript
 new Urpflanze.Rect({
@@ -252,7 +251,7 @@ new Urpflanze.Rect({
 })
 ```
 
-![repetition](https://docs.urpflanze.org/core/assets/images/readme/repetition-2.png)
+![](https://docs.urpflanze.org/core/assets/images/readme/repetition-2.png)
 
 ### [Lista di tutte le proprietà](https://docs.urpflanze.org/core/#/ref/IShapeBaseSettings)
 
@@ -291,9 +290,9 @@ const final = new Urpflanze.Shape({
 })
 ```
 
-|                                           lines                                            |                                         container                                          |                                           final                                            |
-| :----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: |
-| ![encapsulation](https://docs.urpflanze.org/core/assets/images/readme/encapsulation-1.png) | ![encapsulation](https://docs.urpflanze.org/core/assets/images/readme/encapsulation-2.png) | ![encapsulation](https://docs.urpflanze.org/core/assets/images/readme/encapsulation-3.png) |
+|                                     lines                                     |                                   container                                   |                                     final                                     |
+| :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
+| ![](https://docs.urpflanze.org/core/assets/images/readme/encapsulation-1.png) | ![](https://docs.urpflanze.org/core/assets/images/readme/encapsulation-2.png) | ![](https://docs.urpflanze.org/core/assets/images/readme/encapsulation-3.png) |
 
 ### Group
 
@@ -321,9 +320,9 @@ const shape = new Urpflanze.Shape({
 })
 ```
 
-|                                   group                                    |                                   shape                                    |
-| :------------------------------------------------------------------------: | :------------------------------------------------------------------------: |
-| ![group](https://docs.urpflanze.org/core/assets/images/readme/group-1.png) | ![group](https://docs.urpflanze.org/core/assets/images/readme/group-2.png) |
+|                                 group                                 |                                 shape                                 |
+| :-------------------------------------------------------------------: | :-------------------------------------------------------------------: |
+| ![](https://docs.urpflanze.org/core/assets/images/readme/group-1.png) | ![](https://docs.urpflanze.org/core/assets/images/readme/group-2.png) |
 
 ### Usare le ripetizioni di chi incapsula
 
@@ -350,7 +349,7 @@ const container = new Urpflanze.Shape({
 })
 ```
 
-![parent repetition](https://docs.urpflanze.org/core/assets/images/readme/parent-rep-1.png)
+![](https://docs.urpflanze.org/core/assets/images/readme/parent-rep-1.png)
 
 ---
 
@@ -372,7 +371,7 @@ const container = new Urpflanze.ShapeRecursive({
 })
 ```
 
-![recursion](https://docs.urpflanze.org/core/assets/images/readme/recursion-1.png)
+![](https://docs.urpflanze.org/core/assets/images/readme/recursion-1.png)
 
 ---
 
