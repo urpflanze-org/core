@@ -342,7 +342,7 @@ const rect = new Urpflanze.Rect({
 	},
 })
 
-const continer = new Urpflanze.Shape({
+const container = new Urpflanze.Shape({
 	shape: rect,
 	repetitions: [5],
 	distance: 50,
@@ -355,6 +355,24 @@ const continer = new Urpflanze.Shape({
 ---
 
 ## Ricorsione
+
+Un'altra possibilità è utilizzare la `ShapeRecursive` per ripetere qualsiasi `Shape` su ogni suo punto.
+
+```javascript
+const rect = new Urpflanze.Rect({
+	// bUseRecursion: true,
+	// [prop]: ({ recursion }) => ...
+	sideLength: 50,
+})
+
+const container = new Urpflanze.ShapeRecursive({
+	shape: rect,
+	recursionScale: 2,
+	recursions: 4,
+})
+```
+
+![recursion](https://docs.urpflanze.org/core/assets/images/readme/recursion-1.png)
 
 ---
 
