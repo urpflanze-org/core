@@ -1,27 +1,10 @@
 <p><img height="60" src="https://raw.githubusercontent.com/urpflanze-org/core/master/docs/assets/images/logo-for-github.svg"></p>
-<h2 id="sinossi">Sinossi</h2>
-<p>Questo pacchetto è il <strong>core</strong> utilizzato dalla libreria javascript <a href="https://github.com/urpflanze-org/urpflanze">Urpflanze</a> per la generazione della scena.
-Si occupa di creare forme bidimensionali, ripeterle, manipolarle punto per punto ed incapsularle.
-Puoi utilizzarlo nel browser o in node.</p>
-<h2 id="motivazioni">Motivazioni</h2>
-<p>La creazione di questa libreria nasce dall'esigenze di creare delle API semplici per
-gestire le ripetizione di forme primitive e la possibilità di applicare trasformazioni ad ognuna di esse, applicando trasformazioni sui punti evitando di usare le trasformazioni di canvas.</p>
-<p>Un'altra esigenza - che poi è diventata una delle feature principali - era quella di poter incapsulare il risultato di una generazione e gestirla come se fosse una nuova forma.</p>
-<h2 id="donate">Donate</h2>
-<p>Sto cercando di creare uno strumento per chi vuole avvicinarsi al mondo della programmazione
-o per i programmatori che vogliono avvicinarsi al mondo del coding creativo.</p>
-<p>Ho dedicato molto tempo e ne dedicherò altro per supportare questo progetto.
-Ho in mente anche un <a href="https://github.com/urpflanze-org/editor">editor</a> web (open-source) dove si potranno utilizzare le features di questa libreria nel browser. <a href="https://editor.urpflanze.org">Puoi vedere qui un'anteprima</a></p>
-<p><a href="https://www.paypal.me/genbs"><img src="https://img.shields.io/badge/donate-paypal-003087.svg?logo=paypal" alt="" /></a>
-<a href="https://ko-fi.com/urpflanze"><img src="https://img.shields.io/badge/donate-ko--fi-29abe0.svg?logo=ko-fi" alt="" /></a></p>
-<p><img src="https://img.shields.io/badge/bitcoin-1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq-f7931a.svg?logo=bitcoin" alt="" />
-<img src="https://img.shields.io/badge/ethereum-0x9086c4bb7015c1d6dc79162d02e7e1239c982c01-ecf0f1.svg?logo=ethereum" alt="" /></p>
 <h2 id="menu">Menu</h2>
 <ul>
+<li><a href="#menu">Menu</a></li>
 <li><a href="#sinossi">Sinossi</a></li>
 <li><a href="#motivazioni">Motivazioni</a></li>
 <li><a href="#donate">Donate</a></li>
-<li><a href="#menu">Menu</a></li>
 <li><a href="#installazione">Installazione</a></li>
 <li><a href="#creazione-di-una-forma">Creazione di una forma</a><ul>
 <li><a href="#shapebuffer">ShapeBuffer</a></li>
@@ -42,6 +25,23 @@ Ho in mente anche un <a href="https://github.com/urpflanze-org/editor">editor</a
 <li><a href="#ricorsione">Ricorsione</a></li>
 <li><a href="#la-scena">La Scena</a></li>
 </ul>
+<h2 id="sinossi">Sinossi</h2>
+<p>Questo pacchetto è il <strong>core</strong> utilizzato dalla libreria javascript <a href="https://github.com/urpflanze-org/urpflanze">Urpflanze</a> per la generazione della scena.
+Si occupa di creare forme bidimensionali, ripeterle, manipolarle punto per punto ed incapsularle.
+Puoi utilizzarlo nel browser o in node.</p>
+<h2 id="motivazioni">Motivazioni</h2>
+<p>La creazione di questa libreria nasce dall'esigenze di creare delle API semplici per
+gestire le ripetizione di forme primitive e la possibilità di applicare trasformazioni ad ognuna di esse, applicando trasformazioni sui punti evitando di usare le trasformazioni di canvas.</p>
+<p>Un'altra esigenza - che poi è diventata una delle feature principali - era quella di poter incapsulare il risultato di una generazione e gestirla come se fosse una nuova forma.</p>
+<h2 id="donate">Donate</h2>
+<p>Sto cercando di creare uno strumento per chi vuole avvicinarsi al mondo della programmazione
+o per i programmatori che vogliono avvicinarsi al mondo del coding creativo.</p>
+<p>Ho dedicato molto tempo e ne dedicherò altro per supportare questo progetto.
+Ho in mente anche un <a href="https://github.com/urpflanze-org/editor">editor</a> web (open-source) dove si potranno utilizzare le features di questa libreria nel browser. <a href="https://editor.urpflanze.org">Puoi vedere qui un'anteprima</a></p>
+<p><a href="https://www.paypal.me/genbs"><img src="https://img.shields.io/badge/donate-paypal-003087.svg?logo=paypal" alt="" /></a>
+<a href="https://ko-fi.com/urpflanze"><img src="https://img.shields.io/badge/donate-ko--fi-29abe0.svg?logo=ko-fi" alt="" /></a></p>
+<p><img src="https://img.shields.io/badge/bitcoin-1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq-f7931a.svg?logo=bitcoin" alt="" />
+<img src="https://img.shields.io/badge/ethereum-0x9086c4bb7015c1d6dc79162d02e7e1239c982c01-ecf0f1.svg?logo=ethereum" alt="" /></p>
 <h2 id="installazione">Installazione</h2>
 <p>Puoi installare la libreria con il comando</p>
 <pre class="prettyprint"><code class="bash language-bash">npm i @urpflanze/core --save
