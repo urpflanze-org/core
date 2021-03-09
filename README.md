@@ -2,16 +2,56 @@
 
 ## Sinossi
 
-Questo pacchetto è il core utilizzato dalla libreria javascript Urpflanze per la generazione della scena.
-Si occupa di creare forme bidimensioni, ripeterle, manipolarle e incapsularle.
+Questo pacchetto è il **core** utilizzato dalla libreria javascript [Urpflanze](https://github.com/urpflanze-org/urpflanze) per la generazione della scena.
+Si occupa di creare forme bidimensionali, ripeterle, manipolarle punto per punto ed incapsularle.
 Puoi utilizzarlo nel browser o in node.
 
 ## Motivazioni
 
 La creazione di questa libreria nasce dall'esigenze di creare delle API semplici per
-gestire le ripetizione di forme primitive e la possibilità di applicare trasformazioni ad ognuna di esse.
+gestire le ripetizione di forme primitive e la possibilità di applicare trasformazioni ad ognuna di esse, applicando trasformazioni sui punti evitando di usare le trasformazioni di canvas.
 
 Un'altra esigenza - che poi è diventata una delle feature principali - era quella di poter incapsulare il risultato di una generazione e gestirla come se fosse una nuova forma.
+
+## Donate
+
+Sto cercando di creare uno strumento per chi vuole avvicinarsi al mondo della programmazione
+o per i programmatori che vogliono avvicinarsi al mondo del coding creativo.
+Ho dedicato molto tempo e ne dedicherò altro per supportare questo progetto.
+Ho in mente anche uno editor web (sempre open-source) dove si potranno utilizzare le features di questa libreria nel browser. [Puoi vedere qui un'anteprima](https://editor.urpflanze.org)
+
+[![](https://img.shields.io/badge/donate-paypal-003087.svg?logo=paypal)](https://www.paypal.me/genbs)
+[![](https://img.shields.io/badge/donate-ko--fi-29abe0.svg?logo=ko-fi)](https://ko-fi.com/urpflanze)
+
+![](https://img.shields.io/badge/bitcoin-1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq-f7931a.svg?logo=bitcoin)
+![](https://img.shields.io/badge/ethereum-0x9086c4bb7015c1d6dc79162d02e7e1239c982c01-ecf0f1.svg?logo=ethereum)
+
+## Menu
+
+- [Sinossi](#sinossi)
+- [Motivazioni](#motivazioni)
+- [Donate](#donate)
+- [Menu](#menu)
+- [Installazione](#installazione)
+- [Creazione di una forma](#creazione-di-una-forma)
+	- [ShapeBuffer](#shapebuffer)
+	- [ShapeLoop](#shapeloop)
+- [Forme primitive](#forme-primitive)
+		- [ShapeBuffer](#shapebuffer-1)
+		- [ShapeLoop](#shapeloop-1)
+- [Ripetizioni](#ripetizioni)
+	- [Ripetizioni circolari](#ripetizioni-circolari)
+	- [Ripetizioni a matrice](#ripetizioni-a-matrice)
+- [Gestire le ripetizioni](#gestire-le-ripetizioni)
+	- [Esempi](#esempi)
+	- [Lista di tutte le proprietà](#lista-di-tutte-le-proprietà)
+- [Incapsulamento](#incapsulamento)
+	- [Shape](#shape)
+	- [Group](#group)
+	- [Usare le ripetizioni di chi incapsula](#usare-le-ripetizioni-di-chi-incapsula)
+- [Ricorsione](#ricorsione)
+- [La Scena](#la-scena)
+- [Animazioni](#animazioni)
 
 ## Installazione
 
@@ -44,7 +84,7 @@ const scene = new Scene()
 ### ShapeBuffer
 
 La _ShapeBuffer_ è la forma a cui puoi passare un buffer di punti.
-Essa accetta la proprietà **shape** che è un array di punti [x0, y0, x1, y1, ..., xn, yn].
+Essa accetta la proprietà `shape` che è un array di punti [x0, y0, x1, y1, ..., xn, yn].
 L'Array di punti verrà adattato tra un range di -1 ed 1.
 
 Example:
@@ -106,22 +146,22 @@ In questo pacchetto sono già presenti delle forme di base:
 
 #### ShapeBuffer
 
-[`Line`](docs.urpflanze.org/core/#/ref/Line)
-[`Triangle`](docs.urpflanze.org/core/#/ref/Triangle)
-[`Rect`](docs.urpflanze.org/core/#/ref/Rect)
+[`Line`](https://docs.urpflanze.org/core/#/ref/Line)
+[`Triangle`](https://docs.urpflanze.org/core/#/ref/Triangle)
+[`Rect`](https://docs.urpflanze.org/core/#/ref/Rect)
 
 #### ShapeLoop
 
-[`Polygon`](docs.urpflanze.org/core/#/ref/Polygon)
-[`Circle`](docs.urpflanze.org/core/#/ref/Circle)
-[`Lissajous`](docs.urpflanze.org/core/#/ref/Lissajous)
-[`Spiral`](docs.urpflanze.org/core/#/ref/Spiral)
-[`Rose`](docs.urpflanze.org/core/#/ref/Rose)
-[`SuperShape`](docs.urpflanze.org/core/#/ref/SuperShape)
+[`Polygon`](https://docs.urpflanze.org/core/#/ref/Polygon)
+[`Circle`](https://docs.urpflanze.org/core/#/ref/Circle)
+[`Lissajous`](https://docs.urpflanze.org/core/#/ref/Lissajous)
+[`Spiral`](https://docs.urpflanze.org/core/#/ref/Spiral)
+[`Rose`](https://docs.urpflanze.org/core/#/ref/Rose)
+[`SuperShape`](https://docs.urpflanze.org/core/#/ref/SuperShape)
 
 ## Ripetizioni
 
-Con Urpflanze puoi ripetere le forme in modo circolare o a matrice.
+Con Urpflanze puoi ripetere le forme in modo **circolare** o a **matrice**.
 
 ### Ripetizioni circolari
 
@@ -168,7 +208,7 @@ new Urpflanze.Rect({
 
 Per gestire le ripetizioni possiamo passare alle proprietà una funzione al posto di una costante. Possiamo l'argomento della funzione che è di tipo [ISceneChildPropArguments](https://docs.urpflanze.org/urpflanze/#/ref/ISceneChildPropArguments).
 
-Ogni oggetto che estende una IBaseRepetition contiene le seguenti proprietà:
+Al suo interno troviamo la proprietà `repetition` che - come ogni oggetto che implementa una IBaseRepetition - contiene le seguenti proprietà:
 
 - `index` l'indice corrente, da 1 a count
 - `count` il numero totale di ripetizioni
@@ -189,19 +229,151 @@ new Urpflanze.Rect({
 
 ```javascript
 new Urpflanze.Rect({
-	repetitions: [5],
+	repetitions: [4],
 	sideLength: 25,
 	distance: 50,
 	scale: ({ repetition }) => {
-		return Urpflanze.distanceFromRepetition(repetition, [0, 0])
-	},
+		// [0, 0] is center of repetition, you can set value between [-1, -1] (left - top angle) and [1, 1] (right - bottom angle)
+		return Urpflanze.distanceFromRepetition(repetition, [0, 0]),
+	}
 })
 ```
 
 ![repetition](./docs/assets/images/readme/repetition-2.png)
 
+### [Lista di tutte le proprietà](https://docs.urpflanze.org/core/#/ref/IShapeBaseSettings)
+
 ## Incapsulamento
+
+Per poter incapsulare una forma puoi utilizzare la classe `Shape` a cui puoi passare la proprietà
+`shape` che è una `ShapePrimitive` (ShapeBuffer o ShapeLoop) o un `Group`.
+
+### Shape
+
+```javascript
+const lines = new Urpflanze.Line({
+	repetitions: 20,
+	sideLength: 25,
+	distance: 50,
+})
+
+const container = new Urpflanze.Shape({
+	shape: lines,
+
+	repetitions: [3], // [3, 3]
+	distance: 100,
+	scale: 0.5, // scale all repetitions of lines
+})
+
+const final = new Urpflanze.Shape({
+	shape: container,
+
+	repetitions: 6,
+	distance: 120,
+	scale: 0.4,
+	perspective: 0.99,
+	rotateY: Urpflanze.toRadians(60),
+})
+```
+
+|                               lines                               |                             container                             |                               final                               |
+| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
+| ![encapsulation](./docs/assets/images/readme/encapsulation-1.png) | ![encapsulation](./docs/assets/images/readme/encapsulation-2.png) | ![encapsulation](./docs/assets/images/readme/encapsulation-3.png) |
+
+### Group
+
+```javascript
+const group = new Urpflanze.Group({
+	repetitions: 4,
+	sideLength: 15,
+	distance: 25,
+	rotateZ: Urpflanze.toRadians(45),
+})
+
+group.add(
+	new Urpflanze.Circle(),
+	new Urpflanze.Rect(),
+	new Urpflanze.Line({
+		rotateZ: 0,
+	})
+)
+
+const shape = new Urpflanze.Shape({
+	shape: group,
+	repetitions: 8,
+	distance: 100,
+	rotateZ: ({ repetition }) => -repetition.angle,
+})
+```
+
+|                       group                       |                       shape                       |
+| :-----------------------------------------------: | :-----------------------------------------------: |
+| ![group](./docs/assets/images/readme/group-1.png) | ![group](./docs/assets/images/readme/group-2.png) |
+
+### Usare le ripetizioni di chi incapsula
+
+Puoi utilizzare l'oggetto `repetition` di chi incapsula una forma settando la proprietà `bUseParent`.
+Questo parametro è opzionale poiché verrà generatoro un nuovo buffer di punti ad ogni ripetizione di chi incapsula.
+
+```javascript
+const rect = new Urpflanze.Rect({
+	bUseParent: true, // <--
+
+	repetitions: [5],
+	sideLength: 10,
+	distance: 20,
+	scale: ({ repetition, parent }) => {
+		return repetition.offset * parent.repetition.offset
+	},
+})
+
+const continer = new Urpflanze.Shape({
+	shape: rect,
+	repetitions: [5],
+	distance: 50,
+	scale: 0.4,
+})
+```
+
+![parent repetition](./docs/assets/images/readme/parent-rep-1.png)
 
 ## Ricorsione
 
-## Aggiunta alla scena e Animazioni
+## La Scena
+
+Puoi utilizzare le forme in modo indipendente oppure puoi aggiungerle ad una scene.
+Quando una forma viene aggiunta alla scene verraà disposta al centro di essa, aggiungendo un offset a tutti i punti.
+
+_Utilizzo senza la scena:_
+
+```javascript
+const rect = new Urpflanze.Rect({ sideLength: 25 })
+rect.generate()
+console.log(rect.getBounding())
+
+// Output:
+//
+// { cx: 0, cy: 0, x: -25, y: -25, width: 50, height: 50 }
+// # left, top point: (-25, -25) | right, bottom point: (25, 25)
+```
+
+_Aggiunta alla scena:_
+
+```javascript
+const scene = new Urpflanze.Scene({ width: 100, height: 100 })
+const rect = new Urpflanze.Rect({ sideLength: 25 })
+scene.add(rect)
+scene.update()
+console.log(rect.getBounding())
+
+// Output:
+//
+// {
+//	cx: 50, cy: 50, 	  # Center of scene
+//	x: 25, y: 25,  		  # Center of scene - sideLength
+//	width: 50, height: 50 # sideLength * 2
+// }
+// # left, top point: (25, 25) | right, bottom point: (75, 75)
+```
+
+## Animazioni
