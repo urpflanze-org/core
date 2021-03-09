@@ -262,7 +262,7 @@ Questo parametro è opzionale poiché verrà generatoro un nuovo buffer di punti
     },
 })
 
-const continer = new Urpflanze.Shape({
+const container = new Urpflanze.Shape({
     shape: rect,
     repetitions: [5],
     distance: 50,
@@ -272,6 +272,20 @@ const continer = new Urpflanze.Shape({
 <p><img src="https://docs.urpflanze.org/core/assets/images/readme/parent-rep-1.png" alt="parent repetition" /></p>
 <hr />
 <h2 id="ricorsione">Ricorsione</h2>
+<p>Un'altra possibilità è utilizzare la <code>ShapeRecursive</code> per ripetere qualsiasi <code>Shape</code> su ogni suo punto.</p>
+<pre class="prettyprint"><code class="javascript language-javascript">const rect = new Urpflanze.Rect({
+    // bUseRecursion: true,
+    // [prop]: ({ recursion }) =&gt; ...
+    sideLength: 50,
+})
+
+const container = new Urpflanze.ShapeRecursive({
+    shape: rect,
+    recursionScale: 2,
+    recursions: 4,
+})
+</code></pre>
+<p><img src="https://docs.urpflanze.org/core/assets/images/readme/recursion-1.png" alt="recursion" /></p>
 <hr />
 <h2 id="lascena">La Scena</h2>
 <p>Puoi utilizzare le forme in modo indipendente oppure puoi aggiungerle ad una scene.
