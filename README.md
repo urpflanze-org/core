@@ -457,6 +457,43 @@ console.log(rect.getBounding())
 // # left, top point: (25, 25) | right, bottom point: (75, 75)
 ```
 
+### Simple Drawer
+
+```javascript
+
+// scene.add(...)
+
+const time = Date.now()
+
+scene.currentTime = time
+const sceneChilds = scene.getChildren()
+for(let i = 0, len = sceneChilds.length; i < len; i++) {
+	sceneChilds[i].generate(time, true)
+
+	// Buffer of indexing (https://docs.urpflanze.org/core/#/ref/IBufferIndex)
+	const childIndexedBuffer = sceneChilds[i].getIndexedBuffer()
+
+	const childBuffer = sceneChilds[i].getBuffer()
+
+	for (let currentBufferIndex = 0, currentBufferIndex < childIndexedBuffer.length; currentBufferIndex++) {
+		const currentIndexing = childIndexedBuffer[currentBufferIndex]
+		let vertexIndex = currentIndexing.frameBufferIndex
+
+		beginPath()
+		moveTo(childBuffer[vertexIndex], childBuffer[vertexIndex + 1])
+
+		vertexIndex += 2
+		for (; vertexIndex < currentIndexing.frameLength; vertexIndex += 2)
+			lineTo(childBuffer[vertexIndex], childBuffer[vertexIndex + 1])
+
+		if (currentIndexing.shape.isClosed())
+			closePath()
+
+		fillOrStrokePath()
+	}
+}
+```
+
 # Examples
 
 Draw point in a console (using [this package](https://github.com/madbence/node-drawille))
