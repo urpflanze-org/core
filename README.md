@@ -431,4 +431,4 @@ Draw point in a console (used [this package](https://github.com/madbence/node-dr
 
 Pen plotter
 
-![](https://docs.urpflanze.org/core/assets/images/readme/penplotter.jpeg)
+![](https://docs.urpflanze.org/core/assets/images/readme/plotter.jpeg)
