@@ -461,6 +461,8 @@ console.log(rect.getBounding())
 
 When you call the `generate()` method on a shape a buffer of type Array<[IBufferIndex](https://docs.urpflanze.org/core/#/ref/IBufferIndex)> is created containing the information on the current repetition of shape and the reference index of the total buffer (`getBuffer()`)
 
+if repetitions are statica (and ShapeLoop has static loop) the IndexedBuffer will only generate once.
+
 ![](https://docs.urpflanze.org/core/assets/images/buffers.svg)
 
 ```javascript
@@ -472,6 +474,7 @@ const time = Date.now()
 scene.currentTime = time
 const sceneChilds = scene.getChildren()
 for(let i = 0, len = sceneChilds.length; i < len; i++) {
+	// Generate Buffer and IndexedBuffer
 	sceneChilds[i].generate(time, true)
 
 	// Buffer of indexing (https://docs.urpflanze.org/core/#/ref/IBufferIndex)
