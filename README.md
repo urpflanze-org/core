@@ -1,33 +1,5 @@
 <img height="60" src="https://raw.githubusercontent.com/urpflanze-org/core/master/docs/assets/images/logo-for-github.svg">
 
-## Menu
-
-- [Menu](#menu)
-- [Synopsis](#synopsis)
-- [Motivations](#motivations)
-- [Donate](#donate)
-- [Installation](#installation)
-- [Creating a shape](#creating-a-shape)
-  - [ShapeBuffer](#shapebuffer)
-  - [ShapeLoop](#shapeloop)
-- [Primitive shapes](#primitive-shapes)
-  - [ShapeBuffer](#shapebuffer-1)
-  - [ShapeLoop](#shapeloop-1)
-- [Repetitions](#repetitions)
-  - [Ring repetitions](#ring-repetitions)
-  - [Matrix repetitions](#matrix-repetitions)
-- [Manage repetitions](#manage-repetitions)
-  - [Examples](#examples)
-  - [List of properties](#list-of-properties)
-- [Encapsulation](#encapsulation)
-  - [Shape](#shape)
-  - [Group](#group)
-  - [Using repetition property of the encapsulator](#using-repetition-property-of-the-encapsulator)
-- [Recursion](#recursion)
-- [Scene](#scene)
-
----
-
 ## Synopsis
 
 This package is the core used by the [Urpflanze](https://github.com/urpflanze-org/urpflanze) javascript library to generate the scene.
@@ -58,6 +30,33 @@ You can see a preview [here](https://editor.urpflanze.org)
 
 [![](https://img.shields.io/badge/bitcoin-1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq-f7931a.svg?logo=bitcoin)](https://explorer.btc.com/btc/address/1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq)
 [![](https://img.shields.io/badge/ethereum-0x9086c4bb7015c1d6dc79162d02e7e1239c982c01-ecf0f1.svg?logo=ethereum)](https://etherscan.io/address/0x9086c4bb7015c1d6dc79162d02e7e1239c982c01)
+
+---
+
+## Menu
+
+- [Installation](#installation)
+- [Creating a shape](#creating-a-shape)
+  - [ShapeBuffer](#shapebuffer)
+  - [ShapeLoop](#shapeloop)
+- [Primitive shapes](#primitive-shapes)
+  - [ShapeBuffer](#shapebuffer-1)
+  - [ShapeLoop](#shapeloop-1)
+- [Repetitions](#repetitions)
+  - [Ring repetitions](#ring-repetitions)
+  - [Matrix repetitions](#matrix-repetitions)
+- [Manage repetitions](#manage-repetitions)
+  - [Repetitions examples](#repetitions-examples)
+  - [List of properties](#list-of-properties)
+- [Encapsulation](#encapsulation)
+  - [Shape](#shape)
+  - [Group](#group)
+  - [Using repetition property of the encapsulator](#using-repetition-property-of-the-encapsulator)
+- [Recursion](#recursion)
+- [Vertex Callback](#vertex-callback)
+- [Scene](#scene)
+  - [Simple Drawer](#simple-drawer)
+- [Examples](#examples)
 
 ---
 
@@ -234,7 +233,7 @@ Inside it we find the `repetition` property which - like any object that impleme
 
 For matrix repetitions you can also use `repetition.row` and` repetition.col` also of type [IBaseRepetition](https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition)
 
-### Examples
+### Repetitions examples
 
 ```javascript
 new Urpflanze.Rect({
