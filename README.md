@@ -50,7 +50,8 @@ or for programmers who want to approach the world of creative coding.
 
 I have spent a lot of time and will spend more to support this project.
 I also have in mind a web [editor](https://github.com/urpflanze-org/editor) (open-source) where you can use the features of this library in the browser.
-[Puoi vedere qui un'anteprima](https://editor.urpflanze.org)
+
+You can see a preview [here](https://editor.urpflanze.org)
 
 [![](https://img.shields.io/badge/donate-paypal-003087.svg?logo=paypal)](https://www.paypal.me/genbs)
 [![](https://img.shields.io/badge/donate-ko--fi-29abe0.svg?logo=ko-fi)](https://ko-fi.com/urpflanze)
@@ -227,11 +228,11 @@ The argument of the function which is of type [ISceneChildPropArguments](https:/
 
 Inside it we find the `repetition` property which - like any object that implements a [IBaseRepetition](https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition) - contains the following properties:
 
-- `index` the current index, from 1 to count
+- `index` the current index, from 1 to _count_
 - `count` the total number of repetitions
 - `offset` an index ranging from 0 to 1 which does not depend on the number of repetitions. For example, if the number of repetitions is 3, the offset value will be 0 - 0.5 - 1
 
-For matrix repeats you can also use `repetition.row` and` repetition.col` also of type IBaseRepetition
+For matrix repetitions you can also use `repetition.row` and` repetition.col` also of type [IBaseRepetition](https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition)
 
 ### Examples
 
@@ -402,7 +403,7 @@ console.log(rect.getBounding())
 // # left, top point: (-25, -25) | right, bottom point: (25, 25)
 ```
 
-_Aggiunta alla scena:_
+_Using the scene:_
 
 ```javascript
 const scene = new Urpflanze.Scene({ width: 100, height: 100 })
@@ -420,3 +421,14 @@ console.log(rect.getBounding())
 // }
 // # left, top point: (25, 25) | right, bottom point: (75, 75)
 ```
+
+# Examples
+
+Draw point in a console (used [this package](https://github.com/madbence/node-drawille))
+
+![](https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif)
+![](https://docs.urpflanze.org/core/assets/images/readme/terminal-2.gif)
+
+Pen plotter
+
+![](https://docs.urpflanze.org/core/assets/images/readme/penplotter.jpeg)
