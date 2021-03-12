@@ -424,7 +424,7 @@ console.log(rect.getBounding())
 
 # Examples
 
-Draw point in a console (used [this package](https://github.com/madbence/node-drawille))
+Draw point in a console (using [this package](https://github.com/madbence/node-drawille))
 
 ![](https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif)
 
