@@ -392,7 +392,7 @@ The vertexCallback property is a function that is called at each point of the sh
 The function takes 3 arguments:
 
 - `vertex`: [number, number] current vertex
-- `vertexRepetition`: [IBaseRepetition](https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition) for the vertices of the current repeat
+- `vertexRepetition`: [IBaseRepetition](https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition) for the vertices of the current repetition
 - `propArguments`: [ISceneChildPropArguments](https://docs.urpflanze.org/urpflanze/#/ref/ISceneChildPropArguments)
 
 ```javascript
