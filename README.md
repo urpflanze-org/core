@@ -459,8 +459,7 @@ console.log(rect.getBounding())
 
 ### Simple Drawer
 
-When you call the `generate()` method on a shape a buffer of type Array<[IBufferIndex](https://docs.urpflanze.org/core/#/ref/IBufferIndex)> is created containing the information on the current repetition of shape and the reference index of the total buffer (`getBuffer()`)
-
+> When you call the `generate()` method on a shape a buffer of type Array<[IBufferIndex](https://docs.urpflanze.org/core/#/ref/IBufferIndex)> is created containing the information on the current repetition of shape and the reference index of the total buffer (`getBuffer()`)
 > ![](https://docs.urpflanze.org/core/assets/images/buffers.svg)
 
 ```javascript
