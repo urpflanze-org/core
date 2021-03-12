@@ -427,6 +427,7 @@ console.log(rect.getBounding())
 Draw point in a console (used [this package](https://github.com/madbence/node-drawille))
 
 ![](https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif)
+
 ![](https://docs.urpflanze.org/core/assets/images/readme/terminal-2.gif)
 
 Pen plotter
