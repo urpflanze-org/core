@@ -1,31 +1,4 @@
 <p><img height="60" src="https://raw.githubusercontent.com/urpflanze-org/core/master/docs/assets/images/logo-for-github.svg"></p>
-<h2 id="menu">Menu</h2>
-<ul>
-<li><a href="#menu">Menu</a></li>
-<li><a href="#synopsis">Synopsis</a></li>
-<li><a href="#motivations">Motivations</a></li>
-<li><a href="#donate">Donate</a></li>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#creating-a-shape">Creating a shape</a></li>
-<li><a href="#shapebuffer">ShapeBuffer</a></li>
-<li><a href="#shapeloop">ShapeLoop</a></li>
-<li><a href="#primitive-shapes">Primitive shapes</a></li>
-<li><a href="#shapebuffer-1">ShapeBuffer</a></li>
-<li><a href="#shapeloop-1">ShapeLoop</a></li>
-<li><a href="#repetitions">Repetitions</a></li>
-<li><a href="#ring-repetitions">Ring repetitions</a></li>
-<li><a href="#matrix-repetitions">Matrix repetitions</a></li>
-<li><a href="#manage-repetitions">Manage repetitions</a></li>
-<li><a href="#examples">Examples</a></li>
-<li><a href="#list-of-properties">List of properties</a></li>
-<li><a href="#encapsulation">Encapsulation</a></li>
-<li><a href="#shape">Shape</a></li>
-<li><a href="#group">Group</a></li>
-<li><a href="#using-repetition-property-of-the-encapsulator">Using repetition property of the encapsulator</a></li>
-<li><a href="#recursion">Recursion</a></li>
-<li><a href="#scene">Scene</a></li>
-</ul>
-<hr />
 <h2 id="synopsis">Synopsis</h2>
 <p>This package is the core used by the <a href="https://github.com/urpflanze-org/urpflanze">Urpflanze</a> javascript library to generate the scene.</p>
 <p>It deals with creating two-dimensional shapes, repeating them, manipulating them point by point and encapsulating them.</p>
@@ -44,6 +17,32 @@ I also have in mind a <strong><a href="https://github.com/urpflanze-org/editor">
 <a href="https://ko-fi.com/urpflanze"><img src="https://img.shields.io/badge/donate-ko--fi-29abe0.svg?logo=ko-fi" alt="" /></a></p>
 <p><a href="https://explorer.btc.com/btc/address/1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq"><img src="https://img.shields.io/badge/bitcoin-1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq-f7931a.svg?logo=bitcoin" alt="" /></a>
 <a href="https://etherscan.io/address/0x9086c4bb7015c1d6dc79162d02e7e1239c982c01"><img src="https://img.shields.io/badge/ethereum-0x9086c4bb7015c1d6dc79162d02e7e1239c982c01-ecf0f1.svg?logo=ethereum" alt="" /></a></p>
+<hr />
+<h2 id="menu">Menu</h2>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#creating-a-shape">Creating a shape</a></li>
+<li><a href="#shapebuffer">ShapeBuffer</a></li>
+<li><a href="#shapeloop">ShapeLoop</a></li>
+<li><a href="#primitive-shapes">Primitive shapes</a></li>
+<li><a href="#shapebuffer-1">ShapeBuffer</a></li>
+<li><a href="#shapeloop-1">ShapeLoop</a></li>
+<li><a href="#repetitions">Repetitions</a></li>
+<li><a href="#ring-repetitions">Ring repetitions</a></li>
+<li><a href="#matrix-repetitions">Matrix repetitions</a></li>
+<li><a href="#manage-repetitions">Manage repetitions</a></li>
+<li><a href="#repetitions-examples">Repetitions examples</a></li>
+<li><a href="#list-of-properties">List of properties</a></li>
+<li><a href="#encapsulation">Encapsulation</a></li>
+<li><a href="#shape">Shape</a></li>
+<li><a href="#group">Group</a></li>
+<li><a href="#using-repetition-property-of-the-encapsulator">Using repetition property of the encapsulator</a></li>
+<li><a href="#recursion">Recursion</a></li>
+<li><a href="#vertex-callback">Vertex Callback</a></li>
+<li><a href="#scene">Scene</a></li>
+<li><a href="#simple-drawer">Simple Drawer</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
 <hr />
 <h2 id="installation">Installation</h2>
 <p>You can install the library with the command:</p>
@@ -170,7 +169,7 @@ console.log(circle.getBuffer().length)
 <li><code>offset</code> an index ranging from 0 to 1 which does not depend on the number of repetitions. For example, if the number of repetitions is 3, the offset value will be 0 - 0.5 - 1</li>
 </ul>
 <p>For matrix repetitions you can also use <code>repetition.row</code> and<code>repetition.col</code> also of type <a href="https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition">IBaseRepetition</a></p>
-<h3 id="examples">Examples</h3>
+<h3 id="repetitionsexamples">Repetitions examples</h3>
 <pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
     repetitions: 8,
     sideLength: 25,
@@ -385,7 +384,7 @@ for(let i = 0, len = sceneChilds.length; i &lt; len; i++) {
     }
 }
 </code></pre>
-<h1 id="examples-1">Examples</h1>
+<h1 id="examples">Examples</h1>
 <p>Draw point in a console (using <a href="https://github.com/madbence/node-drawille">this package</a>)</p>
 <p>|                                                                          |                                                                          |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
