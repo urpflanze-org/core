@@ -425,7 +425,7 @@ rects.subdivide(5)
 You can use the shapes independently or you can add them to a scene.
 When a shape is added to the scene it will be arranged in the center of it, adding an offset to all points.
 
-_Use without the scene: _
+_Use without the scene:_
 
 ```javascript
 const rect = new Urpflanze.Rect({ sideLength: 25 })
