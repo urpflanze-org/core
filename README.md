@@ -365,7 +365,7 @@ const container = new Urpflanze.Shape({
 
 Another possibility is to use the `ShapeRecursive` to repeat any` Shape` on each of its points.
 
-You can use the `recursion` property of type [IRecursionRepetition] (https://docs.urpflanze.org/core/#/ref/IRecursionRepetition)
+You can use the `recursion` property of type [IRecursionRepetition](https://docs.urpflanze.org/core/#/ref/IRecursionRepetition)
 
 ```javascript
 const rect = new Urpflanze.Rect({
