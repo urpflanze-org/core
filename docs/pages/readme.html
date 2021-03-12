@@ -289,6 +289,36 @@ const container = new Urpflanze.ShapeRecursive({
 </code></pre>
 <p><img src="https://docs.urpflanze.org/core/assets/images/readme/recursion-1.png" alt="" /></p>
 <hr />
+<h2 id="vertexcallback">Vertex Callback</h2>
+<p>The vertexCallback property is a function that is called at each point of the shape of each repetition.</p>
+<p>The function takes 3 arguments:</p>
+<ul>
+<li><code>vertex</code>: [number, number] current vertex</li>
+<li><code>vertexRepetition</code>: <a href="https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition">IBaseRepetition</a> for the vertices of the current repeat</li>
+<li><code>propArguments</code>: <a href="https://docs.urpflanze.org/urpflanze/#/ref/ISceneChildPropArguments">ISceneChildPropArguments</a></li>
+</ul>
+<pre class="prettyprint"><code class="javascript language-javascript">const rects = new Urpflanze.Rect({
+    repetitions: [10, 1],
+    sideLength: 100,
+    scale: propArguments =&gt; propArguments.repetition.row.offset * 0.9 + 0.1,
+
+    vertexCallback: (vertex, vertexRepetition, propArguments) =&gt; {
+        const angle = vertexRepetition.offset * Urpflanze.PI2
+
+        const x = Math.cos(angle)
+        const y = Math.sin(angle)
+
+        const offset = propArguments.repetition.row.offset ** 2 * 20
+        const noise = Urpflanze.noise('seed', angle * 2) * offset
+
+        vertex[0] += x * noise
+        vertex[1] += y * noise
+    },
+})
+
+rects.subdivide(5)
+</code></pre>
+<p><img src="https://docs.urpflanze.org/core/assets/images/readme/vertexcallback-1.png" alt="" /></p>
 <h2 id="scene">Scene</h2>
 <p>You can use the shapes independently or you can add them to a scene.
 When a shape is added to the scene it will be arranged in the center of it, adding an offset to all points.</p>
