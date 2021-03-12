@@ -5227,6 +5227,16 @@
 				"order": 3
 			},
 			{
+				"name": "level",
+				"description": "Level (depth) of recursion",
+				"type": {
+					"type": "reference",
+					"id": 2384,
+					"name": "IBaseRepetition"
+				},
+				"order": 4
+			},
+			{
 				"name": "parent",
 				"description": "parent recursion",
 				"type": {
@@ -5234,17 +5244,8 @@
 					"id": 2393,
 					"name": "IRecursionRepetition"
 				},
-				"order": 4,
+				"order": 5,
 				"bOptional": true
-			},
-			{
-				"name": "level",
-				"type": {
-					"type": "reference",
-					"id": 2384,
-					"name": "IBaseRepetition"
-				},
-				"order": 9999
 			}
 		],
 		"category": "Core.Repetition"
@@ -5255,7 +5256,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 86,
+			"line": 90,
 			"character": 28
 		},
 		"extends": [
@@ -6411,7 +6412,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 302,
+			"line": 306,
 			"character": 41
 		},
 		"description": "Object argument for sceneChild props",
@@ -6480,7 +6481,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 118,
+			"line": 122,
 			"character": 33
 		},
 		"description": "Props interface.\nRemember: any size refere to dimension of a scene.",
@@ -6857,7 +6858,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 265,
+			"line": 269,
 			"character": 36
 		},
 		"extends": [
@@ -13545,7 +13546,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 341,
+			"line": 345,
 			"character": 33
 		},
 		"description": "Object passed to the drawer where it is possible to draw the current frame\nstarting from frameBufferIndex up to frameBuffeIndex + frameLength,\nthe fill or strtoke color of the frame is also present",
@@ -14818,7 +14819,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 332,
+			"line": 336,
 			"character": 27
 		},
 		"description": "Value or callable",
@@ -17430,6 +17431,16 @@
 				"order": 3
 			},
 			{
+				"name": "level",
+				"description": "Level (depth) of recursion",
+				"type": {
+					"type": "reference",
+					"id": 2384,
+					"name": "IBaseRepetition"
+				},
+				"order": 4
+			},
+			{
 				"name": "parent",
 				"description": "parent recursion",
 				"type": {
@@ -17437,17 +17448,8 @@
 					"id": 2393,
 					"name": "IRecursionRepetition"
 				},
-				"order": 4,
+				"order": 5,
 				"bOptional": true
-			},
-			{
-				"name": "level",
-				"type": {
-					"type": "reference",
-					"id": 2384,
-					"name": "IBaseRepetition"
-				},
-				"order": 9999
 			}
 		],
 		"category": "Core.Repetition"
@@ -17458,7 +17460,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 86,
+			"line": 90,
 			"character": 28
 		},
 		"extends": [
@@ -17541,7 +17543,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 302,
+			"line": 306,
 			"character": 41
 		},
 		"description": "Object argument for sceneChild props",
@@ -17610,7 +17612,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 118,
+			"line": 122,
 			"character": 33
 		},
 		"description": "Props interface.\nRemember: any size refere to dimension of a scene.",
@@ -17987,7 +17989,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 265,
+			"line": 269,
 			"character": 36
 		},
 		"extends": [
@@ -18479,7 +18481,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 341,
+			"line": 345,
 			"character": 33
 		},
 		"description": "Object passed to the drawer where it is possible to draw the current frame\nstarting from frameBufferIndex up to frameBuffeIndex + frameLength,\nthe fill or strtoke color of the frame is also present",
@@ -18544,7 +18546,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
-			"line": 332,
+			"line": 336,
 			"character": 27
 		},
 		"description": "Value or callable",
