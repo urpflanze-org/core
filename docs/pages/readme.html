@@ -348,9 +348,43 @@ console.log(rect.getBounding())
 // }
 // # left, top point: (25, 25) | right, bottom point: (75, 75)
 </code></pre>
+<h3 id="simpledrawer">Simple Drawer</h3>
+<pre class="prettyprint"><code class="javascript language-javascript">// scene.add(...)
+
+const time = Date.now()
+
+scene.currentTime = time
+const sceneChilds = scene.getChildren()
+for(let i = 0, len = sceneChilds.length; i &lt; len; i++) {
+    sceneChilds[i].generate(time, true)
+
+    // Buffer of indexing (https://docs.urpflanze.org/core/#/ref/IBufferIndex)
+    const childIndexedBuffer = sceneChilds[i].getIndexedBuffer()
+
+    const childBuffer = sceneChilds[i].getBuffer()
+
+    for (let currentBufferIndex = 0, currentBufferIndex &lt; childIndexedBuffer.length; currentBufferIndex++) {
+        const currentIndexing = childIndexedBuffer[currentBufferIndex]
+        let vertexIndex = currentIndexing.frameBufferIndex
+
+        beginPath()
+        moveTo(childBuffer[vertexIndex], childBuffer[vertexIndex + 1])
+
+        vertexIndex += 2
+        for (; vertexIndex &lt; currentIndexing.frameLength; vertexIndex += 2)
+            lineTo(childBuffer[vertexIndex], childBuffer[vertexIndex + 1])
+
+        if (currentIndexing.shape.isClosed())
+            closePath()
+
+        fillOrStrokePath()
+    }
+}
+</code></pre>
 <h1 id="examples-1">Examples</h1>
 <p>Draw point in a console (using <a href="https://github.com/madbence/node-drawille">this package</a>)</p>
-<p><img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif" alt="" /></p>
-<p><img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-2.gif" alt="" /></p>
+<p>|                                                                          |                                                                          |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| <img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-2.gif" alt="" /> |</p>
 <p>Pen plotter</p>
 <p><img src="https://docs.urpflanze.org/core/assets/images/readme/plotter.jpeg" alt="" /></p>
