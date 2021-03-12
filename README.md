@@ -498,9 +498,9 @@ for(let i = 0, len = sceneChilds.length; i < len; i++) {
 
 Draw point in a console (using [this package](https://github.com/madbence/node-drawille))
 
-![](https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif)
-
-![](https://docs.urpflanze.org/core/assets/images/readme/terminal-2.gif)
+|                                                                          |                                                                          |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| ![](https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif) | ![](https://docs.urpflanze.org/core/assets/images/readme/terminal-2.gif) |
 
 Pen plotter
 
