@@ -325,8 +325,8 @@ When a shape is added to the scene it will be arranged in the center of it, addi
 <p><em>Use without the scene:</em></p>
 <pre class="prettyprint"><code class="javascript language-javascript">const rect = new Urpflanze.Rect({ sideLength: 25 })
 rect.generate()
-console.log(rect.getBounding())
 
+console.log(rect.getBounding())
 // Output:
 //
 // { cx: 0, cy: 0, x: -25, y: -25, width: 50, height: 50 }
@@ -337,8 +337,8 @@ console.log(rect.getBounding())
 const rect = new Urpflanze.Rect({ sideLength: 25 })
 scene.add(rect)
 scene.update()
-console.log(rect.getBounding())
 
+console.log(rect.getBounding())
 // Output:
 //
 // {
@@ -349,6 +349,10 @@ console.log(rect.getBounding())
 // # left, top point: (25, 25) | right, bottom point: (75, 75)
 </code></pre>
 <h3 id="simpledrawer">Simple Drawer</h3>
+<p>When you call the <code>generate()</code> method on a shape a buffer of type Array<<a href="https://docs.urpflanze.org/core/#/ref/IBufferIndex">IBufferIndex</a>> is created containing the information on the current repetition of shape and the reference index of the total buffer (<code>getBuffer()</code>)</p>
+<blockquote>
+  <p><img src="https://docs.urpflanze.org/core/assets/images/buffers.svg" alt="" /></p>
+</blockquote>
 <pre class="prettyprint"><code class="javascript language-javascript">// scene.add(...)
 
 const time = Date.now()
