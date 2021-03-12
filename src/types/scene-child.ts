@@ -68,12 +68,16 @@ export interface IShapeLoopRepetition extends IBaseRepetition {
  * @category Core.Repetition
  */
 export interface IRecursionRepetition extends IBaseRepetition {
+	/**
+	 * Level (depth) of recursion
+	 * @order 4
+	 */
 	level: IBaseRepetition
 
 	/**
 	 * parent recursion
 	 *
-	 * @order 4
+	 * @order 5
 	 */
 	parent?: IRecursionRepetition
 }
