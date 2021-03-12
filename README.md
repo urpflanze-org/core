@@ -220,11 +220,13 @@ new Urpflanze.Rect({
 
 Per gestire le ripetizioni possiamo passare alle proprietà una funzione al posto di una costante. Possiamo l'argomento della funzione che è di tipo [ISceneChildPropArguments](https://docs.urpflanze.org/urpflanze/#/ref/ISceneChildPropArguments).
 
-Al suo interno troviamo la proprietà `repetition` che - come ogni oggetto che implementa una IBaseRepetition - contiene le seguenti proprietà:
+Al suo interno troviamo la proprietà `repetition` che - come ogni oggetto che implementa una [IBaseRepetition](https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition) - contiene le seguenti proprietà:
 
 - `index` l'indice corrente, da 1 a count
 - `count` il numero totale di ripetizioni
 - `offset` un indice che va da 0 ad 1 che non dipende dal numero di ripetizioni. Ad esempio, se il numero di ripetizioni sono 3, il valore di offset sarà 0 - 0.5 - 1
+
+Per le ripetizioni a matrice puoi utilizzare anche `repetition.row` e `repetition.col` anch'esse di tipo IBaseRepetition 
 
 ### Esempi
 
