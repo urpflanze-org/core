@@ -430,8 +430,8 @@ _Use without the scene:_
 ```javascript
 const rect = new Urpflanze.Rect({ sideLength: 25 })
 rect.generate()
-console.log(rect.getBounding())
 
+console.log(rect.getBounding())
 // Output:
 //
 // { cx: 0, cy: 0, x: -25, y: -25, width: 50, height: 50 }
@@ -445,8 +445,8 @@ const scene = new Urpflanze.Scene({ width: 100, height: 100 })
 const rect = new Urpflanze.Rect({ sideLength: 25 })
 scene.add(rect)
 scene.update()
-console.log(rect.getBounding())
 
+console.log(rect.getBounding())
 // Output:
 //
 // {
@@ -458,6 +458,10 @@ console.log(rect.getBounding())
 ```
 
 ### Simple Drawer
+
+When you call the `generate()` method on a shape a buffer of type Array<[IBufferIndex](https://docs.urpflanze.org/core/#/ref/IBufferIndex)> is created containing the information on the current repetition of shape and the reference index of the total buffer (`getBuffer()`)
+
+> ![](https://docs.urpflanze.org/core/assets/images/buffers.svg)
 
 ```javascript
 
