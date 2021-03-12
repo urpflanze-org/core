@@ -49,7 +49,7 @@ I am trying to create a tool for those who want to approach the world of program
 or for programmers who want to approach the world of creative coding.
 
 I have spent a lot of time and will spend more to support this project.
-I also have in mind a web [editor](https://github.com/urpflanze-org/editor) (open-source) where you can use the features of this library in the browser.
+I also have in mind a **[web editor](https://github.com/urpflanze-org/editor)** (open-source) where you can use the features of this library in the browser.
 
 You can see a preview [here](https://editor.urpflanze.org)
 
