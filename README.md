@@ -419,6 +419,8 @@ rects.subdivide(5)
 
 ![](https://docs.urpflanze.org/core/assets/images/readme/vertexcallback-1.png)
 
+---
+
 ## Scene
 
 You can use the shapes independently or you can add them to a scene.
@@ -500,7 +502,9 @@ for(let i = 0, len = sceneChilds.length; i < len; i++) {
 }
 ```
 
-# Examples
+---
+
+## Examples
 
 Draw point in a console (using [this package](https://github.com/madbence/node-drawille))
 
