@@ -24,6 +24,20 @@
 		"url": "https://github.com/urpflanze-org/core/issues",
 		"email": "gennaro.bs@gmail.com"
 	},
+	"funding": [
+		{
+			"type": "kofi",
+			"url": "https://ko-fi.com/urpflanze"
+		},
+		{
+			"type": "bitcoin",
+			"url": "https://explorer.btc.com/btc/address/1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq"
+		},
+		{
+			"type": "ethereum",
+			"url": "https://etherscan.io/address/0x9086c4bb7015c1d6dc79162d02e7e1239c982c01"
+		}
+	],
 	"main": "dist",
 	"types": "dist/index.d.ts",
 	"files": [
