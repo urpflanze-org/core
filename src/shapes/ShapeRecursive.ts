@@ -14,7 +14,7 @@ class ShapeRecursive extends Shape<IShapeRecursiveProps> {
 	 * @type {IShapeBounding}
 	 * @internal
 	 */
-	protected currentGenerationRecursiveBounding: IShapeBounding
+	//protected currentGenerationRecursiveBounding: IShapeBounding
 
 	// /**
 	//  * Inner recursion
@@ -43,7 +43,7 @@ class ShapeRecursive extends Shape<IShapeRecursiveProps> {
 		this.bStatic = this.isStatic()
 		this.bStaticIndexed = this.isStaticIndexed()
 
-		this.currentGenerationRecursiveBounding = Bounding.empty()
+		// this.currentGenerationRecursiveBounding = Bounding.empty()
 	}
 
 	/**
@@ -133,7 +133,7 @@ class ShapeRecursive extends Shape<IShapeRecursiveProps> {
 
 		if (recursions <= 1) {
 			const buffer = this.generateShapeBuffer(propArguments, generateId, currentRecursionRepetition)
-			this.currentGenerationRecursiveBounding = this.shape.getBounding()
+			// this.currentGenerationRecursiveBounding = this.shape.getBounding()
 			this.shapeRecursiveBuffer = buffer
 			return
 		}
@@ -239,7 +239,7 @@ class ShapeRecursive extends Shape<IShapeRecursiveProps> {
 			}
 		}
 
-		Bounding.bind(this.currentGenerationRecursiveBounding, tmpBounding)
+		// Bounding.bind(this.currentGenerationRecursiveBounding, tmpBounding)
 		this.shapeRecursiveBuffer = recusiveShapeBuffer
 	}
 
