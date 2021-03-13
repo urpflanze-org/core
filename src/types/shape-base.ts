@@ -183,7 +183,7 @@ export interface IShapePrimitiveSettings<T = { [key: string]: any }> extends ISh
 	 *
 	 * @order -15
 	 */
-	style?: T
+	drawer?: T
 }
 
 /**

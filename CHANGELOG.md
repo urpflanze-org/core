@@ -1,3 +1,7 @@
+## 0.4.1 (March 1, 2021)
+
+- Rename 'style' to 'drawer' property for shape primitive
+
 ## 0.4.0 (March 5, 2021)
 
 - Adapt buffer moved in shape buffer

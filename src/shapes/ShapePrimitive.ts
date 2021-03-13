@@ -24,7 +24,7 @@ abstract class ShapePrimitive<
 	 * @public
 	 * @type {T}
 	 */
-	public style: T
+	public drawer: T
 
 	/**
 	 * Define shape is closed, default true
@@ -55,7 +55,7 @@ abstract class ShapePrimitive<
 				? settings.sideLength
 				: glme.toVec2(settings.sideLength)
 
-		this.style = settings.style || ({} as T)
+		this.drawer = settings.drawer || ({} as T)
 		this.bClosed = settings.bClosed ?? true
 	}
 
