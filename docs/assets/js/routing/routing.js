@@ -1,3 +1,4 @@
+import { hasAnalytics } from '../analytics.js'
 import { closeMenu, activateLink } from '../navigation/navigation.js'
 import { loadReference } from '../reference/create-reference-page.js'
 
@@ -26,9 +27,9 @@ export function goto(page) {
 		links && (page = links.getAttribute('href'))
 	}
 
-	activateLink(page)
 	if (currentPage !== page) {
 		closeMenu()
+		activateLink(page)
 
 		if (page.indexOf('ref') >= 0) {
 			currentPage = page
@@ -149,4 +150,12 @@ function onLoadContent() {
 		top: 0,
 		behavior: 'smooth',
 	})
+
+	if (hasAnalytics) {
+		gtag('event', 'page_view', {
+			page_location: window.location.href,
+			page_path: '/' + window.location.hash,
+			page_title: title,
+		})
+	}
 }
