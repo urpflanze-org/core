@@ -15879,7 +15879,7 @@
 					}
 				},
 				"order": 9999,
-				"bPublic": true
+				"bProtected": true
 			},
 			{
 				"name": "PId2",
@@ -16372,7 +16372,7 @@
 					]
 				},
 				"order": 9999,
-				"bPrivate": true
+				"bProtected": true
 			}
 		],
 		"methods": [
@@ -16539,7 +16539,7 @@
 					"name": "Float32Array"
 				},
 				"order": 9999,
-				"bPrivate": true
+				"bProtected": true
 			},
 			{
 				"name": "isStatic",
