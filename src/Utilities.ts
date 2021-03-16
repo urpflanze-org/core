@@ -61,17 +61,6 @@ export function toRadians(degrees: number): number {
 // }
 
 /**
- * Force value to array
- *
- * @ignore
- * @param {(number | Array<number>)} t
- * @returns {Array<number>}
- */
-export function toArray(t: number | Array<number>): Array<number> {
-	return Array.isArray(t) ? t : [t, t]
-}
-
-/**
  * Linear interpolation from `a` when `i` as 0 an `b` when `i' as 1
  *
  * @category Utilities
