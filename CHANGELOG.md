@@ -1,3 +1,7 @@
+## 0.4.2 (March 16, 2021)
+
+- Change build target from CJS to ES6
+
 ## 0.4.1 (March 1, 2021)
 
 - Rename 'style' to 'drawer' property for shape primitive
