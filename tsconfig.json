@@ -3,7 +3,7 @@
 		"sourceMap": true,
 		"outDir": "dist",
 		"noImplicitAny": true,
-		"module": "ES6",
+		"module": "CommonJS",
 		"target": "ES2016",
 		"moduleResolution": "node",
 		"removeComments": false,
