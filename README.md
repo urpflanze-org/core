@@ -35,13 +35,15 @@ You can see a preview [here](https://editor.urpflanze.org)
 
 ## Menu
 
+- [Synopsis](#synopsis)
+- [Motivations](#motivations)
+- [Donate](#donate)
+- [Menu](#menu)
 - [Installation](#installation)
 - [Creating a shape](#creating-a-shape)
   - [ShapeBuffer](#shapebuffer)
   - [ShapeLoop](#shapeloop)
-- [Primitive shapes](#primitive-shapes)
-  - [ShapeBuffer](#shapebuffer-1)
-  - [ShapeLoop](#shapeloop-1)
+- [Primitive shapes](#primitive-shapes) - [ShapeBuffer](#shapebuffer-1) - [ShapeLoop](#shapeloop-1)
 - [Repetitions](#repetitions)
   - [Ring repetitions](#ring-repetitions)
   - [Matrix repetitions](#matrix-repetitions)
@@ -485,14 +487,14 @@ for(let i = 0, len = sceneChilds.length; i < len; i++) {
 
 	for (let currentBufferIndex = 0, currentBufferIndex < childIndexedBuffer.length; currentBufferIndex++) {
 		const currentIndexing = childIndexedBuffer[currentBufferIndex]
-		let vertexIndex = currentIndexing.frameBufferIndex
+		let currentVertexIndex = 0
 
 		beginPath()
-		moveTo(childBuffer[vertexIndex], childBuffer[vertexIndex + 1])
+		moveTo(childBuffer[currentVertexIndex], childBuffer[currentVertexIndex + 1])
 
-		vertexIndex += 2
-		for (; vertexIndex < currentIndexing.frameLength; vertexIndex += 2)
-			lineTo(childBuffer[vertexIndex], childBuffer[vertexIndex + 1])
+		currentVertexIndex += 2
+		for (let currentFrameLength = currentVertexIndex + currentIndexing.frameLength - 2; currentVertexIndex < currentFrameLength; currentVertexIndex += 2)
+			lineTo(childBuffer[currentVertexIndex], childBuffer[currentVertexIndex + 1])
 
 		if (currentIndexing.shape.isClosed())
 			closePath()
