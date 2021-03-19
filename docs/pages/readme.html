@@ -20,13 +20,15 @@ I also have in mind a <strong><a href="https://github.com/urpflanze-org/editor">
 <hr />
 <h2 id="menu">Menu</h2>
 <ul>
+<li><a href="#synopsis">Synopsis</a></li>
+<li><a href="#motivations">Motivations</a></li>
+<li><a href="#donate">Donate</a></li>
+<li><a href="#menu">Menu</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#creating-a-shape">Creating a shape</a></li>
 <li><a href="#shapebuffer">ShapeBuffer</a></li>
 <li><a href="#shapeloop">ShapeLoop</a></li>
-<li><a href="#primitive-shapes">Primitive shapes</a></li>
-<li><a href="#shapebuffer-1">ShapeBuffer</a></li>
-<li><a href="#shapeloop-1">ShapeLoop</a></li>
+<li><a href="#primitive-shapes">Primitive shapes</a> - <a href="#shapebuffer-1">ShapeBuffer</a> - <a href="#shapeloop-1">ShapeLoop</a></li>
 <li><a href="#repetitions">Repetitions</a></li>
 <li><a href="#ring-repetitions">Ring repetitions</a></li>
 <li><a href="#matrix-repetitions">Matrix repetitions</a></li>
@@ -369,14 +371,14 @@ for(let i = 0, len = sceneChilds.length; i &lt; len; i++) {
 
     for (let currentBufferIndex = 0, currentBufferIndex &lt; childIndexedBuffer.length; currentBufferIndex++) {
         const currentIndexing = childIndexedBuffer[currentBufferIndex]
-        let vertexIndex = currentIndexing.frameBufferIndex
+        let currentVertexIndex = 0
 
         beginPath()
-        moveTo(childBuffer[vertexIndex], childBuffer[vertexIndex + 1])
+        moveTo(childBuffer[currentVertexIndex], childBuffer[currentVertexIndex + 1])
 
-        vertexIndex += 2
-        for (; vertexIndex &lt; currentIndexing.frameLength; vertexIndex += 2)
-            lineTo(childBuffer[vertexIndex], childBuffer[vertexIndex + 1])
+        currentVertexIndex += 2
+        for (let currentFrameLength = currentVertexIndex + currentIndexing.frameLength - 2; currentVertexIndex &lt; currentFrameLength; currentVertexIndex += 2)
+            lineTo(childBuffer[currentVertexIndex], childBuffer[currentVertexIndex + 1])
 
         if (currentIndexing.shape.isClosed())
             closePath()
