@@ -45,13 +45,13 @@ class ShapeBuffer extends ShapePrimitive {
 
 		super(settings)
 
-		this.adaptMode = settings.adaptMode ?? EAdaptMode.None
+		this.adaptMode = settings.adaptMode ?? EAdaptMode.Fill
 
 		if (typeof settings.shape === 'undefined') {
 			console.warn('[Urpflanze:ShapeBuffer] ShapeBuffer require a buffer passed from `shape` property')
 			this.shape = ShapeBuffer.EMPTY_BUFFER
 		} else {
-			this.shape = ShapeBuffer.adapt(settings.shape, EAdaptMode.Fill)
+			this.shape = ShapeBuffer.adapt(settings.shape, this.adaptMode)
 		}
 
 		this.bStatic = this.isStatic()
@@ -128,7 +128,7 @@ class ShapeBuffer extends ShapePrimitive {
 	 * @param {(Float32Array)} [shape]
 	 */
 	public setShape(shape: Float32Array): void {
-		this.shape = ShapeBuffer.adapt(shape, EAdaptMode.Fill)
+		this.shape = ShapeBuffer.adapt(shape, this.adaptMode)
 
 		this.clearBuffer(true)
 	}
