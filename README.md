@@ -482,19 +482,19 @@ for(let i = 0, len = sceneChilds.length; i < len; i++) {
 
 	// Buffer of indexing (https://docs.urpflanze.org/core/#/ref/IBufferIndex)
 	const childIndexedBuffer = sceneChilds[i].getIndexedBuffer()
-
 	const childBuffer = sceneChilds[i].getBuffer()
+
+	let childVertexIndex = 0
 
 	for (let currentBufferIndex = 0, currentBufferIndex < childIndexedBuffer.length; currentBufferIndex++) {
 		const currentIndexing = childIndexedBuffer[currentBufferIndex]
-		let currentVertexIndex = 0
 
 		beginPath()
-		moveTo(childBuffer[currentVertexIndex], childBuffer[currentVertexIndex + 1])
+		moveTo(childBuffer[childVertexIndex], childBuffer[childVertexIndex + 1])
 
-		currentVertexIndex += 2
-		for (let currentFrameLength = currentVertexIndex + currentIndexing.frameLength - 2; currentVertexIndex < currentFrameLength; currentVertexIndex += 2)
-			lineTo(childBuffer[currentVertexIndex], childBuffer[currentVertexIndex + 1])
+		childVertexIndex += 2
+		for (let currentFrameLength = childVertexIndex + currentIndexing.frameLength - 2; childVertexIndex < currentFrameLength; childVertexIndex += 2)
+			lineTo(childBuffer[childVertexIndex], childBuffer[childVertexIndex + 1])
 
 		if (currentIndexing.shape.isClosed())
 			closePath()
