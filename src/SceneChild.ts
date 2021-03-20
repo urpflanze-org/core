@@ -74,6 +74,15 @@ abstract class SceneChild<PA extends IPropArguments = IPropArguments> {
 	public data: any
 
 	/**
+	 * Shape generation id
+	 * used for prevent buffer calculation
+	 *
+	 * @internal
+	 * @ignore
+	 */
+	public generateId = -1
+
+	/**
 	 * With this parameter the shape will be created at each repetition,
 	 * useful if you want to encapsulate this shape in another and use its <mark>repetition</mark> object.
 	 * In the case of ShapePrimitive the style prop don't need to as they are generated during the buffer stream.

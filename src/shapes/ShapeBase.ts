@@ -69,15 +69,6 @@ abstract class ShapeBase<
 	protected props: K
 
 	/**
-	 * Shape generation id
-	 * used for prevent buffer calculation
-	 *
-	 * @internal
-	 * @ignore
-	 */
-	protected generateId = -1
-
-	/**
 	 * A final array of vertices to draw
 	 *
 	 * @internal

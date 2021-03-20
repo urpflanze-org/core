@@ -219,6 +219,7 @@ class Group extends SceneChild {
 	 * @memberof Group
 	 */
 	public generate(generateId: number, bDirectSceneChild = false, parentPropArguments?: IPropArguments): void {
+		this.generateId = generateId
 		this.children.forEach(item => item.generate(generateId, bDirectSceneChild, parentPropArguments))
 	}
 
