@@ -1,5 +1,5 @@
-import type { ISceneChildPropArguments } from '../types/scene-child'
-import type { IShapeBounding } from '../types/shape-base'
+import type { IPropArguments } from '../types/scene-child'
+import type { IDrawerProps, IShapeBounding, IShapePrimitiveProps } from '../types/shape-base'
 import { EAdaptMode } from '../types/shape-base'
 import type { IShapeBufferSettings } from '../types/shape-primitives'
 
@@ -9,7 +9,11 @@ import { ShapePrimitive } from '../shapes/ShapePrimitive'
 /**
  * @category Core.Shapes
  */
-class ShapeBuffer extends ShapePrimitive {
+class ShapeBuffer<PA extends IPropArguments, D extends IDrawerProps<PA> = IDrawerProps<PA>> extends ShapePrimitive<
+	IShapePrimitiveProps,
+	PA,
+	D
+> {
 	/**
 	 * Custom vertex buffer or shape
 	 *
@@ -39,7 +43,7 @@ class ShapeBuffer extends ShapePrimitive {
 	 *
 	 * @param {IShapeBufferSettings} [settings={}]
 	 */
-	constructor(settings: IShapeBufferSettings = {}) {
+	constructor(settings: IShapeBufferSettings<PA, D> = {}) {
 		settings.type = settings.type || 'ShapeBuffer'
 		settings.adaptMode = settings.adaptMode ?? EAdaptMode.Scale
 
@@ -75,7 +79,7 @@ class ShapeBuffer extends ShapePrimitive {
 	 *
 	 * @protected
 	 */
-	protected bindBuffer(propArguments: ISceneChildPropArguments) {
+	protected bindBuffer(propArguments: PA) {
 		const sideLength = this.getRepetitionSideLength(propArguments)
 
 		const shapeBuffer = this.shape
@@ -97,10 +101,10 @@ class ShapeBuffer extends ShapePrimitive {
 	/**
 	 * Return length of buffer
 	 *
-	 * @param {ISceneChildPropArguments} propArguments
+	 * @param {IPropArguments} propArguments
 	 * @returns {number}
 	 */
-	public getBufferLength(/*propArguments?: ISceneChildPropArguments*/): number {
+	public getBufferLength(/*propArguments?: IPropArguments*/): number {
 		if (this.buffer && this.buffer.length > 0) return this.buffer.length
 
 		return this.shape.length * this.getRepetitionCount()
@@ -111,10 +115,10 @@ class ShapeBuffer extends ShapePrimitive {
 	 *
 	 * @protected
 	 * @param {number} generateId
-	 * @param {ISceneChildPropArguments} propArguments
+	 * @param {PA} propArguments
 	 * @returns {Float32Array}
 	 */
-	protected generateBuffer(generateId: number, propArguments: ISceneChildPropArguments): Float32Array {
+	protected generateBuffer(generateId: number, propArguments: PA): Float32Array {
 		if (typeof this.shapeBuffer === 'undefined' || typeof this.props.sideLength === 'function') {
 			this.bindBuffer(propArguments)
 		}

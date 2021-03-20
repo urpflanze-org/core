@@ -1,6 +1,8 @@
+import { IShapeLoopRepetition } from 'types/repetitions'
+import { IDrawerProps } from 'types/shape-base'
 import { PI2 } from '../../math'
 import { ShapeLoop } from '../../shapes/ShapeLoop'
-import { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
+import { IPropArguments } from '../../types/scene-child'
 import { ILissajousProps, ILissajousSettings } from '../../types/shape-primitives'
 
 /**
@@ -10,7 +12,10 @@ import { ILissajousProps, ILissajousSettings } from '../../types/shape-primitive
  * @class Lissajous
  * @extends {ShapeLoop}
  */
-class Lissajous extends ShapeLoop<ILissajousProps> {
+class Lissajous<
+	PA extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PA> = IDrawerProps<PA>
+> extends ShapeLoop<ILissajousProps<PA>, PA, D> {
 	private wx!: number
 	private wy!: number
 	private wz!: number
@@ -21,7 +26,7 @@ class Lissajous extends ShapeLoop<ILissajousProps> {
 	 * @param {ILissajousSettings} [settings={}]
 	 * @memberof Lissajous
 	 */
-	constructor(settings: ILissajousSettings = {}) {
+	constructor(settings: ILissajousSettings<PA, D> = {}) {
 		settings.type = 'Lissajous'
 		settings.loopDependencies = (settings.loopDependencies || []).concat(['wx', 'wy', 'wz'])
 
@@ -54,7 +59,7 @@ class Lissajous extends ShapeLoop<ILissajousProps> {
 		this.bStaticIndexed = this.isStaticIndexed()
 	}
 
-	protected generateLoopBuffer(propArguments: ISceneChildPropArguments): Float32Array {
+	protected generateLoopBuffer(propArguments: PA): Float32Array {
 		this.wx = this.getProp('wx', propArguments, 1)
 		this.wy = this.getProp('wy', propArguments, 2)
 		this.wz = this.getProp('wz', propArguments, 2)

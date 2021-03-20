@@ -1,7 +1,9 @@
-import type { IShapeLoopSettings } from '../../types/shape-primitives'
+import type { IShapeLoopProps, IShapeLoopSettings } from '../../types/shape-primitives'
 
 import { PI2 } from '../../math'
 import { ShapeLoop } from '../ShapeLoop'
+import { IPropArguments } from 'types/scene-child'
+import { IDrawerProps } from 'types/shape-base'
 
 /**
  *
@@ -9,14 +11,17 @@ import { ShapeLoop } from '../ShapeLoop'
  * @class Circle
  * @extends {ShapeLoop}
  */
-class Circle extends ShapeLoop {
+class Circle<
+	PA extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PA> = IDrawerProps<PA>
+> extends ShapeLoop<IShapeLoopProps<PA>, PA, D> {
 	/**
-	 * Creates an instance of Circle.
+	 * Based on ShapeLoop, the number of point (resolution) is based on sideLength.
 	 *
 	 * @param {ShapeLoopSettings} [settings={}]
 	 * @memberof Circle
 	 */
-	constructor(settings: IShapeLoopSettings = {}) {
+	constructor(settings: IShapeLoopSettings<PA, D> = {}) {
 		settings.type = 'Circle'
 
 		super(settings, true)

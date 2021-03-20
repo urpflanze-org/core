@@ -1,49 +1,88 @@
-<p><img height="60" src="https://raw.githubusercontent.com/urpflanze-org/core/master/docs/assets/images/logo-for-github.svg"></p>
+<p>
+	<img
+		height="60"
+		src="https://raw.githubusercontent.com/urpflanze-org/core/master/docs/assets/images/logo-for-github.svg"
+	/>
+</p>
 <h2 id="synopsis">Synopsis</h2>
-<p>This package is the core used by the <a href="https://github.com/urpflanze-org/urpflanze">Urpflanze</a> javascript library to generate the scene.</p>
-<p>It deals with creating two-dimensional shapes, repeating them, manipulating them point by point and encapsulating them.</p>
+<p>
+	This package is the core used by the <a href="https://github.com/urpflanze-org/urpflanze">Urpflanze</a> javascript
+	library to generate the scene.
+</p>
+<p>
+	It deals with creating two-dimensional shapes, repeating them, manipulating them point by point and encapsulating
+	them.
+</p>
 <p>You can use it in the browser or in node.</p>
 <h2 id="motivations">Motivations</h2>
-<p>The creation of this library comes from the need to create simple APIs for
-manage the repetition of primitive shapes and the possibility of applying transformations to each of them, applying transformations on the points avoiding the use of canvas transformations.</p>
-<p>Another need - which then became one of the main features - was to be able to encapsulate the result of a generation and manage it as if it were a new shape.</p>
+<p>
+	The creation of this library comes from the need to create simple APIs for manage the repetition of primitive shapes
+	and the possibility of applying transformations to each of them, applying transformations on the points avoiding the
+	use of canvas transformations.
+</p>
+<p>
+	Another need - which then became one of the main features - was to be able to encapsulate the result of a generation
+	and manage it as if it were a new shape.
+</p>
 <h2 id="donate">Donate</h2>
-<p>I am trying to create a tool for those who want to approach the world of programming
-or for programmers who want to approach the world of creative coding.</p>
-<p>I have spent a lot of time and will spend more to support this project.
-I also have in mind a <strong><a href="https://github.com/urpflanze-org/editor">web editor</a></strong> (open-source) where you can use the features of this library in the browser.</p>
+<p>
+	I am trying to create a tool for those who want to approach the world of programming or for programmers who want to
+	approach the world of creative coding.
+</p>
+<p>
+	I have spent a lot of time and will spend more to support this project. I also have in mind a
+	<strong><a href="https://github.com/urpflanze-org/editor">web editor</a></strong> (open-source) where you can use the
+	features of this library in the browser.
+</p>
 <p>You can see a preview <a href="https://editor.urpflanze.org">here</a></p>
-<p><a href="https://www.paypal.me/genbs"><img src="https://img.shields.io/badge/donate-paypal-003087.svg?logo=paypal" alt="" /></a>
-<a href="https://ko-fi.com/urpflanze"><img src="https://img.shields.io/badge/donate-ko--fi-29abe0.svg?logo=ko-fi" alt="" /></a></p>
-<p><a href="https://explorer.btc.com/btc/address/1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq"><img src="https://img.shields.io/badge/bitcoin-1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq-f7931a.svg?logo=bitcoin" alt="" /></a>
-<a href="https://etherscan.io/address/0x9086c4bb7015c1d6dc79162d02e7e1239c982c01"><img src="https://img.shields.io/badge/ethereum-0x9086c4bb7015c1d6dc79162d02e7e1239c982c01-ecf0f1.svg?logo=ethereum" alt="" /></a></p>
+<p>
+	<a href="https://www.paypal.me/genbs"
+		><img src="https://img.shields.io/badge/donate-paypal-003087.svg?logo=paypal" alt=""
+	/></a>
+	<a href="https://ko-fi.com/urpflanze"
+		><img src="https://img.shields.io/badge/donate-ko--fi-29abe0.svg?logo=ko-fi" alt=""
+	/></a>
+</p>
+<p>
+	<a href="https://explorer.btc.com/btc/address/1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq"
+		><img src="https://img.shields.io/badge/bitcoin-1CSQq4aMmsA71twvyZHZCjmeB2AmQGCPNq-f7931a.svg?logo=bitcoin" alt=""
+	/></a>
+	<a href="https://etherscan.io/address/0x9086c4bb7015c1d6dc79162d02e7e1239c982c01"
+		><img
+			src="https://img.shields.io/badge/ethereum-0x9086c4bb7015c1d6dc79162d02e7e1239c982c01-ecf0f1.svg?logo=ethereum"
+			alt=""
+	/></a>
+</p>
 <hr />
 <h2 id="menu">Menu</h2>
 <ul>
-<li><a href="#synopsis">Synopsis</a></li>
-<li><a href="#motivations">Motivations</a></li>
-<li><a href="#donate">Donate</a></li>
-<li><a href="#menu">Menu</a></li>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#creating-a-shape">Creating a shape</a></li>
-<li><a href="#shapebuffer">ShapeBuffer</a></li>
-<li><a href="#shapeloop">ShapeLoop</a></li>
-<li><a href="#primitive-shapes">Primitive shapes</a> - <a href="#shapebuffer-1">ShapeBuffer</a> - <a href="#shapeloop-1">ShapeLoop</a></li>
-<li><a href="#repetitions">Repetitions</a></li>
-<li><a href="#ring-repetitions">Ring repetitions</a></li>
-<li><a href="#matrix-repetitions">Matrix repetitions</a></li>
-<li><a href="#manage-repetitions">Manage repetitions</a></li>
-<li><a href="#repetitions-examples">Repetitions examples</a></li>
-<li><a href="#list-of-properties">List of properties</a></li>
-<li><a href="#encapsulation">Encapsulation</a></li>
-<li><a href="#shape">Shape</a></li>
-<li><a href="#group">Group</a></li>
-<li><a href="#using-repetition-property-of-the-encapsulator">Using repetition property of the encapsulator</a></li>
-<li><a href="#recursion">Recursion</a></li>
-<li><a href="#vertex-callback">Vertex Callback</a></li>
-<li><a href="#scene">Scene</a></li>
-<li><a href="#simple-drawer">Simple Drawer</a></li>
-<li><a href="#examples">Examples</a></li>
+	<li><a href="#synopsis">Synopsis</a></li>
+	<li><a href="#motivations">Motivations</a></li>
+	<li><a href="#donate">Donate</a></li>
+	<li><a href="#menu">Menu</a></li>
+	<li><a href="#installation">Installation</a></li>
+	<li><a href="#creating-a-shape">Creating a shape</a></li>
+	<li><a href="#shapebuffer">ShapeBuffer</a></li>
+	<li><a href="#shapeloop">ShapeLoop</a></li>
+	<li>
+		<a href="#primitive-shapes">Primitive shapes</a> - <a href="#shapebuffer-1">ShapeBuffer</a> -
+		<a href="#shapeloop-1">ShapeLoop</a>
+	</li>
+	<li><a href="#repetitions">Repetitions</a></li>
+	<li><a href="#ring-repetitions">Ring repetitions</a></li>
+	<li><a href="#matrix-repetitions">Matrix repetitions</a></li>
+	<li><a href="#manage-repetitions">Manage repetitions</a></li>
+	<li><a href="#repetitions-examples">Repetitions examples</a></li>
+	<li><a href="#list-of-properties">List of properties</a></li>
+	<li><a href="#encapsulation">Encapsulation</a></li>
+	<li><a href="#shape">Shape</a></li>
+	<li><a href="#group">Group</a></li>
+	<li><a href="#using-repetition-property-of-the-encapsulator">Using repetition property of the encapsulator</a></li>
+	<li><a href="#recursion">Recursion</a></li>
+	<li><a href="#vertex-callback">Vertex Callback</a></li>
+	<li><a href="#scene">Scene</a></li>
+	<li><a href="#simple-drawer">Simple Drawer</a></li>
+	<li><a href="#examples">Examples</a></li>
 </ul>
 <hr />
 <h2 id="installation">Installation</h2>
@@ -68,8 +107,10 @@ const scene = new Scene()
 <hr />
 <h2 id="creatingashape">Creating a shape</h2>
 <h3 id="shapebuffer">ShapeBuffer</h3>
-<p>The <em>ShapeBuffer</em> is the shape to which you can pass a buffer of points.
-It accepts the <code>shape</code> property which is an array of points <em>[x0, y0, x1, y1, …, xn, yn]</em>.</p>
+<p>
+	The <em>ShapeBuffer</em> is the shape to which you can pass a buffer of points. It accepts the
+	<code>shape</code> property which is an array of points <em>[x0, y0, x1, y1, …, xn, yn]</em>.
+</p>
 <p>The array of points will be adapted between a range of -1 and 1.</p>
 <p>Example:</p>
 <pre class="prettyprint"><code class="javascript language-javascript">import { ShapeBuffer } from '@urpflanze/core'
@@ -90,7 +131,10 @@ console.log(rect.getBuffer())
 // ]
 </code></pre>
 <h3 id="shapeloop">ShapeLoop</h3>
-<p>The <em>ShapeLoop</em> is a shape generated by a loop, it is recommended to return values ​​between a range of -1 and 1</p>
+<p>
+	The <em>ShapeLoop</em> is a shape generated by a loop, it is recommended to return values ​​between a range of -1 and
+	1
+</p>
 <pre class="prettyprint"><code class="javascript language-javascript">import { ShapeLoop } from '@urpflanze/core'
 
 const circle = new Urpflanze.ShapeLoop({
@@ -120,21 +164,28 @@ console.log(circle.getBuffer().length)
 <h2 id="primitiveshapes">Primitive shapes</h2>
 <p>In this package there are already some basic shapes:</p>
 <h4 id="shapebuffer-1">ShapeBuffer</h4>
-<p><a href="https://docs.urpflanze.org/core/#/ref/Line"><code>Line</code></a>
-<a href="https://docs.urpflanze.org/core/#/ref/Triangle"><code>Triangle</code></a>
-<a href="https://docs.urpflanze.org/core/#/ref/Rect"><code>Rect</code></a></p>
+<p>
+	<a href="https://docs.urpflanze.org/core/#/ref/Line"><code>Line</code></a>
+	<a href="https://docs.urpflanze.org/core/#/ref/Triangle"><code>Triangle</code></a>
+	<a href="https://docs.urpflanze.org/core/#/ref/Rect"><code>Rect</code></a>
+</p>
 <h4 id="shapeloop-1">ShapeLoop</h4>
-<p><a href="https://docs.urpflanze.org/core/#/ref/Polygon"><code>Polygon</code></a>
-<a href="https://docs.urpflanze.org/core/#/ref/Circle"><code>Circle</code></a>
-<a href="https://docs.urpflanze.org/core/#/ref/Lissajous"><code>Lissajous</code></a>
-<a href="https://docs.urpflanze.org/core/#/ref/Spiral"><code>Spiral</code></a>
-<a href="https://docs.urpflanze.org/core/#/ref/Rose"><code>Rose</code></a>
-<a href="https://docs.urpflanze.org/core/#/ref/SuperShape"><code>SuperShape</code></a></p>
+<p>
+	<a href="https://docs.urpflanze.org/core/#/ref/Polygon"><code>Polygon</code></a>
+	<a href="https://docs.urpflanze.org/core/#/ref/Circle"><code>Circle</code></a>
+	<a href="https://docs.urpflanze.org/core/#/ref/Lissajous"><code>Lissajous</code></a>
+	<a href="https://docs.urpflanze.org/core/#/ref/Spiral"><code>Spiral</code></a>
+	<a href="https://docs.urpflanze.org/core/#/ref/Rose"><code>Rose</code></a>
+	<a href="https://docs.urpflanze.org/core/#/ref/SuperShape"><code>SuperShape</code></a>
+</p>
 <hr />
 <h2 id="repetitions">Repetitions</h2>
 <p>Using Urpflanze you can manage two types of repetitions: <strong>ring</strong> or <strong>matrix</strong>.</p>
 <h3 id="ringrepetitions">Ring repetitions</h3>
-<p>For this type of repetition you can set a numeric value to the <code>repetitions</code> property to indicate the number of times it will repeat and the<code>distance</code> property to indicate the distance from the center.</p>
+<p>
+	For this type of repetition you can set a numeric value to the <code>repetitions</code> property to indicate the
+	number of times it will repeat and the<code>distance</code> property to indicate the distance from the center.
+</p>
 <pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
     repetitions: 8,
     distance: 100,
@@ -142,7 +193,10 @@ console.log(circle.getBuffer().length)
 })
 </code></pre>
 <p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-ring-1.png" alt="" /></p>
-<p>Basically the shapes will be rotated towards the center, if you want to avoid this effect you have to rotate the vorma inversely to the current angle of the repetition.</p>
+<p>
+	Basically the shapes will be rotated towards the center, if you want to avoid this effect you have to rotate the vorma
+	inversely to the current angle of the repetition.
+</p>
 <pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
     repetitions: 8,
     sideLength: 25,
@@ -152,7 +206,11 @@ console.log(circle.getBuffer().length)
 </code></pre>
 <p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-ring-2.png" alt="" /></p>
 <h3 id="matrixrepetitions">Matrix repetitions</h3>
-<p>To repeat the shape as an array, just pass an Array of numbers indicating the number of rows and columns to the <code>repetitions</code> property. The <code>distance</code> property in this case will also be an Array containing the distance between the rows and columns.</p>
+<p>
+	To repeat the shape as an array, just pass an Array of numbers indicating the number of rows and columns to the
+	<code>repetitions</code> property. The <code>distance</code> property in this case will also be an Array containing
+	the distance between the rows and columns.
+</p>
 <pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
     repetitions: [3, 4],
     sideLength: 20,
@@ -163,14 +221,27 @@ console.log(circle.getBuffer().length)
 <hr />
 <h2 id="managerepetitions">Manage repetitions</h2>
 <p>To manage the repetitions you can pass a function to the properties instead of a constant.</p>
-<p>The argument of the function which is of type <a href="https://docs.urpflanze.org/urpflanze/#/ref/ISceneChildPropArguments">ISceneChildPropArguments</a>.</p>
-<p>Inside it we find the <code>repetition</code> property which - like any object that implements a <a href="https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition">IBaseRepetition</a> - contains the following properties:</p>
+<p>
+	The argument of the function which is of type
+	<a href="https://docs.urpflanze.org/urpflanze/#/ref/IPropArguments">IPropArguments</a>.
+</p>
+<p>
+	Inside it we find the <code>repetition</code> property which - like any object that implements a
+	<a href="https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition">IBaseRepetition</a> - contains the following
+	properties:
+</p>
 <ul>
-<li><code>index</code> the current index, from 1 to <em>count</em></li>
-<li><code>count</code> the total number of repetitions</li>
-<li><code>offset</code> an index ranging from 0 to 1 which does not depend on the number of repetitions. For example, if the number of repetitions is 3, the offset value will be 0 - 0.5 - 1</li>
+	<li><code>index</code> the current index, from 1 to <em>count</em></li>
+	<li><code>count</code> the total number of repetitions</li>
+	<li>
+		<code>offset</code> an index ranging from 0 to 1 which does not depend on the number of repetitions. For example, if
+		the number of repetitions is 3, the offset value will be 0 - 0.5 - 1
+	</li>
 </ul>
-<p>For matrix repetitions you can also use <code>repetition.row</code> and<code>repetition.col</code> also of type <a href="https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition">IBaseRepetition</a></p>
+<p>
+	For matrix repetitions you can also use <code>repetition.row</code> and<code>repetition.col</code> also of type
+	<a href="https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition">IBaseRepetition</a>
+</p>
 <h3 id="repetitionsexamples">Repetitions examples</h3>
 <pre class="prettyprint"><code class="javascript language-javascript">new Urpflanze.Rect({
     repetitions: 8,
@@ -191,11 +262,15 @@ console.log(circle.getBuffer().length)
 })
 </code></pre>
 <p><img src="https://docs.urpflanze.org/core/assets/images/readme/repetition-2.png" alt="" /></p>
-<h3 id="listofpropertieshttpsdocsurpflanzeorgcorerefishapebasesettings"><a href="https://docs.urpflanze.org/core/#/ref/IShapeBaseSettings">List of properties</a></h3>
+<h3 id="listofpropertieshttpsdocsurpflanzeorgcorerefishapebasesettings">
+	<a href="https://docs.urpflanze.org/core/#/ref/IShapeBaseSettings">List of properties</a>
+</h3>
 <hr />
 <h2 id="encapsulation">Encapsulation</h2>
-<p>To be able to encapsulate a shape you can use the <code>Shape</code> class to which you can pass the property
-<code>shape</code> which is a<code>ShapePrimitive</code> (ShapeBuffer or ShapeLoop) or a <code>Group</code>.</p>
+<p>
+	To be able to encapsulate a shape you can use the <code>Shape</code> class to which you can pass the property
+	<code>shape</code> which is a<code>ShapePrimitive</code> (ShapeBuffer or ShapeLoop) or a <code>Group</code>.
+</p>
 <h3 id="shape">Shape</h3>
 <pre class="prettyprint"><code class="javascript language-javascript">const lines = new Urpflanze.Line({
     repetitions: 20,
@@ -221,9 +296,14 @@ const final = new Urpflanze.Shape({
     rotateY: Urpflanze.toRadians(60),
 })
 </code></pre>
-<p>|                                     lines                                     |                                   container                                   |                                     final                                     |
-| :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
-| <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-1.png" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-2.png" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-3.png" alt="" /> |</p>
+<p>
+	| lines | container | final | | :---------------------------------------------------------------------------: |
+	:---------------------------------------------------------------------------: |
+	:---------------------------------------------------------------------------: | |
+	<img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-1.png" alt="" /> |
+	<img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-2.png" alt="" /> |
+	<img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-3.png" alt="" /> |
+</p>
 <h3 id="group">Group</h3>
 <pre class="prettyprint"><code class="javascript language-javascript">const group = new Urpflanze.Group({
     repetitions: 4,
@@ -247,12 +327,18 @@ const shape = new Urpflanze.Shape({
     rotateZ: ({ repetition }) =&gt; -repetition.angle,
 })
 </code></pre>
-<p>|                                 group                                 |                                 shape                                 |
-| :-------------------------------------------------------------------: | :-------------------------------------------------------------------: |
-| <img src="https://docs.urpflanze.org/core/assets/images/readme/group-1.png" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/group-2.png" alt="" /> |</p>
+<p>
+	| group | shape | | :-------------------------------------------------------------------: |
+	:-------------------------------------------------------------------: | |
+	<img src="https://docs.urpflanze.org/core/assets/images/readme/group-1.png" alt="" /> |
+	<img src="https://docs.urpflanze.org/core/assets/images/readme/group-2.png" alt="" /> |
+</p>
 <h3 id="usingrepetitionpropertyoftheencapsulator">Using repetition property of the encapsulator</h3>
-<p>You can use the <code>repetition</code> object of whoever encapsulates a shape by setting the<code>bUseParent</code> property.
-This parameter is optional since a new buffer of points will be generated at each repetition of the encapsulator.</p>
+<p>
+	You can use the <code>repetition</code> object of whoever encapsulates a shape by setting the<code>bUseParent</code>
+	property. This parameter is optional since a new buffer of points will be generated at each repetition of the
+	encapsulator.
+</p>
 <pre class="prettyprint"><code class="javascript language-javascript">const rect = new Urpflanze.Rect({
     bUseParent: true, // &lt;--
 
@@ -274,8 +360,13 @@ const container = new Urpflanze.Shape({
 <p><img src="https://docs.urpflanze.org/core/assets/images/readme/parent-rep-1.png" alt="" /></p>
 <hr />
 <h2 id="recursion">Recursion</h2>
-<p>Another possibility is to use the <code>ShapeRecursive</code> to repeat any<code>Shape</code> on each of its points.</p>
-<p>You can use the <code>recursion</code> property of type <a href="https://docs.urpflanze.org/core/#/ref/IRecursionRepetition">IRecursionRepetition</a></p>
+<p>
+	Another possibility is to use the <code>ShapeRecursive</code> to repeat any<code>Shape</code> on each of its points.
+</p>
+<p>
+	You can use the <code>recursion</code> property of type
+	<a href="https://docs.urpflanze.org/core/#/ref/IRecursionRepetition">IRecursionRepetition</a>
+</p>
 <pre class="prettyprint"><code class="javascript language-javascript">const rect = new Urpflanze.Rect({
     // bUseRecursion: true,
     // [prop]: ({ recursion }) =&gt; ...
@@ -294,9 +385,15 @@ const container = new Urpflanze.ShapeRecursive({
 <p>The vertexCallback property is a function that is called at each point of the shape of each repetition.</p>
 <p>The function takes 3 arguments:</p>
 <ul>
-<li><code>vertex</code>: [number, number] current vertex</li>
-<li><code>vertexRepetition</code>: <a href="https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition">IBaseRepetition</a> for the vertices of the current repetition</li>
-<li><code>propArguments</code>: <a href="https://docs.urpflanze.org/urpflanze/#/ref/ISceneChildPropArguments">ISceneChildPropArguments</a></li>
+	<li><code>vertex</code>: [number, number] current vertex</li>
+	<li>
+		<code>vertexRepetition</code>:
+		<a href="https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition">IBaseRepetition</a> for the vertices of the
+		current repetition
+	</li>
+	<li>
+		<code>propArguments</code>: <a href="https://docs.urpflanze.org/urpflanze/#/ref/IPropArguments">IPropArguments</a>
+	</li>
 </ul>
 <pre class="prettyprint"><code class="javascript language-javascript">const rects = new Urpflanze.Rect({
     repetitions: [10, 1],
@@ -322,10 +419,14 @@ rects.subdivide(5)
 <p><img src="https://docs.urpflanze.org/core/assets/images/readme/vertexcallback-1.png" alt="" /></p>
 <hr />
 <h2 id="scene">Scene</h2>
-<p>You can use the shapes independently or you can add them to a scene.
-When a shape is added to the scene it will be arranged in the center of it, adding an offset to all points.</p>
+<p>
+	You can use the shapes independently or you can add them to a scene. When a shape is added to the scene it will be
+	arranged in the center of it, adding an offset to all points.
+</p>
 <p><em>Use without the scene:</em></p>
-<pre class="prettyprint"><code class="javascript language-javascript">const rect = new Urpflanze.Rect({ sideLength: 25 })
+<pre
+	class="prettyprint"
+><code class="javascript language-javascript">const rect = new Urpflanze.Rect({ sideLength: 25 })
 rect.generate()
 
 console.log(rect.getBounding())
@@ -335,7 +436,9 @@ console.log(rect.getBounding())
 // # left, top point: (-25, -25) | right, bottom point: (25, 25)
 </code></pre>
 <p><em>Using the scene:</em></p>
-<pre class="prettyprint"><code class="javascript language-javascript">const scene = new Urpflanze.Scene({ width: 100, height: 100 })
+<pre
+	class="prettyprint"
+><code class="javascript language-javascript">const scene = new Urpflanze.Scene({ width: 100, height: 100 })
 const rect = new Urpflanze.Rect({ sideLength: 25 })
 scene.add(rect)
 scene.update()
@@ -351,7 +454,13 @@ console.log(rect.getBounding())
 // # left, top point: (25, 25) | right, bottom point: (75, 75)
 </code></pre>
 <h3 id="simpledrawer">Simple Drawer</h3>
-<p>When you call the <code>generate()</code> method on a shape a buffer of type Array<<a href="https://docs.urpflanze.org/core/#/ref/IBufferIndex">IBufferIndex</a>> is created containing the information on the current repetition of shape and the reference index of the total buffer (<code>getBuffer()</code>)</p>
+<p>
+	When you call the <code>generate()</code> method on a shape a buffer of type Array<<a
+		href="https://docs.urpflanze.org/core/#/ref/IBufferIndex"
+		>IBufferIndex</a
+	>> is created containing the information on the current repetition of shape and the reference index of the total
+	buffer (<code>getBuffer()</code>)
+</p>
 <p>if repetitions are statica (and ShapeLoop has static loop) the IndexedBuffer will only generate once.</p>
 <p><img src="https://docs.urpflanze.org/core/assets/images/buffers.svg" alt="" /></p>
 <pre class="prettyprint"><code class="javascript language-javascript">// scene.add(...)
@@ -390,8 +499,11 @@ for(let i = 0, len = sceneChilds.length; i &lt; len; i++) {
 <hr />
 <h2 id="examples">Examples</h2>
 <p>Draw point in a console (using <a href="https://github.com/madbence/node-drawille">this package</a>)</p>
-<p>|                                                                          |                                                                          |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| <img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-2.gif" alt="" /> |</p>
+<p>
+	| | | | ------------------------------------------------------------------------ |
+	------------------------------------------------------------------------ | |
+	<img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif" alt="" /> |
+	<img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-2.gif" alt="" /> |
+</p>
 <p>Pen plotter</p>
 <p><img src="https://docs.urpflanze.org/core/assets/images/readme/plotter.jpeg" alt="" /></p>

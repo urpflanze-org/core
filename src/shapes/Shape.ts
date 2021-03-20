@@ -1,16 +1,20 @@
 import { ShapeBase } from './ShapeBase'
 import { SceneChild } from '../SceneChild'
-import { IParentBufferIndex, IShapeBounding, IShapeSettings } from '../types/shape-base'
+import { IShapeBounding, IShapeSettings } from '../types/shape-base'
 import { Scene } from '../Scene'
-import { IRecursionRepetition, IRepetition, ISceneChildPropArguments, ISceneChildProps } from '../types/scene-child'
-import { IBufferIndex } from '../types/shape-base'
+import { IPropArguments, ISceneChildProps } from '../types/scene-child'
+import { IBufferIndex, IParentBufferIndex } from '../types/indexedBuffer'
+import { IRepetition, IRecursionRepetition } from 'types/repetitions'
 
 /**
  * Container of ShapeBase or Group, it applies transformations on each repetition
  *
  * @category Core.Shapes
  */
-class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> {
+class Shape<
+	K extends ISceneChildProps<PA> = ISceneChildProps,
+	PA extends IPropArguments = IPropArguments
+> extends ShapeBase<K, PA> {
 	/**
 	 * child shape
 	 *
@@ -23,7 +27,7 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	 *
 	 * @param {ShapeSettings} [settings={}]
 	 */
-	constructor(settings: IShapeSettings = {}) {
+	constructor(settings: IShapeSettings<PA> = {}) {
 		settings.type = settings.type || 'Shape'
 		super(settings)
 
@@ -64,7 +68,7 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	 * @param {number | string} idOrName
 	 * @returns {(SceneChild | null)}
 	 */
-	public find(idOrName: number | string): SceneChild | null {
+	public find(idOrName: number | string): SceneChild<PA> | null {
 		if (this.id === idOrName || this.name === idOrName) return this
 
 		if (this.shape) return this.shape.find(idOrName)
@@ -75,10 +79,10 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	/**
 	 * Return length of buffer
 	 *
-	 * @param {ISceneChildPropArguments} propArguments
+	 * @param {PA} propArguments
 	 * @returns {number}
 	 */
-	public getBufferLength(propArguments?: ISceneChildPropArguments): number {
+	public getBufferLength(propArguments?: PA): number {
 		if (this.bStatic && this.buffer && this.buffer.length > 0) return this.buffer.length
 
 		const childBufferLength = this.shape ? this.shape.getBufferLength(propArguments) : 0
@@ -91,10 +95,10 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	 *
 	 * @protected
 	 * @param {number} generateId
-	 * @param {ISceneChildPropArguments} propArguments
+	 * @param {PA} propArguments
 	 * @returns {Float32Array}
 	 */
-	protected generateBuffer(generateId: number, propArguments: ISceneChildPropArguments): Float32Array {
+	protected generateBuffer(generateId: number, propArguments: PA): Float32Array {
 		if (this.shape) {
 			this.shape.generate(generateId, false, propArguments)
 			return this.shape.getBuffer() || Shape.EMPTY_BUFFER

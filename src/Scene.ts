@@ -260,7 +260,7 @@ class Scene {
 	 * @returns {boolean}
 	 * @memberof Scene
 	 */
-	public isFirstLevelChild(sceneChild: SceneChild): boolean {
+	public isFirstLevelChild(sceneChild: SceneChild<any>): boolean {
 		for (let i = 0, len = this.children.length; i < len; i++) if (this.children[i].id === sceneChild.id) return true
 
 		const parents = this.getParentsOfSceneChild(sceneChild)
@@ -275,7 +275,7 @@ class Scene {
 	 * @returns {Array<SceneChild>}
 	 * @memberof Scene
 	 */
-	public getParentsOfSceneChild(sceneChild: SceneChild): Array<SceneChild> {
+	public getParentsOfSceneChild(sceneChild: SceneChild<any>): Array<SceneChild> {
 		const result = Scene.getParentsOfSceneChild(this, sceneChild)
 
 		if (result) {

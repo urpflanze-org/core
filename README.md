@@ -225,7 +225,7 @@ new Urpflanze.Rect({
 
 To manage the repetitions you can pass a function to the properties instead of a constant.
 
-The argument of the function which is of type [ISceneChildPropArguments](https://docs.urpflanze.org/urpflanze/#/ref/ISceneChildPropArguments).
+The argument of the function which is of type [IPropArguments](https://docs.urpflanze.org/urpflanze/#/ref/IPropArguments).
 
 Inside it we find the `repetition` property which - like any object that implements a [IBaseRepetition](https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition) - contains the following properties:
 
@@ -394,7 +394,7 @@ The function takes 3 arguments:
 
 - `vertex`: [number, number] current vertex
 - `vertexRepetition`: [IBaseRepetition](https://docs.urpflanze.org/urpflanze/#/ref/IBaseRepetition) for the vertices of the current repetition
-- `propArguments`: [ISceneChildPropArguments](https://docs.urpflanze.org/urpflanze/#/ref/ISceneChildPropArguments)
+- `propArguments`: [IPropArguments](https://docs.urpflanze.org/urpflanze/#/ref/IPropArguments)
 
 ```javascript
 const rects = new Urpflanze.Rect({

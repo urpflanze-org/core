@@ -1,8 +1,10 @@
 import type { ISpiralProps, ISpiralSettings, TSpiralType } from '../../types/shape-primitives'
-import type { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
+import type { IPropArguments } from '../../types/scene-child'
 
 import { ShapeLoop } from '../ShapeLoop'
 import { PI2 } from '../../math'
+import { IShapeLoopRepetition } from 'types/repetitions'
+import { IDrawerProps } from 'types/shape-base'
 
 /**
  * Spiral shape
@@ -11,7 +13,10 @@ import { PI2 } from '../../math'
  * @class Spiral
  * @extends {ShapeLoop}
  */
-class Spiral extends ShapeLoop<ISpiralProps> {
+class Spiral<
+	PA extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PA> = IDrawerProps<PA>
+> extends ShapeLoop<ISpiralProps<PA>, PA, D> {
 	private spiral!: TSpiralType
 	private r!: (angle: number) => number
 
@@ -36,7 +41,7 @@ class Spiral extends ShapeLoop<ISpiralProps> {
 	 * @param {SpiralSettings} [settings={}]
 	 * @memberof Spiral
 	 */
-	constructor(settings: ISpiralSettings = {}) {
+	constructor(settings: ISpiralSettings<PA, D> = {}) {
 		settings.type = 'Spiral'
 		settings.bClosed = false
 
@@ -49,11 +54,11 @@ class Spiral extends ShapeLoop<ISpiralProps> {
 		this.props.twistsStart = settings.twistsStart ?? 0
 
 		this.loop = {
-			start: (propArguments: ISceneChildPropArguments) => PI2 * (this.getProp('twistsStart', propArguments) as number),
-			end: (propArguments: ISceneChildPropArguments) =>
+			start: (propArguments: PA) => PI2 * (this.getProp('twistsStart', propArguments) as number),
+			end: (propArguments: PA) =>
 				PI2 *
 				((this.getProp('twistsStart', propArguments) as number) + (this.getProp('twists', propArguments) as number)),
-			inc: (propArguments: ISceneChildPropArguments) => {
+			inc: (propArguments: PA) => {
 				const twists = this.getProp('twists', propArguments) as number
 				const rep = PI2 * twists
 				const sideLength = this.getRepetitionSideLength(propArguments)
@@ -72,7 +77,7 @@ class Spiral extends ShapeLoop<ISpiralProps> {
 		this.bStaticIndexed = this.isStaticIndexed()
 	}
 
-	protected generateLoopBuffer(propArguments: ISceneChildPropArguments): Float32Array {
+	protected generateLoopBuffer(propArguments: PA): Float32Array {
 		this.spiral = this.getProp('spiral', propArguments)
 		this.r = Spiral.getRFromTSpiralType(this.spiral)
 

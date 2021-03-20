@@ -1,30 +1,27 @@
 import { ShapeBase } from './ShapeBase'
 
-import {
-	IBufferIndex,
-	IParentBufferIndex,
-	IShapeBounding,
-	IShapePrimitiveProps,
-	IShapePrimitiveSettings,
-} from '../types/shape-base'
-import { IRecursionRepetition, IRepetition, ISceneChildPropArguments } from '../types/scene-child'
+import { IDrawerProps, IShapeBounding, IShapePrimitiveProps, IShapePrimitiveSettings } from '../types/shape-base'
+import { IPropArguments } from '../types/scene-child'
 import * as glme from '../math/gl-matrix-extensions'
 import { Bounding } from '../math/bounding'
+import { IRecursionRepetition, IRepetition } from 'types/repetitions'
+import { IBufferIndex, IParentBufferIndex } from 'types/indexedBuffer'
 
 /**
  * @category Core.Abstract
  */
 abstract class ShapePrimitive<
-	K extends IShapePrimitiveProps = IShapePrimitiveProps,
-	T = { [key: string]: any }
-> extends ShapeBase<K> {
+	K extends IShapePrimitiveProps<PA> = IShapePrimitiveProps,
+	PA extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PA> = IDrawerProps<PA>
+> extends ShapeBase<K, PA> {
 	/**
 	 * Props retrived by drawer
 	 *
 	 * @public
-	 * @type {T}
+	 * @type {D}
 	 */
-	public drawer: T
+	public drawer: D
 
 	/**
 	 * Define shape is closed, default true
@@ -45,7 +42,7 @@ abstract class ShapePrimitive<
 	 *
 	 * @param {IShapePrimitiveSettings} [settings={}]
 	 */
-	constructor(settings: IShapePrimitiveSettings<T> = {}) {
+	constructor(settings: IShapePrimitiveSettings<PA, D> = {}) {
 		super(settings)
 
 		this.props.sideLength =
@@ -55,7 +52,7 @@ abstract class ShapePrimitive<
 				? settings.sideLength
 				: glme.toVec2(settings.sideLength)
 
-		this.drawer = settings.drawer || ({} as T)
+		this.drawer = settings.drawer || ({} as D)
 		this.bClosed = settings.bClosed ?? true
 	}
 
@@ -69,7 +66,7 @@ abstract class ShapePrimitive<
 		return typeof this.props.sideLength !== 'function' && super.isStatic()
 	}
 
-	public getRepetitionSideLength(propArguments: ISceneChildPropArguments): [number, number] {
+	public getRepetitionSideLength(propArguments: PA): [number, number] {
 		if (this.bStatic) {
 			// not set default value into constructor because it can be overridden by group
 			if (typeof this.props.sideLength === 'undefined') {

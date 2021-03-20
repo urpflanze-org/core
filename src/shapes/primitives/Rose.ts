@@ -1,8 +1,10 @@
-import type { ISceneChildPropArguments, IShapeLoopRepetition } from '../../types/scene-child'
+import type { IPropArguments } from '../../types/scene-child'
 import type { IRoseProps, IRoseSettings } from '../../types/shape-primitives'
 
 import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { PI2 } from '../../math'
+import { IDrawerProps } from 'types/shape-base'
+import { IShapeLoopRepetition } from 'types/repetitions'
 
 /**
  * Rose shape
@@ -11,7 +13,11 @@ import { PI2 } from '../../math'
  * @class Rose
  * @extends {ShapeLoop}
  */
-class Rose extends ShapeLoop<IRoseProps> {
+class Rose<PA extends IPropArguments = IPropArguments, D extends IDrawerProps<PA> = IDrawerProps<PA>> extends ShapeLoop<
+	IRoseProps<PA>,
+	PA,
+	D
+> {
 	private k!: number
 
 	/**
@@ -20,7 +26,7 @@ class Rose extends ShapeLoop<IRoseProps> {
 	 * @param {IRoseSettings} [settings={}]
 	 * @memberof Rose
 	 */
-	constructor(settings: IRoseSettings = {}) {
+	constructor(settings: IRoseSettings<PA, D> = {}) {
 		settings.type = 'Rose'
 		settings.loopDependencies = (settings.loopDependencies || []).concat(['n', 'd'])
 
@@ -31,9 +37,9 @@ class Rose extends ShapeLoop<IRoseProps> {
 
 		this.loop = {
 			start: 0,
-			end: (propArguments: ISceneChildPropArguments) =>
+			end: (propArguments: PA) =>
 				Rose.getFinalAngleFromK(this.getProp('n', propArguments) as number, this.getProp('d', propArguments) as number),
-			inc: (propArguments: ISceneChildPropArguments) => {
+			inc: (propArguments: PA) => {
 				const n = this.getProp('n', propArguments) as number
 				const d = this.getProp('d', propArguments) as number
 				const sideLength = this.getRepetitionSideLength(propArguments)
@@ -55,7 +61,7 @@ class Rose extends ShapeLoop<IRoseProps> {
 		this.bStaticIndexed = this.isStaticIndexed()
 	}
 
-	protected generateLoopBuffer(propArguments: ISceneChildPropArguments): Float32Array {
+	protected generateLoopBuffer(propArguments: PA): Float32Array {
 		this.k = (this.getProp('n', propArguments) as number) / (this.getProp('d', propArguments) as number)
 
 		return super.generateLoopBuffer(propArguments)

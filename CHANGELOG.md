@@ -23,7 +23,7 @@
 
 ## 0.3.0 (January 25, 2021)
 
-- Remove time and Context from ISceneChildPropArguments
+- Remove time and Context from IPropArguments
 
 ## 0.2.4 (January 24, 2021)
 

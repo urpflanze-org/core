@@ -1,5 +1,6 @@
-import { ISceneChildPropArguments, ISceneChildProps, ISceneChildSettings, IStreamArguments } from './types/scene-child'
-import { IBufferIndex, IShapeBounding } from './types/shape-base'
+import { IPropArguments, ISceneChildProps, ISceneChildSettings, IStreamArguments } from './types/scene-child'
+import { IShapeBounding } from './types/shape-base'
+import { IBufferIndex } from './types/indexedBuffer'
 
 import { Scene } from './Scene'
 
@@ -21,7 +22,7 @@ let __id = 0
  * @order 2
  * @class SceneChild
  */
-abstract class SceneChild {
+abstract class SceneChild<PA extends IPropArguments = IPropArguments> {
 	/**
 	 * Reference of the scene to which it is attached
 	 *
@@ -63,7 +64,7 @@ abstract class SceneChild {
 	 * @protected
 	 * @type {ISceneChildProps}
 	 */
-	protected props: ISceneChildProps
+	protected props: ISceneChildProps<PA>
 
 	/**
 	 * Custom client data
@@ -78,7 +79,7 @@ abstract class SceneChild {
 	 *
 	 * @param {ISceneChildSettings} settings
 	 */
-	constructor(settings: ISceneChildSettings) {
+	constructor(settings: ISceneChildSettings<PA>) {
 		this.id = settings.id ?? ++__id
 
 		this.type = settings.type || 'SceneChild'
@@ -111,7 +112,7 @@ abstract class SceneChild {
 	 * @param {string | number} idOrName
 	 * @returns {(SceneChild | null)}
 	 */
-	find(idOrName: string | number): SceneChild | null {
+	find(idOrName: string | number): SceneChild<PA> | null {
 		if (this.id === idOrName || this.name === idOrName) return this
 
 		return null
@@ -120,21 +121,21 @@ abstract class SceneChild {
 	/**
 	 * Return the sceneChild properties
 	 *
-	 * @returns {ISceneChildProps}
+	 * @returns {ISceneChildProps<PA>}
 	 */
-	public getProps(): ISceneChildProps {
+	public getProps(): ISceneChildProps<PA> {
 		return this.props
 	}
 
 	/**
 	 * Return a sceneChild prop or default value
 	 *
-	 * @param {keyof ISceneChildProps} key
-	 * @param {ISceneChildPropArguments} [propArguments]
+	 * @param {keyof ISceneChildProps<PA>} key
+	 * @param {PA} [propArguments]
 	 * @param {*} [defaultValue]
 	 * @returns {*}
 	 */
-	public getProp(key: keyof ISceneChildProps, propArguments?: ISceneChildPropArguments, defaultValue?: any): any {
+	public getProp(key: keyof ISceneChildProps<PA>, propArguments?: PA, defaultValue?: any): any {
 		return (this.props[key] ?? defaultValue) as any
 	}
 
@@ -143,28 +144,30 @@ abstract class SceneChild {
 	 *
 	 * @abstract
 	 * @template K
-	 * @param {(K | ISceneChildProps)} key
-	 * @param {ISceneChildProps[K]} [value]
+	 * @param {(K | ISceneChildProps<PA>)} key
+	 * @param {ISceneChildProps<PA>[K]} [value]
 	 * @param {boolean} [bClearIndexed]
 	 */
-	abstract setProp<K extends keyof ISceneChildProps>(
-		key: K | ISceneChildProps,
-		value?: ISceneChildProps[K],
+	abstract setProp<K extends keyof ISceneChildProps<PA>>(
+		key: K | ISceneChildProps<PA>,
+		value?: ISceneChildProps<PA>[K],
 		bClearIndexed?: boolean
 	): void
 
 	/**
 	 * Set a single or multiple props
 	 *
-	 * @param {(keyof ISceneChildProps | ISceneChildProps)} key
+	 * @param {(keyof ISceneChildProps<PA> | ISceneChildProps<PA>)} key
 	 * @param {*} [value]
 	 */
-	public setPropUnsafe(key: keyof ISceneChildProps | ISceneChildProps, value?: any): void {
+	public setPropUnsafe(key: keyof ISceneChildProps<PA> | ISceneChildProps<PA>, value?: any): void {
 		if (typeof key == 'string') this.props[key] = value
 		else
 			Object.keys(key).forEach(
 				(k: string) =>
-					(this.props[k as keyof ISceneChildProps] = (key as ISceneChildProps)[k as keyof ISceneChildProps] as any)
+					(this.props[k as keyof ISceneChildProps<PA>] = (key as ISceneChildProps<PA>)[
+						k as keyof ISceneChildProps<PA>
+					] as any)
 			)
 	}
 
@@ -175,13 +178,9 @@ abstract class SceneChild {
 	 * @abstract
 	 * @param {number} generateId
 	 * @param {boolean} bDirectSceneChild
-	 * @param {ISceneChildPropArguments} parentPropArguments
+	 * @param {PA} parentPropArguments
 	 */
-	abstract generate(
-		generateId: number,
-		bDirectSceneChild: boolean,
-		parentPropArguments?: ISceneChildPropArguments
-	): void
+	abstract generate(generateId: number, bDirectSceneChild: boolean, parentPropArguments?: PA): void
 
 	/**
 	 * Get buffer bounding
@@ -218,10 +217,10 @@ abstract class SceneChild {
 	 * Get length of buffer
 	 *
 	 * @abstract
-	 * @param {ISceneChildPropArguments | undefined} [propArguments]
+	 * @param {IPropArguments | undefined} [propArguments]
 	 * @returns {number}
 	 */
-	abstract getBufferLength(propArguments?: ISceneChildPropArguments): number
+	abstract getBufferLength(propArguments?: PA): number
 
 	/**
 	 * Clear buffer

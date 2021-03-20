@@ -1,16 +1,8 @@
 import { mat4, vec2, vec3 } from 'gl-matrix'
 
-import { IParentBufferIndex, IShapeBaseSettings, IShapeBounding, TVertexCallback } from '../types/shape-base'
-import {
-	ERepetitionType,
-	IRepetition,
-	IBaseRepetition,
-	ISceneChildPropArguments,
-	ISceneChildProps,
-	IStreamArguments,
-	IRecursionRepetition,
-} from '../types/scene-child'
-import { IBufferIndex } from '../types/shape-base'
+import { IShapeBaseSettings, IShapeBounding, TVertexCallback } from '../types/shape-base'
+import { IPropArguments, ISceneChildProps, IStreamArguments } from '../types/scene-child'
+import { IBufferIndex, IParentBufferIndex } from '../types/indexedBuffer'
 import { clamp } from '../Utilities'
 import * as glme from '../math/gl-matrix-extensions'
 import Vec2 from '../math/Vec2'
@@ -18,6 +10,7 @@ import { PI2 } from '../math'
 
 import { Bounding } from '../math/bounding'
 import { SceneChild } from '../SceneChild'
+import { IBaseRepetition, IRepetition, ERepetitionType, IRecursionRepetition } from 'types/repetitions'
 
 const tmpMatrix = mat4.create()
 const transformMatrix = mat4.create()
@@ -33,7 +26,10 @@ const repetitionMatrix = mat4.create()
  * @order 4
  * @extends {SceneChild}
  */
-abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildProps> extends SceneChild {
+abstract class ShapeBase<
+	K extends ISceneChildProps<PA> = ISceneChildProps,
+	PA extends IPropArguments = IPropArguments
+> extends SceneChild<PA> {
 	/**
 	 * Empty buffer
 	 *
@@ -70,7 +66,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	/**
 	 * Props
 	 */
-	protected props: GShapeBaseProps
+	protected props: K
 
 	/**
 	 * Shape generation id
@@ -201,7 +197,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	 * line.subdivide(5)
 	 * ```
 	 */
-	public vertexCallback?: TVertexCallback
+	public vertexCallback?: TVertexCallback<PA>
 
 	/**
 	 * The bounding inside the scene
@@ -222,7 +218,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	 *
 	 * @param {ISceneChildSettings} [settings={}]
 	 */
-	constructor(settings: IShapeBaseSettings = {}) {
+	constructor(settings: IShapeBaseSettings<PA> = {}) {
 		super(settings)
 
 		this.props = {
@@ -242,7 +238,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 			transformOrigin: settings.transformOrigin,
 			perspective: settings.perspective,
 			perspectiveOrigin: settings.perspectiveOrigin,
-		} as GShapeBaseProps
+		} as K
 
 		this.bUseParent = !!settings.bUseParent
 		this.bUseRecursion = !!settings.bUseRecursion
@@ -289,15 +285,11 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	 * Return a prop value
 	 *
 	 * @param {keyof ISceneChildProps} key
-	 * @param {ISceneChildPropArguments} [propArguments]
+	 * @param {PA} [propArguments]
 	 * @param {*} [defaultValue]
 	 * @returns {*}
 	 */
-	public getProp<K extends keyof GShapeBaseProps>(
-		key: K,
-		propArguments?: ISceneChildPropArguments,
-		defaultValue?: number | [number, number]
-	): any {
+	public getProp<G extends keyof K>(key: G, propArguments?: PA, defaultValue?: number | [number, number]): any {
 		let attribute: any = (this.props as any)[key] as any
 
 		if (typeof attribute === 'function') {
@@ -310,11 +302,11 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	/**
 	 * Set a single or multiple props
 	 *
-	 * @param {(keyof ISceneChildProps | ISceneChildProps)} key
+	 * @param {(keyof ISceneChildProps<PA> | ISceneChildProps<PA>)} key
 	 * @param {*} [value]
 	 * @param {boolean} [bClearIndexed=false]
 	 */
-	public setProp(key: keyof ISceneChildProps | ISceneChildProps, value?: any, bClearIndexed = false): void {
+	public setProp(key: keyof ISceneChildProps<PA> | ISceneChildProps<PA>, value?: any, bClearIndexed = false): void {
 		if (typeof key == 'string') {
 			bClearIndexed = bClearIndexed || key == 'repetitions'
 			this.props[key] = value
@@ -322,7 +314,9 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 			bClearIndexed = bClearIndexed || 'repetitions' in key
 			Object.keys(key).forEach(
 				(k: string) =>
-					(this.props[k as keyof ISceneChildProps] = (key as ISceneChildProps)[k as keyof ISceneChildProps] as any)
+					(this.props[k as keyof ISceneChildProps<PA>] = (key as ISceneChildProps<PA>)[
+						k as keyof ISceneChildProps<PA>
+					] as any)
 			)
 		}
 		this.clearBuffer(bClearIndexed, true)
@@ -357,9 +351,9 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	 *
 	 * @param {number} generateId generation id
 	 * @param {boolean} [bDirectSceneChild=false] adjust shape of center of scene
-	 * @param {ISceneChildPropArguments} [parentPropArguments]
+	 * @param {PA} [parentPropArguments]
 	 */
-	public generate(generateId: number, bDirectSceneChild = false, parentPropArguments?: ISceneChildPropArguments): void {
+	public generate(generateId: number, bDirectSceneChild = false, parentPropArguments?: PA): void {
 		if (this.buffer && (this.bStatic || (generateId === this.generateId && !this.bUseParent && !this.bUseRecursion))) {
 			return
 		}
@@ -368,7 +362,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 
 		if (!this.bStaticIndexed || !this.bIndexed) this.indexedBuffer = []
 
-		const propArguments: ISceneChildPropArguments = ShapeBase.getEmptyPropArguments(this, parentPropArguments)
+		const propArguments = ShapeBase.getEmptyPropArguments(this, parentPropArguments) as PA
 		const repetition = propArguments.repetition
 
 		const repetitions = this.getProp('repetitions', propArguments, 1)
@@ -631,10 +625,10 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	 *
 	 * @protected
 	 * @param {number} generateId
-	 * @param {ISceneChildPropArguments} propArguments
+	 * @param {PA} propArguments
 	 * @returns {Float32Array}
 	 */
-	protected abstract generateBuffer(generateId: number, propArguments: ISceneChildPropArguments): Float32Array
+	protected abstract generateBuffer(generateId: number, propArguments: PA): Float32Array
 
 	/**
 	 *
@@ -656,7 +650,7 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	/**
 	 * Return indexed buffer
 	 *
-	 * @returns {(Array<IBufferIndex> | undefined)}
+	 * @returns {(Array<IBufferIndex<K, PA>> | undefined)}
 	 */
 	public getIndexedBuffer(): Array<IBufferIndex> {
 		return this.indexedBuffer
@@ -711,15 +705,18 @@ abstract class ShapeBase<GShapeBaseProps extends ISceneChildProps = ISceneChildP
 	 *
 	 * @static
 	 * @param {ShapeBase} shape
-	 * @return {*}  {ISceneChildPropArguments}
+	 * @return {*}  {PA}
 	 */
 	static getEmptyPropArguments(
-		shape: ShapeBase,
-		parentPropArguments?: Partial<ISceneChildPropArguments>
-	): ISceneChildPropArguments {
-		// prettier-ignore
+		shape: ShapeBase<any, any>,
+		parentPropArguments?: Partial<IPropArguments>
+	): IPropArguments {
 		const repetition: IRepetition = {
-			type: ERepetitionType.Ring, angle: 0, index: 1, offset: 1, count: 1,
+			type: ERepetitionType.Ring,
+			angle: 0,
+			index: 1,
+			offset: 1,
+			count: 1,
 			row: { index: 1, offset: 1, count: 1 },
 			col: { index: 1, offset: 1, count: 1 },
 		}
