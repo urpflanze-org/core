@@ -84,24 +84,6 @@ class Spiral<
 		return super.generateLoopBuffer(propArguments)
 	}
 
-	// /**
-	//  * Set single or multiple props
-	//  *
-	//  * @param {(keyof ISpiralProps | ISpiralProps)} key
-	//  * @param {*} [value]
-	//  * @memberof Spiral
-	//  */
-	// public setProp(key: keyof ISpiralProps | ISpiralProps, value?: any): void {
-	// 	key = typeof key === 'string' ? { [key]: value } : key
-
-	// 	if (('twists' in key || 'twistsStart' in key) && this.props.loop) {
-	// 		this.props.loop.start = undefined
-	// 		this.props.loop.end = undefined
-	// 	}
-
-	// 	super.setProp(key as keyof IShapeLoopProps, value)
-	// }
-
 	/**
 	 * Point position and scale factor for spiral types
 	 *
