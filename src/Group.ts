@@ -109,6 +109,7 @@ class Group extends SceneChild {
 							this.children.map(e => e.order || 0)
 					  ) + 1
 					: 0
+			item.bUseParent = item.bUseParent || this.bUseParent
 
 			this.scene && Scene.propagateToChilden(item, this.scene)
 
