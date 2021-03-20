@@ -20,20 +20,6 @@ export type TVertexCallback<PA extends IPropArguments = IPropArguments> = (
  */
 export interface IShapeBaseSettings<PA extends IPropArguments = IPropArguments> extends ISceneChildSettings<PA> {
 	/**
-	 * With this parameter the shape will be created at each repetition,
-	 * useful if you want to encapsulate this shape in another and use its <mark>repetition</mark> object.
-	 * In the case of ShapePrimitive style prop don't need to as they are generated during the buffer stream.
-	 * @order -15
-	 */
-	bUseParent?: boolean
-
-	/**
-	 * If container is SHapeRecursive, will this parameter the shape will be created at each recursion,
-	 * @order -14
-	 */
-	bUseRecursion?: boolean
-
-	/**
 	 * Callback to apply transform at any vertex
 	 *
 	 * @order -13

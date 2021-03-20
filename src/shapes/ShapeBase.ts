@@ -110,63 +110,6 @@ abstract class ShapeBase<
 	protected bIndexed = false
 
 	/**
-	 * With this parameter the shape will be created at each repetition,
-	 * useful if you want to encapsulate this shape in another and use its <mark>repetition</mark> object.
-	 * In the case of ShapePrimitive the style prop don't need to as they are generated during the buffer stream.
-	 *
-	 * @public
-	 * @type {boolean}
-	 * @example
-	 * ```javascript
-	 * // Use parent repetition for generate different types of roses
-	 *
-	 * const rose = new Urpflanze.Rose({
-	 * 	repetitions: 3,
-	 * 	n: ({ parent }) => parent.repetition.index, // <- use parent
-	 * 	d: ({ repetition }) => repetition.index,
-	 * 	sideLength: 20,
-	 * 	distance: 30,
-	 * 	bUseParent: true // <- add this for use `parent` as propArgument of `n` property
-	 * })
-	 *
-	 * const shape = new Urpflanze.Shape({
-	 * 	shape: rose,
-	 * 	repetitions: 4,
-	 * 	distance: 100
-	 * })
-	 * ```
-	 */
-	public bUseParent: boolean
-
-	/**
-	 * With this parameter the shape will be created at each recursion,
-	 * In the case of ShapePrimitive style prop don't need to as they are generated during the buffer stream.
-	 *
-	 * @public
-	 * @type {boolean}
-	 * @example
-	 * ```javascript
-	 * // Use recursion for generate different types of roses
-	 *
-	 * const rose = new Urpflanze.Rose({
-	 * 	repetitions: 3,
-	 * 	n: ({ parent }) => parent.repetition.index, // <- use parent
-	 * 	d: ({ repetition }) => repetition.index,
-	 * 	sideLength: 20,
-	 * 	distance: 30,
-	 * 	bUseParent: true // <- add this for use `parent` as propArgument of `n` property
-	 * })
-	 *
-	 * const shape = new Urpflanze.Shape({
-	 * 	shape: rose,
-	 * 	repetitions: 4,
-	 * 	distance: 100
-	 * })
-	 * ```
-	 */
-	public bUseRecursion: boolean
-
-	/**
 	 * Array used for index a vertex buffer
 	 * only for first level scene children
 	 *
@@ -241,7 +184,6 @@ abstract class ShapeBase<
 		} as K
 
 		this.bUseParent = !!settings.bUseParent
-		this.bUseRecursion = !!settings.bUseRecursion
 
 		this.vertexCallback = settings.vertexCallback
 	}
@@ -354,7 +296,7 @@ abstract class ShapeBase<
 	 * @param {PA} [parentPropArguments]
 	 */
 	public generate(generateId: number, bDirectSceneChild = false, parentPropArguments?: PA): void {
-		if (this.buffer && (this.bStatic || (generateId === this.generateId && !this.bUseParent && !this.bUseRecursion))) {
+		if (this.buffer && (this.bStatic || (generateId === this.generateId && !this.bUseParent))) {
 			return
 		}
 
