@@ -10,7 +10,7 @@ import { PI2 } from '../math'
 
 import { Bounding } from '../math/bounding'
 import { SceneChild } from '../SceneChild'
-import { IBaseRepetition, IRepetition, ERepetitionType, IRecursionRepetition } from 'types/repetitions'
+import { IBaseRepetition, IRepetition, ERepetitionType, IRecursionRepetition } from '../types/repetitions'
 
 const tmpMatrix = mat4.create()
 const transformMatrix = mat4.create()
