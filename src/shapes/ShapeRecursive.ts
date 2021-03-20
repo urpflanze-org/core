@@ -109,7 +109,10 @@ class ShapeRecursive<
 	 * @returns {Float32Array}
 	 */
 	protected generateBuffer(generateId: number, propArguments: PA): Float32Array {
-		if ((this.shape && this.shape.bUseParent) || typeof this.shapeRecursiveBuffer === 'undefined') {
+		if (
+			(this.shape && (this.shape.bUseParent || this.shape.generateId !== generateId)) ||
+			typeof this.shapeRecursiveBuffer === 'undefined'
+		) {
 			this.bindBuffer(generateId, propArguments)
 		}
 
