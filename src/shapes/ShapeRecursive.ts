@@ -65,11 +65,11 @@ class ShapeRecursive<
 		super.clearBuffer(bClearIndexed, bPropagateToParents)
 	}
 
-	// /**
-	//  * Set type of recursion
-	//  *
-	//  * @param {boolean} inner
-	//  */
+	/**
+	 * Set type of recursion
+	 *
+	 * @param {boolean} inner
+	 */
 	// public setRecursionnInner(inner: boolean): void {
 	// 	this.bInner = inner
 	// 	this.clearBuffer(true)
