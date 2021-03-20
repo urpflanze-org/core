@@ -22,7 +22,10 @@ let __id = 0
  * @order 2
  * @class SceneChild
  */
-abstract class SceneChild<PA extends IPropArguments = IPropArguments> {
+abstract class SceneChild<
+	K extends ISceneChildProps<PA> = ISceneChildProps,
+	PA extends IPropArguments = IPropArguments
+> {
 	/**
 	 * Reference of the scene to which it is attached
 	 *
@@ -62,9 +65,9 @@ abstract class SceneChild<PA extends IPropArguments = IPropArguments> {
 	 * The basic properties
 	 *
 	 * @protected
-	 * @type {ISceneChildProps}
+	 * @type {K}
 	 */
-	protected props: ISceneChildProps<PA>
+	protected props: K
 
 	/**
 	 * Custom client data
@@ -127,7 +130,7 @@ abstract class SceneChild<PA extends IPropArguments = IPropArguments> {
 		this.data = settings.data || {}
 		this.bUseParent = !!settings.bUseParent
 
-		this.props = {}
+		this.props = {} as K
 	}
 
 	/**
@@ -153,7 +156,7 @@ abstract class SceneChild<PA extends IPropArguments = IPropArguments> {
 	 * @param {string | number} idOrName
 	 * @returns {(SceneChild | null)}
 	 */
-	find(idOrName: string | number): SceneChild<PA> | null {
+	find(idOrName: string | number): SceneChild<K, PA> | null {
 		if (this.id === idOrName || this.name === idOrName) return this
 
 		return null
@@ -162,21 +165,21 @@ abstract class SceneChild<PA extends IPropArguments = IPropArguments> {
 	/**
 	 * Return the sceneChild properties
 	 *
-	 * @returns {ISceneChildProps<PA>}
+	 * @returns {K}
 	 */
-	public getProps(): ISceneChildProps<PA> {
+	public getProps(): K {
 		return this.props
 	}
 
 	/**
 	 * Return a sceneChild prop or default value
 	 *
-	 * @param {keyof ISceneChildProps<PA>} key
+	 * @param {keyof K} key
 	 * @param {PA} [propArguments]
 	 * @param {*} [defaultValue]
 	 * @returns {*}
 	 */
-	public getProp(key: keyof ISceneChildProps<PA>, propArguments?: PA, defaultValue?: any): any {
+	public getProp(key: keyof K, propArguments?: PA, defaultValue?: any): any {
 		return (this.props[key] ?? defaultValue) as any
 	}
 
@@ -185,15 +188,11 @@ abstract class SceneChild<PA extends IPropArguments = IPropArguments> {
 	 *
 	 * @abstract
 	 * @template K
-	 * @param {(K | ISceneChildProps<PA>)} key
+	 * @param {(K | Partial<K>)} key
 	 * @param {ISceneChildProps<PA>[K]} [value]
 	 * @param {boolean} [bClearIndexed]
 	 */
-	abstract setProp<K extends keyof ISceneChildProps<PA>>(
-		key: K | ISceneChildProps<PA>,
-		value?: ISceneChildProps<PA>[K],
-		bClearIndexed?: boolean
-	): void
+	abstract setProp<T extends keyof K>(key: T | Partial<K>, value?: K[T], bClearIndexed?: boolean): void
 
 	/**
 	 * Set a single or multiple props

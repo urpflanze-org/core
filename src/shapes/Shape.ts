@@ -68,8 +68,8 @@ class Shape<
 	 * @param {number | string} idOrName
 	 * @returns {(SceneChild | null)}
 	 */
-	public find(idOrName: number | string): SceneChild<PA> | null {
-		if (this.id === idOrName || this.name === idOrName) return this
+	public find(idOrName: number | string): SceneChild<any, any> | null {
+		if (this.id === idOrName || this.name === idOrName) return this as SceneChild<any, any>
 
 		if (this.shape) return this.shape.find(idOrName)
 

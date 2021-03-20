@@ -29,7 +29,7 @@ const repetitionMatrix = mat4.create()
 abstract class ShapeBase<
 	K extends ISceneChildProps<PA> = ISceneChildProps,
 	PA extends IPropArguments = IPropArguments
-> extends SceneChild<PA> {
+> extends SceneChild<K, PA> {
 	/**
 	 * Empty buffer
 	 *
@@ -239,18 +239,13 @@ abstract class ShapeBase<
 	 * @param {*} [value]
 	 * @param {boolean} [bClearIndexed=false]
 	 */
-	public setProp(key: keyof ISceneChildProps<PA> | ISceneChildProps<PA>, value?: any, bClearIndexed = false): void {
-		if (typeof key == 'string') {
+	public setProp(key: keyof K | Partial<K>, value?: any, bClearIndexed = false): void {
+		if (typeof key === 'string') {
 			bClearIndexed = bClearIndexed || key == 'repetitions'
 			this.props[key] = value
 		} else {
-			bClearIndexed = bClearIndexed || 'repetitions' in key
-			Object.keys(key).forEach(
-				(k: string) =>
-					(this.props[k as keyof ISceneChildProps<PA>] = (key as ISceneChildProps<PA>)[
-						k as keyof ISceneChildProps<PA>
-					] as any)
-			)
+			bClearIndexed = bClearIndexed || 'repetitions' in (key as Partial<K>)
+			Object.keys(key).forEach((k: string) => (this.props[k as keyof K] = (key as K)[k as keyof K] as any))
 		}
 		this.clearBuffer(bClearIndexed, true)
 	}
@@ -273,8 +268,8 @@ abstract class ShapeBase<
 		this.bStatic = this.isStatic()
 		this.bStaticIndexed = this.isStaticIndexed()
 
-		if (bPropagateToParents && this.scene && !this.scene.isFirstLevelChild(this)) {
-			const parents = this.scene.getParentsOfSceneChild(this)
+		if (bPropagateToParents && this.scene && !this.scene.isFirstLevelChild(this as SceneChild<any, any>)) {
+			const parents = this.scene.getParentsOfSceneChild(this as SceneChild<any, any>)
 			parents.length > 0 && parents[parents.length - 1].clearBuffer(bClearIndexed, bPropagateToParents /* true */)
 		}
 	}

@@ -160,9 +160,9 @@ class ShapeLoop<
 	 * @param {*} [value]
 	 * @param {boolean} [bClearIndexed=false]
 	 */
-	public setProp<K>(key: K, value?: any): void {
+	public setProp(key: keyof K | Partial<K>, value?: any): void {
 		let bClearIndexed = false
-		const keys = typeof key === 'string' ? { [key]: value } : key
+		const keys = (typeof key === 'string' ? { [key]: value } : key) as Partial<K>
 
 		for (let i = this.loopDependencies.length - 1; i >= 0; i--) {
 			if (this.loopDependencies[i] in keys) {
