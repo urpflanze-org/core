@@ -1,10 +1,16 @@
-import { ISceneChildProps, ISceneChildSettings, IStreamArguments } from './types/scene-child'
+import {
+	IBufferIndex,
+	IPropArguments,
+	IShapeBounding,
+	ISceneChildProps,
+	ISceneChildSettings,
+	IStreamArguments,
+} from './types'
 
 import { Scene } from './Scene'
 import { SceneChild } from './SceneChild'
 import { ShapeBase } from './shapes/ShapeBase'
 import { Bounding } from './math/bounding'
-import { IBufferIndex, IPropArguments, IShapeBounding } from 'types'
 
 /**
  * A SceneChild container, propagates properties to children

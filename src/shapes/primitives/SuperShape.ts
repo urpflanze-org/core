@@ -1,9 +1,7 @@
-import { ISuperShapeProps, ISuperShapeSettings, IPropArguments } from '../../types'
+import { ISuperShapeProps, ISuperShapeSettings, IPropArguments, IDrawerProps, IShapeLoopRepetition } from '../../types'
 
 import { ShapeLoop } from '../ShapeLoop'
 import { PI2 } from '../../math'
-import { IDrawerProps } from 'types/shape-base'
-import { IShapeLoopRepetition } from 'types/repetitions'
 
 /**
  * ShperShape

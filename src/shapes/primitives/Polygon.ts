@@ -1,8 +1,7 @@
-import { IPropArguments, IPolygonProps, IPolygonSettings } from '../../types'
+import { IPropArguments, IPolygonProps, IPolygonSettings, IDrawerProps } from '../../types'
 
 import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { PI2 } from '../../math'
-import { IDrawerProps } from 'types/shape-base'
 
 /**
  * Polygon shape

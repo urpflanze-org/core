@@ -1,7 +1,11 @@
-import type { IPropArguments } from '../types/propArguments'
-import type { IDrawerProps, IShapeBounding, IShapePrimitiveProps } from '../types/shape-base'
-import { EAdaptMode } from '../types/shape-base'
-import type { IShapeBufferSettings } from '../types/shape-primitives'
+import {
+	IShapeBufferSettings,
+	EAdaptMode,
+	IPropArguments,
+	IDrawerProps,
+	IShapeBounding,
+	IShapePrimitiveProps,
+} from '../types'
 
 import { Bounding } from '../math/bounding'
 import { ShapePrimitive } from '../shapes/ShapePrimitive'

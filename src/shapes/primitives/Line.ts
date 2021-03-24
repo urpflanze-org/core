@@ -1,6 +1,4 @@
-import { EAdaptMode, IDrawerProps, IPropArguments } from '../../types'
-
-import { IShapeBufferSettings } from '../../types/shape-primitives'
+import { EAdaptMode, IDrawerProps, IPropArguments, IShapeBufferSettings } from '../../types'
 
 import { ShapeBuffer } from '../ShapeBuffer'
 

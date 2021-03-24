@@ -1,4 +1,4 @@
-import { ShapeBase } from 'shapes/ShapeBase'
+import { ShapeBase } from '../shapes/ShapeBase'
 import { IRecursionRepetition, IRepetition } from './repetitions'
 
 /**

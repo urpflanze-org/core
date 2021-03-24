@@ -1,6 +1,4 @@
-import { IDrawerProps, IPropArguments } from '../../types'
-
-import type { IShapeLoopProps, IShapeLoopSettings } from '../../types/shape-primitives'
+import { IShapeLoopProps, IShapeLoopSettings, IDrawerProps, IPropArguments } from '../../types'
 
 import { PI2 } from '../../math'
 import { ShapeLoop } from '../ShapeLoop'

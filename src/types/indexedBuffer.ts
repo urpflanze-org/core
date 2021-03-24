@@ -1,5 +1,5 @@
-import { ShapeBase } from 'shapes/ShapeBase'
-import { ShapePrimitive } from 'shapes/ShapePrimitive'
+import { ShapeBase } from '../shapes/ShapeBase'
+import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { IPropArguments } from './propArguments'
 import { IRecursionRepetition } from './repetitions'
 

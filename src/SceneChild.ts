@@ -1,7 +1,13 @@
-import { ISceneChildProps, ISceneChildSettings, IStreamArguments } from './types/scene-child'
+import {
+	ISceneChildProps,
+	ISceneChildSettings,
+	IStreamArguments,
+	IBufferIndex,
+	IPropArguments,
+	IShapeBounding,
+} from './types'
 
 import { Scene } from './Scene'
-import { IBufferIndex, IPropArguments, IShapeBounding } from 'types'
 
 /**
  * Autoincrement sceneChild default id
