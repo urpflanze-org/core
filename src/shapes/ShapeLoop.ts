@@ -1,18 +1,18 @@
-import type { IPropArguments } from '../types/scene-child'
 import type {
 	IShapeLoopGenerator,
 	IShapeLoopProps,
 	IShapeLoopSettings,
 	TShapeLoopGeneratorFormula,
-} from '../types/shape-primitives'
+	IPropArguments,
+	IDrawerProps,
+	IShapeLoopRepetition,
+} from '../types'
 
 import { PI2 } from '../math'
 import { Bounding } from '../math/bounding'
 
 import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { ShapeBase } from './ShapeBase'
-import { IDrawerProps } from 'types/shape-base'
-import { IShapeLoopRepetition } from 'types/repetitions'
 
 /**
  *
@@ -38,10 +38,10 @@ export interface ILoopMeta {
  * @extends {ShapePrimitive}
  */
 class ShapeLoop<
-	K extends IShapeLoopProps<PA> = IShapeLoopProps,
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends ShapePrimitive<K, PA, D> {
+	PropArguments extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>,
+	Props extends IShapeLoopProps<PropArguments> = IShapeLoopProps
+> extends ShapePrimitive<PropArguments, DrawerProps, Props> {
 	public static readonly PId2: number = Math.PI / 2
 
 	/**
@@ -58,7 +58,7 @@ class ShapeLoop<
 	 * @protected
 	 * @type {IShapeLoopGenerator}
 	 */
-	protected loop!: IShapeLoopGenerator<PA>
+	protected loop!: IShapeLoopGenerator<PropArguments>
 
 	/**
 	 * Generate static loop buffer whem IShapeLoopGenerator props
@@ -75,7 +75,7 @@ class ShapeLoop<
 	 * @protected
 	 * @type {Array<'propArguments' | keyof IShapeLoopProps | string>}
 	 */
-	public loopDependencies: Array<'propArguments' | keyof IShapeLoopProps<PA> | string>
+	public loopDependencies: Array<'propArguments' | keyof IShapeLoopProps<PropArguments> | string>
 
 	/**
 	 * Creates an instance of ShapeLoop.
@@ -83,7 +83,7 @@ class ShapeLoop<
 	 * @param {IShapeLoopSettings} [settings={}]
 	 * @param {boolean} [bPreventGeneration=false]
 	 */
-	constructor(settings: IShapeLoopSettings<PA, D> = {}, bPreventGeneration = false) {
+	constructor(settings: IShapeLoopSettings<PropArguments, DrawerProps> = {}, bPreventGeneration = false) {
 		settings.type = settings.type || 'ShapeLoop'
 		super(settings)
 
@@ -156,13 +156,13 @@ class ShapeLoop<
 	/**
 	 * Set single or multiple props
 	 *
-	 * @param {(K)} key
+	 * @param {(Props)} key
 	 * @param {*} [value]
 	 * @param {boolean} [bClearIndexed=false]
 	 */
-	public setProp(key: keyof K | Partial<K>, value?: any): void {
+	public setProp(key: keyof Props | Partial<Props>, value?: any): void {
 		let bClearIndexed = false
-		const keys = (typeof key === 'string' ? { [key]: value } : key) as Partial<K>
+		const keys = (typeof key === 'string' ? { [key]: value } : key) as Partial<Props>
 
 		for (let i = this.loopDependencies.length - 1; i >= 0; i--) {
 			if (this.loopDependencies[i] in keys) {
@@ -183,16 +183,16 @@ class ShapeLoop<
 	/**
 	 * Return length of buffer
 	 *
-	 * @param {PA} [propArguments]
+	 * @param {PropArguments} [propArguments]
 	 * @returns {number}
 	 */
-	public getBufferLength(propArguments?: PA): number {
+	public getBufferLength(propArguments?: PropArguments): number {
 		if (this.bStatic && typeof this.buffer !== 'undefined') return this.buffer.length
 
 		if (this.bStaticLoop && typeof this.currentOrSingleLoopBuffer !== 'undefined')
 			return this.currentOrSingleLoopBuffer.length * this.getRepetitionCount()
 
-		const { count } = this.getLoop(propArguments || (ShapeBase.getEmptyPropArguments(this) as PA))
+		const { count } = this.getLoop(propArguments || (ShapeBase.getEmptyPropArguments(this) as PropArguments))
 
 		return this.getRepetitionCount() * count * 2
 	}
@@ -202,10 +202,10 @@ class ShapeLoop<
 	 *
 	 * @protected
 	 * @param {number} generateId
-	 * @param {PA} propArguments
+	 * @param {PropArguments} propArguments
 	 * @returns {Float32Array}
 	 */
-	protected generateBuffer(generateId: number, propArguments: PA): Float32Array {
+	protected generateBuffer(generateId: number, propArguments: PropArguments): Float32Array {
 		if (!this.bStaticLoop) return this.generateLoopBuffer(propArguments)
 
 		if (typeof this.props.sideLength === 'function' || typeof this.currentOrSingleLoopBuffer === 'undefined')
@@ -218,10 +218,10 @@ class ShapeLoop<
 	 * Generate loop buffer
 	 *
 	 * @protected
-	 * @param {PA} propArguments
+	 * @param {PropArguments} propArguments
 	 * @returns {Float32Array}
 	 */
-	protected generateLoopBuffer(propArguments: PA): Float32Array {
+	protected generateLoopBuffer(propArguments: PropArguments): Float32Array {
 		const { start, inc, /*end,*/ count } = this.getLoop(propArguments)
 
 		const sideLength = this.getRepetitionSideLength(propArguments)
@@ -271,10 +271,10 @@ class ShapeLoop<
 	 * Return information about a client loop gnerator
 	 *
 	 * @public
-	 * @param {PA} propArguments
+	 * @param {PropArguments} propArguments
 	 * @returns {ShapeLoopInformation}
 	 */
-	public getLoop(propArguments: PA): ILoopMeta {
+	public getLoop(propArguments: PropArguments): ILoopMeta {
 		let start = this.props.loop?.start ?? this.loop.start
 		let end = this.props.loop?.end ?? this.loop.end
 		let inc = this.props.loop?.inc ?? this.loop.inc
@@ -294,7 +294,7 @@ class ShapeLoop<
 	 * @param {number} [level=1]
 	 */
 	public subdivide(level = 1) {
-		const currentLoop: IShapeLoopGenerator<PA> = this.props.loop || this.loop
+		const currentLoop: IShapeLoopGenerator<PropArguments> = this.props.loop || this.loop
 
 		// TODO: subdivide function?
 		if (typeof currentLoop.inc === 'number') {

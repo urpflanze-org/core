@@ -1,10 +1,14 @@
-import type { ISpiralProps, ISpiralSettings, TSpiralType } from '../../types/shape-primitives'
-import type { IPropArguments } from '../../types/scene-child'
+import {
+	ISpiralProps,
+	ISpiralSettings,
+	TSpiralType,
+	IPropArguments,
+	IDrawerProps,
+	IShapeLoopRepetition,
+} from '../../types'
 
 import { ShapeLoop } from '../ShapeLoop'
 import { PI2 } from '../../math'
-import { IShapeLoopRepetition } from 'types/repetitions'
-import { IDrawerProps } from 'types/shape-base'
 
 /**
  * Spiral shape
@@ -14,9 +18,9 @@ import { IDrawerProps } from 'types/shape-base'
  * @extends {ShapeLoop}
  */
 class Spiral<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends ShapeLoop<ISpiralProps<PA>, PA, D> {
+	PropArguments extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ShapeLoop<PropArguments, DrawerProps, ISpiralProps<PropArguments>> {
 	private spiral!: TSpiralType
 	private r!: (angle: number) => number
 
@@ -41,7 +45,7 @@ class Spiral<
 	 * @param {SpiralSettings} [settings={}]
 	 * @memberof Spiral
 	 */
-	constructor(settings: ISpiralSettings<PA, D> = {}) {
+	constructor(settings: ISpiralSettings<PropArguments, DrawerProps> = {}) {
 		settings.type = 'Spiral'
 		settings.bClosed = false
 
@@ -54,11 +58,11 @@ class Spiral<
 		this.props.twistsStart = settings.twistsStart ?? 0
 
 		this.loop = {
-			start: (propArguments: PA) => PI2 * (this.getProp('twistsStart', propArguments) as number),
-			end: (propArguments: PA) =>
+			start: (propArguments: PropArguments) => PI2 * (this.getProp('twistsStart', propArguments) as number),
+			end: (propArguments: PropArguments) =>
 				PI2 *
 				((this.getProp('twistsStart', propArguments) as number) + (this.getProp('twists', propArguments) as number)),
-			inc: (propArguments: PA) => {
+			inc: (propArguments: PropArguments) => {
 				const twists = this.getProp('twists', propArguments) as number
 				const rep = PI2 * twists
 				const sideLength = this.getRepetitionSideLength(propArguments)
@@ -77,7 +81,7 @@ class Spiral<
 		this.bStaticIndexed = this.isStaticIndexed()
 	}
 
-	protected generateLoopBuffer(propArguments: PA): Float32Array {
+	protected generateLoopBuffer(propArguments: PropArguments): Float32Array {
 		this.spiral = this.getProp('spiral', propArguments)
 		this.r = Spiral.getRFromTSpiralType(this.spiral)
 

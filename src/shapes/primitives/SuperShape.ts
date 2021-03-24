@@ -1,5 +1,4 @@
-import type { ISuperShapeProps, ISuperShapeSettings } from '../../types/shape-primitives'
-import type { IPropArguments } from '../../types/scene-child'
+import { ISuperShapeProps, ISuperShapeSettings, IPropArguments } from '../../types'
 
 import { ShapeLoop } from '../ShapeLoop'
 import { PI2 } from '../../math'
@@ -14,9 +13,9 @@ import { IShapeLoopRepetition } from 'types/repetitions'
  * @extends {ShapeLoop}
  */
 class SuperShape<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends ShapeLoop<ISuperShapeProps<PA>, PA, D> {
+	PropArguments extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ShapeLoop<PropArguments, DrawerProps, ISuperShapeProps<PropArguments>> {
 	private a!: number
 	private b!: number
 	private m!: number
@@ -30,7 +29,7 @@ class SuperShape<
 	 * @param {ISuperShapeSettings} [settings={}]
 	 * @memberof SuperShape
 	 */
-	constructor(settings: ISuperShapeSettings<PA, D> = {}) {
+	constructor(settings: ISuperShapeSettings<PropArguments, DrawerProps> = {}) {
 		settings.type = 'SuperShape'
 		settings.loopDependencies = (settings.loopDependencies || []).concat(['a', 'b', 'm', 'n1', 'n2', 'n3'])
 
@@ -69,7 +68,7 @@ class SuperShape<
 		this.bStaticIndexed = this.isStaticIndexed()
 	}
 
-	protected generateLoopBuffer(propArguments: PA): Float32Array {
+	protected generateLoopBuffer(propArguments: PropArguments): Float32Array {
 		this.a = this.getProp('a', propArguments) as number
 		this.b = this.getProp('b', propArguments) as number
 		this.m = this.getProp('m', propArguments) as number

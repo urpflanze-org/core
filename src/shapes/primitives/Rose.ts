@@ -1,10 +1,7 @@
-import type { IPropArguments } from '../../types/scene-child'
-import type { IRoseProps, IRoseSettings } from '../../types/shape-primitives'
+import { IRoseProps, IRoseSettings, IDrawerProps, IPropArguments, IShapeLoopRepetition } from '../../types'
 
 import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { PI2 } from '../../math'
-import { IDrawerProps } from 'types/shape-base'
-import { IShapeLoopRepetition } from 'types/repetitions'
 
 /**
  * Rose shape
@@ -13,11 +10,10 @@ import { IShapeLoopRepetition } from 'types/repetitions'
  * @class Rose
  * @extends {ShapeLoop}
  */
-class Rose<PA extends IPropArguments = IPropArguments, D extends IDrawerProps<PA> = IDrawerProps<PA>> extends ShapeLoop<
-	IRoseProps<PA>,
-	PA,
-	D
-> {
+class Rose<
+	PropArgument extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArgument> = IDrawerProps<PropArgument>
+> extends ShapeLoop<PropArgument, DrawerProps, IRoseProps<PropArgument>> {
 	private k!: number
 
 	/**
@@ -26,7 +22,7 @@ class Rose<PA extends IPropArguments = IPropArguments, D extends IDrawerProps<PA
 	 * @param {IRoseSettings} [settings={}]
 	 * @memberof Rose
 	 */
-	constructor(settings: IRoseSettings<PA, D> = {}) {
+	constructor(settings: IRoseSettings<PropArgument, DrawerProps> = {}) {
 		settings.type = 'Rose'
 		settings.loopDependencies = (settings.loopDependencies || []).concat(['n', 'd'])
 
@@ -37,9 +33,9 @@ class Rose<PA extends IPropArguments = IPropArguments, D extends IDrawerProps<PA
 
 		this.loop = {
 			start: 0,
-			end: (propArguments: PA) =>
+			end: (propArguments: PropArgument) =>
 				Rose.getFinalAngleFromK(this.getProp('n', propArguments) as number, this.getProp('d', propArguments) as number),
-			inc: (propArguments: PA) => {
+			inc: (propArguments: PropArgument) => {
 				const n = this.getProp('n', propArguments) as number
 				const d = this.getProp('d', propArguments) as number
 				const sideLength = this.getRepetitionSideLength(propArguments)
@@ -61,7 +57,7 @@ class Rose<PA extends IPropArguments = IPropArguments, D extends IDrawerProps<PA
 		this.bStaticIndexed = this.isStaticIndexed()
 	}
 
-	protected generateLoopBuffer(propArguments: PA): Float32Array {
+	protected generateLoopBuffer(propArguments: PropArgument): Float32Array {
 		this.k = (this.getProp('n', propArguments) as number) / (this.getProp('d', propArguments) as number)
 
 		return super.generateLoopBuffer(propArguments)

@@ -1,9 +1,8 @@
-import { ISceneSettings } from './types/scene'
+import { ISceneSettings, IStreamArguments } from './types'
 
 import { SceneChild } from './SceneChild'
 import { Group } from './Group'
 import { Shape } from './shapes/Shape'
-import { IStreamArguments } from './types/scene-child'
 
 /**
  * Container for all SceneChild.

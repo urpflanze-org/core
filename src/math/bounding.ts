@@ -1,4 +1,4 @@
-import { IShapeBounding } from '../types/shape-base'
+import { IShapeBounding } from '../types'
 
 /**
  * @internal

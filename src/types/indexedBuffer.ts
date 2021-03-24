@@ -1,55 +1,18 @@
 import { ShapeBase } from 'shapes/ShapeBase'
 import { ShapePrimitive } from 'shapes/ShapePrimitive'
-import { IRecursionRepetition, IRepetition } from './repetitions'
+import { IPropArguments } from './propArguments'
+import { IRecursionRepetition } from './repetitions'
 
-/**
- * Parent object for index the buffer
- *
- * @category Core.Stream
- */
-export interface IParentBufferIndex {
-	/**
-	 * Reference to shape
-	 */
-	shape: ShapeBase<any, any>
-
-	/**
-	 * Parent indexing
-	 */
-	parent?: IParentBufferIndex
-
-	/**
-	 * Frame length
-	 */
-	frameLength: number
-
-	/**
-	 * Current repetition reference of frame
-	 */
-	repetition: IRepetition
-
-	/**
-	 * Current recursion
-	 */
-	recursion?: IRecursionRepetition
-
-	// singleRepetitionBounding: IShapeBounding
-}
 /**
  * Object for index the buffer
  *
  * @category Core.Stream
  */
-export interface IBufferIndex {
+export type IBufferIndex<PropArguments extends IPropArguments = IPropArguments> = PropArguments & {
 	/**
-	 * Reference to shape
+	 * Primitive to draw
 	 */
-	shape: ShapePrimitive
-
-	/**
-	 * Parent indexing
-	 */
-	parent?: IParentBufferIndex
+	shape: ShapePrimitive<any, any> | ShapeBase<any, any>
 
 	/**
 	 * Frame length
@@ -57,7 +20,21 @@ export interface IBufferIndex {
 	frameLength: number
 
 	/**
-	 * Current repetition reference of frame
+	 * Parent indexing
 	 */
-	repetition: IRepetition
+	parent?: IBufferIndex<PropArguments>
+
+	// singleRepetitionBounding: IShapeBounding
 }
+
+/**
+ * Object for index the buffer
+ *
+ * @category Core.Stream
+ */
+export interface IBufferIndexWithRecursion
+	extends IBufferIndex<
+		IPropArguments & {
+			recursion: IRecursionRepetition
+		}
+	> {}

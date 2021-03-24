@@ -1,5 +1,5 @@
-import { IPropArguments } from 'types/scene-child'
-import { EAdaptMode, IDrawerProps } from '../../types/shape-base'
+import { EAdaptMode, IDrawerProps, IPropArguments } from '../../types'
+
 import { IShapeBufferSettings } from '../../types/shape-primitives'
 
 import { ShapeBuffer } from '../ShapeBuffer'
@@ -11,16 +11,16 @@ import { ShapeBuffer } from '../ShapeBuffer'
  * @extends {ShapeBuffer}
  */
 class Line<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends ShapeBuffer<PA, D> {
+	PropArguments extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ShapeBuffer<PropArguments, DrawerProps> {
 	/**
 	 * Two point, based on ShapeBuffer
 	 *
 	 * @param {ShapeBaseSettings} [settings={}]
 	 * @memberof Line
 	 */
-	constructor(settings: IShapeBufferSettings<PA, D> = {}) {
+	constructor(settings: IShapeBufferSettings<PropArguments, DrawerProps> = {}) {
 		settings.type = 'Line'
 		settings.shape = [-1, 0, 1, 0]
 		settings.adaptMode = EAdaptMode.None

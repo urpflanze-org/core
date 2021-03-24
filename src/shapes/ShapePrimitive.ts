@@ -1,27 +1,33 @@
-import { ShapeBase } from './ShapeBase'
+import {
+	IBufferIndex,
+	IRepetition,
+	IDrawerProps,
+	IShapeBounding,
+	IShapePrimitiveProps,
+	IShapePrimitiveSettings,
+	IPropArguments,
+} from '../types'
 
-import { IDrawerProps, IShapeBounding, IShapePrimitiveProps, IShapePrimitiveSettings } from '../types/shape-base'
-import { IPropArguments } from '../types/scene-child'
 import * as glme from '../math/gl-matrix-extensions'
 import { Bounding } from '../math/bounding'
-import { IRecursionRepetition, IRepetition } from 'types/repetitions'
-import { IBufferIndex, IParentBufferIndex } from 'types/indexedBuffer'
+
+import { ShapeBase } from './ShapeBase'
 
 /**
  * @category Core.Abstract
  */
 abstract class ShapePrimitive<
-	K extends IShapePrimitiveProps<PA> = IShapePrimitiveProps,
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends ShapeBase<K, PA> {
+	PropArguments extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>,
+	Props extends IShapePrimitiveProps<PropArguments> = IShapePrimitiveProps
+> extends ShapeBase<PropArguments, Props> {
 	/**
 	 * Props retrived by drawer
 	 *
 	 * @public
 	 * @type {D}
 	 */
-	public drawer: D
+	public drawer: DrawerProps
 
 	/**
 	 * Define shape is closed, default true
@@ -42,7 +48,7 @@ abstract class ShapePrimitive<
 	 *
 	 * @param {IShapePrimitiveSettings} [settings={}]
 	 */
-	constructor(settings: IShapePrimitiveSettings<PA, D> = {}) {
+	constructor(settings: IShapePrimitiveSettings<PropArguments, DrawerProps> = {}) {
 		super(settings)
 
 		this.props.sideLength =
@@ -52,7 +58,7 @@ abstract class ShapePrimitive<
 				? settings.sideLength
 				: glme.toVec2(settings.sideLength)
 
-		this.drawer = settings.drawer || ({} as D)
+		this.drawer = settings.drawer || ({} as DrawerProps)
 		this.bClosed = settings.bClosed ?? true
 	}
 
@@ -66,7 +72,7 @@ abstract class ShapePrimitive<
 		return typeof this.props.sideLength !== 'function' && super.isStatic()
 	}
 
-	public getRepetitionSideLength(propArguments: PA): [number, number] {
+	public getRepetitionSideLength(propArguments: PropArguments): [number, number] {
 		if (this.bStatic) {
 			// not set default value into constructor because it can be overridden by group
 			if (typeof this.props.sideLength === 'undefined') {
@@ -100,11 +106,10 @@ abstract class ShapePrimitive<
 	 */
 	protected addIndex(
 		frameLength: number,
-		repetition: IRepetition,
-		recursion?: IRecursionRepetition
+		repetition: IRepetition
 		// singleRepetitionBounding: IShapeBounding
 	): void {
-		const index: IParentBufferIndex = {
+		const index: IBufferIndex = {
 			shape: this,
 			frameLength,
 			// singleRepetitionBounding,
@@ -127,16 +132,7 @@ abstract class ShapePrimitive<
 			},
 		}
 
-		if (typeof recursion !== 'undefined') {
-			index.recursion = {
-				index: recursion.index,
-				offset: recursion.offset,
-				count: recursion.offset,
-				level: recursion.level,
-			}
-		}
-
-		this.indexedBuffer.push(index as IBufferIndex)
+		this.indexedBuffer.push(index)
 	}
 
 	/**

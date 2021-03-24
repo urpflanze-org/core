@@ -1,4 +1,4 @@
-import type { IPropArguments } from '../types/scene-child'
+import type { IPropArguments } from '../types/propArguments'
 import type { IDrawerProps, IShapeBounding, IShapePrimitiveProps } from '../types/shape-base'
 import { EAdaptMode } from '../types/shape-base'
 import type { IShapeBufferSettings } from '../types/shape-primitives'
@@ -9,11 +9,10 @@ import { ShapePrimitive } from '../shapes/ShapePrimitive'
 /**
  * @category Core.Shapes
  */
-class ShapeBuffer<PA extends IPropArguments, D extends IDrawerProps<PA> = IDrawerProps<PA>> extends ShapePrimitive<
-	IShapePrimitiveProps,
-	PA,
-	D
-> {
+class ShapeBuffer<
+	PropArguments extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ShapePrimitive<PropArguments, DrawerProps, IShapePrimitiveProps> {
 	/**
 	 * Custom vertex buffer or shape
 	 *
@@ -43,7 +42,7 @@ class ShapeBuffer<PA extends IPropArguments, D extends IDrawerProps<PA> = IDrawe
 	 *
 	 * @param {IShapeBufferSettings} [settings={}]
 	 */
-	constructor(settings: IShapeBufferSettings<PA, D> = {}) {
+	constructor(settings: IShapeBufferSettings<PropArguments, DrawerProps> = {}) {
 		settings.type = settings.type || 'ShapeBuffer'
 		settings.adaptMode = settings.adaptMode ?? EAdaptMode.Scale
 
@@ -79,7 +78,7 @@ class ShapeBuffer<PA extends IPropArguments, D extends IDrawerProps<PA> = IDrawe
 	 *
 	 * @protected
 	 */
-	protected bindBuffer(propArguments: PA) {
+	protected bindBuffer(propArguments: PropArguments) {
 		const sideLength = this.getRepetitionSideLength(propArguments)
 
 		const shapeBuffer = this.shape
@@ -115,10 +114,10 @@ class ShapeBuffer<PA extends IPropArguments, D extends IDrawerProps<PA> = IDrawe
 	 *
 	 * @protected
 	 * @param {number} generateId
-	 * @param {PA} propArguments
+	 * @param {PropArguments} propArguments
 	 * @returns {Float32Array}
 	 */
-	protected generateBuffer(generateId: number, propArguments: PA): Float32Array {
+	protected generateBuffer(generateId: number, propArguments: PropArguments): Float32Array {
 		if (typeof this.shapeBuffer === 'undefined' || typeof this.props.sideLength === 'function') {
 			this.bindBuffer(propArguments)
 		}

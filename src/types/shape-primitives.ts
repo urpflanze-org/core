@@ -1,4 +1,4 @@
-import { IPropArguments, TSceneChildProp } from '../types/scene-child'
+import { IPropArguments, TSceneChildProp } from '../types'
 import { IShapeLoopRepetition } from './repetitions'
 import { EAdaptMode, IDrawerProps, IShapePrimitiveProps, IShapePrimitiveSettings } from './shape-base'
 

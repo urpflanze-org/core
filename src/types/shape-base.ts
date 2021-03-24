@@ -1,16 +1,17 @@
-import { IPropArguments, ISceneChildProps, ISceneChildSettings, TSceneChildProp } from '../types/scene-child'
+import { ISceneChildProps, ISceneChildSettings, TSceneChildProp } from '../types/scene-child'
 import { SceneChild } from '../SceneChild'
 import { IBaseRepetition } from './repetitions'
+import { IPropArguments } from './propArguments'
 
 /**
  * Callback to pass at vertextCallback property
  *
  * @category Core.Types
  */
-export type TVertexCallback<PA extends IPropArguments = IPropArguments> = (
+export type TVertexCallback<PropArguments extends IPropArguments = IPropArguments> = (
 	vertex: [number, number, number],
 	vertexRepetition: IBaseRepetition,
-	propArguments: PA
+	propArguments: PropArguments
 ) => void
 
 /**
@@ -18,13 +19,14 @@ export type TVertexCallback<PA extends IPropArguments = IPropArguments> = (
  *
  * @category Core.Props and Settings Interfaces
  */
-export interface IShapeBaseSettings<PA extends IPropArguments = IPropArguments> extends ISceneChildSettings<PA> {
+export interface IShapeBaseSettings<PropArguments extends IPropArguments = IPropArguments>
+	extends ISceneChildSettings<PropArguments> {
 	/**
 	 * Callback to apply transform at any vertex
 	 *
 	 * @order -13
 	 */
-	vertexCallback?: TVertexCallback<PA>
+	vertexCallback?: TVertexCallback<PropArguments>
 }
 
 // Shape
@@ -34,12 +36,13 @@ export interface IShapeBaseSettings<PA extends IPropArguments = IPropArguments> 
  *
  * @category Core.Props and Settings Interfaces
  */
-export interface IShapeSettings<PA extends IPropArguments = IPropArguments> extends IShapeBaseSettings<PA> {
+export interface IShapeSettings<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeBaseSettings<PropArguments> {
 	/**
 	 * shape to apply repetitions and transformation
 	 * @order -20
 	 */
-	shape?: SceneChild<any>
+	shape?: SceneChild
 }
 
 /**
@@ -78,7 +81,7 @@ export enum EAdaptMode {
  *
  * @category Core.Props and Settings Interfaces
  */
-type TDrawerProp<T, G> = T | { (propArguments: G): T }
+export type TDrawerProp<T, G extends IPropArguments = IPropArguments> = T | { (propArguments: G): T }
 /**
  * Generic drawer interface
  *
@@ -92,12 +95,13 @@ export interface IDrawerProps<G extends IPropArguments = IPropArguments> {
  *
  * @category Core.Props and Settings Interfaces
  */
-export interface IShapePrimitiveProps<PA extends IPropArguments = IPropArguments> extends ISceneChildProps<PA> {
+export interface IShapePrimitiveProps<PropArguments extends IPropArguments = IPropArguments>
+	extends ISceneChildProps<PropArguments> {
 	/**
 	 * scalar that multiplies the buffer or loop
 	 * @order -20
 	 */
-	sideLength?: TSceneChildProp<number | [number, number], PA>
+	sideLength?: TSceneChildProp<number | [number, number], PropArguments>
 }
 
 /**
@@ -105,10 +109,10 @@ export interface IShapePrimitiveProps<PA extends IPropArguments = IPropArguments
  * @category Core.Props and Settings Interfaces
  */
 export interface IShapePrimitiveSettings<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends IShapePrimitiveProps<PA>,
-		IShapeBaseSettings<PA> {
+	PropArguments extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends IShapePrimitiveProps<PropArguments>,
+		IShapeBaseSettings<PropArguments> {
 	/**
 	 * Callback to apply transform at any vertex
 	 * @order -15.5
@@ -119,7 +123,7 @@ export interface IShapePrimitiveSettings<
 	 *
 	 * @order -15
 	 */
-	drawer?: D
+	drawer?: DrawerProps
 }
 
 /**
@@ -127,24 +131,25 @@ export interface IShapePrimitiveSettings<
  *
  * @category Core.Props and Settings Interfaces
  */
-export interface IShapeRecursiveProps<PA extends IPropArguments = IPropArguments> extends ISceneChildProps<PA> {
+export interface IShapeRecursiveProps<PropArguments extends IPropArguments = IPropArguments>
+	extends ISceneChildProps<PropArguments> {
 	/**
 	 * number of recursions
 	 * @order -25
 	 */
-	recursions?: TSceneChildProp<number, PA>
+	recursions?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * scale factor for recursion
 	 * @order -24
 	 */
-	recursionScale?: TSceneChildProp<number, PA>
+	recursionScale?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * number of vertext to start recursion
 	 * @order -23
 	 */
-	recursionVertex?: TSceneChildProp<number, PA>
+	recursionVertex?: TSceneChildProp<number, PropArguments>
 }
 
 /**
@@ -152,9 +157,9 @@ export interface IShapeRecursiveProps<PA extends IPropArguments = IPropArguments
  *
  * @category Core.Props and Settings Interfaces
  */
-export interface IShapeRecursiveSettings<PA extends IPropArguments = IPropArguments>
-	extends IShapeRecursiveProps<PA>,
-		IShapeSettings<PA> {}
+export interface IShapeRecursiveSettings<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeRecursiveProps<PropArguments>,
+		IShapeSettings<PropArguments> {}
 
 /**
  * Size of a buffer and its position relative to the scene.
