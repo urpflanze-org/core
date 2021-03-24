@@ -107,7 +107,7 @@ class Scene {
 	 * @param {number} [atTime] time in ms
 	 * @memberof Scene
 	 */
-	public update(atTime: number): void {
+	public update(atTime = 0): void {
 		this.currentTime = atTime
 
 		for (let i = 0, len = this.children.length; i < len; i++) {
