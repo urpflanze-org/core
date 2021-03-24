@@ -1,3 +1,15 @@
+## 0.4.5 (March 24, 2021)
+
+- Interface refactoring
+
+## 0.4.4 (March 18, 2021)
+
+- Remove buffer adaption when generate ShapeLoop or ShapeBuffer
+
+## 0.4.3 (March 17, 2021)
+
+- Change module exports
+
 ## 0.4.2 (March 16, 2021)
 
 - Change build target from CJS to ES6
@@ -23,7 +35,7 @@
 
 ## 0.3.0 (January 25, 2021)
 
-- Remove time and Context from ISceneChildPropArguments
+- Remove time and Context from IPropArguments
 
 ## 0.2.4 (January 24, 2021)
 

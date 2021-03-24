@@ -1,117 +1,16 @@
-import { ShapeBase } from '../shapes/ShapeBase'
-import { IBufferIndex } from '../types/shape-base'
+import { IBufferIndex } from '../types/indexedBuffer'
+import { IPropArguments } from './propArguments'
 
 /**
- * Repetition type enumerator.
+ * Value or callable
  *
- * @category Core.Repetition
- * @internal
+ * @category Core.Types
  */
-export enum ERepetitionType {
-	/**
-	 * Defines the type of repetition of the shape,
-	 * in a circular way starting from the center of the scene
-	 * @order 1
-	 */
-	Ring = 1,
+export type TSceneChildProp<T, PropArguments extends IPropArguments = IPropArguments> =
+	| T
+	| { (propArguments: PropArguments): T }
 
-	/**
-	 * Defines the type of repetition of the shape,
-	 * on a nxm grid starting from the center of the scene
-	 * @order 2
-	 */
-	Matrix = 2,
-}
-
-/**
- * Base repetition
- *
- * @category Core.Repetition
- */
-export interface IBaseRepetition {
-	/**
-	 * Index of repetition, from 1 to count
-	 * @order 1
-	 */
-	index: number
-
-	/**
-	 * Current repetition offset from 0 (first repetition) to 1 (last repetition)
-	 * @order 2
-	 */
-	offset: number
-
-	/**
-	 * Number of repetitions
-	 * @order 3
-	 */
-	count: number
-}
-
-/**
- *
- *
- * @category Core.Repetition
- */
-export interface IShapeLoopRepetition extends IBaseRepetition {
-	/**
-	 * current tick value
-	 *
-	 * @order 4
-	 */
-	current: number
-}
-
-/**
- *
- *
- * @category Core.Repetition
- */
-export interface IRecursionRepetition extends IBaseRepetition {
-	/**
-	 * Level (depth) of recursion
-	 * @order 4
-	 */
-	level: IBaseRepetition
-
-	/**
-	 * parent recursion
-	 *
-	 * @order 5
-	 */
-	parent?: IRecursionRepetition
-}
-
-/**
- * Information about propArguments repetition
- *
- * @category Core.Repetition
- */
-export interface IRepetition extends IBaseRepetition {
-	/**
-	 * Define the type of repetition
-	 * @order 4
-	 */
-	angle: number
-
-	/**
-	 * Define the type of repetition
-	 * @order 5
-	 */
-	type: ERepetitionType
-
-	/**
-	 * Information about rows of matrix repetition
-	 * @order 6
-	 */
-	row: IBaseRepetition
-
-	/**
-	 * Information about columns of matrix repetition
-	 * @order 7
-	 */
-	col: IBaseRepetition
-}
+////////////////////////////////////
 
 /**
  * Props interface.
@@ -119,7 +18,7 @@ export interface IRepetition extends IBaseRepetition {
  *
  * @category Core.Props and Settings Interfaces
  */
-export interface ISceneChildProps {
+export interface ISceneChildProps<PropArguments extends IPropArguments = IPropArguments> {
 	/**
 	 * It defines the type of repetition.
 	 * If a number is passed the repetition will be Ring.
@@ -130,7 +29,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 1
 	 */
-	repetitions?: TSceneChildProp<number | [number, number]> // number of shape repetitions
+	repetitions?: TSceneChildProp<number | [number, number], PropArguments>
 
 	/**
 	 * If the repeat is Ring, pass a numerical value
@@ -142,7 +41,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 2
 	 */
-	distance?: TSceneChildProp<number | [number, number]>
+	distance?: TSceneChildProp<number | [number, number], PropArguments>
 
 	/**
 	 * For Ring repeats, define the starting angle of the repeat
@@ -151,7 +50,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 3
 	 */
-	displace?: TSceneChildProp<number>
+	displace?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * skewX transformation.
@@ -160,7 +59,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 4
 	 */
-	skewX?: TSceneChildProp<number>
+	skewX?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * skewY transformation
@@ -169,7 +68,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 5
 	 */
-	skewY?: TSceneChildProp<number>
+	skewY?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * squeezeX transformation
@@ -178,7 +77,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 6
 	 */
-	squeezeX?: TSceneChildProp<number>
+	squeezeX?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * squeezeY transformation
@@ -187,7 +86,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 7
 	 */
-	squeezeY?: TSceneChildProp<number>
+	squeezeY?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * scale transformation
@@ -196,7 +95,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 8
 	 */
-	scale?: TSceneChildProp<number | [number, number]>
+	scale?: TSceneChildProp<number | [number, number], PropArguments>
 
 	/**
 	 * tranlsate transformation
@@ -205,7 +104,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 9
 	 */
-	translate?: TSceneChildProp<number | [number, number]>
+	translate?: TSceneChildProp<number | [number, number], PropArguments>
 
 	/**
 	 * rotateX transformation in degeress
@@ -214,7 +113,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 10
 	 */
-	rotateX?: TSceneChildProp<number>
+	rotateX?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * rotateY transformation in degeress
@@ -223,7 +122,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 11
 	 */
-	rotateY?: TSceneChildProp<number>
+	rotateY?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * rotateZ transformation in degeress
@@ -232,7 +131,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 12
 	 */
-	rotateZ?: TSceneChildProp<number>
+	rotateZ?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * Origin of transformation
@@ -241,7 +140,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 13
 	 */
-	transformOrigin?: TSceneChildProp<number | [number, number]>
+	transformOrigin?: TSceneChildProp<number | [number, number], PropArguments>
 
 	/**
 	 * perspective of rotation between 0 and 1
@@ -250,7 +149,7 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 14
 	 */
-	perspective?: TSceneChildProp<number>
+	perspective?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * perspective origin between [-1, -1] and [1, 1]
@@ -259,14 +158,15 @@ export interface ISceneChildProps {
 	 * @memberof ISceneChildProps
 	 * @order 15
 	 */
-	perspectiveOrigin?: TSceneChildProp<number | [number, number]>
+	perspectiveOrigin?: TSceneChildProp<number | [number, number], PropArguments>
 }
 
 /**
  *
  * @category Core.Props and Settings Interfaces
  */
-export interface ISceneChildSettings extends ISceneChildProps {
+export interface ISceneChildSettings<PropArguments extends IPropArguments = IPropArguments>
+	extends ISceneChildProps<PropArguments> {
 	/**
 	 * id of element
 	 * @order -5
@@ -296,44 +196,15 @@ export interface ISceneChildSettings extends ISceneChildProps {
 	 * @order -1
 	 */
 	data?: any
+
+	/**
+	 * With this parameter the shape will be created at each repetition,
+	 * useful if you want to encapsulate this shape in another and use its <mark>repetition</mark> object.
+	 * In the case of ShapePrimitive style prop don't need to as they are generated during the buffer stream.
+	 * @order -15
+	 */
+	bUseParent?: boolean
 }
-
-/**
- * Object argument for sceneChild props
- *
- * @category Core.Interfaces
- */
-export interface ISceneChildPropArguments {
-	/**
-	 * Information about repetition
-	 * @order 1
-	 */
-	repetition: IRepetition
-	/**
-	 * Information about recursion (if is encapsulated in a ShapeRecursive)
-	 * @order 2
-	 */
-	recursion?: IRecursionRepetition
-
-	/**
-	 * Current Shape
-	 * @order 5
-	 */
-	shape: ShapeBase
-
-	/**
-	 * Parent repetition (if encapsulated)
-	 * @order 7
-	 */
-	parent?: Partial<ISceneChildPropArguments>
-}
-
-/**
- * Value or callable
- *
- * @category Core.Types
- */
-export type TSceneChildProp<T> = T | { (propArguments: ISceneChildPropArguments): T }
 
 /**
  * Object passed to the drawer where it is possible to draw the current frame
@@ -342,7 +213,7 @@ export type TSceneChildProp<T> = T | { (propArguments: ISceneChildPropArguments)
  *
  * @category Core.Stream
  */
-export interface IStreamArguments {
+export interface IStreamArguments<PropArguments extends IPropArguments = IPropArguments> {
 	/**
 	 * @order 1
 	 */
@@ -359,7 +230,7 @@ export interface IStreamArguments {
 	 * repetition of current generated shape
 	 * @order 4
 	 */
-	currentIndexing: IBufferIndex
+	currentIndexing: IBufferIndex<PropArguments>
 	/**
 	 * @order 5
 	 */

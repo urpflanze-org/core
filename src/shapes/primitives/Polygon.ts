@@ -1,8 +1,8 @@
-import type { ISceneChildPropArguments } from '../../types/scene-child'
-import type { IPolygonProps, IPolygonSettings } from '../../types/shape-primitives'
+import { IPropArguments, IPolygonProps, IPolygonSettings } from '../../types'
 
 import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { PI2 } from '../../math'
+import { IDrawerProps } from 'types/shape-base'
 
 /**
  * Polygon shape
@@ -11,8 +11,17 @@ import { PI2 } from '../../math'
  * @class Polygon
  * @extends {ShapeLoop}
  */
-class Polygon extends ShapeLoop<IPolygonProps> {
-	constructor(settings: IPolygonSettings = {}) {
+class Polygon<
+	PropArguments extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ShapeLoop<PropArguments, DrawerProps, IPolygonProps<PropArguments>> {
+	/**
+	 * Is based on ShapeLoop and you can pass `sideNumber` property to define
+	 * a number of sides.
+	 *
+	 * @param settings
+	 */
+	constructor(settings: IPolygonSettings<PropArguments, DrawerProps> = {}) {
 		settings.type = settings.type || 'Polygon'
 		settings.loopDependencies = (settings.loopDependencies || []).concat(['sideNumber'])
 
@@ -23,7 +32,7 @@ class Polygon extends ShapeLoop<IPolygonProps> {
 		this.loop = {
 			start: 0,
 			end: PI2,
-			inc: (propArguments: ISceneChildPropArguments) => {
+			inc: (propArguments: PropArguments) => {
 				return PI2 / this.getProp('sideNumber', propArguments, 5)
 			},
 			vertex: shapeLoopRepetition => {

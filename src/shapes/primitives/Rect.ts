@@ -1,6 +1,5 @@
-import { EAdaptMode } from '../../types/shape-base'
-import { IShapeBufferSettings } from '../../types/shape-primitives'
-import { ShapeBuffer } from '../../shapes/ShapeBuffer'
+import { IShapeBufferSettings, EAdaptMode, IDrawerProps, IPropArguments } from '../../types'
+import { ShapeBuffer } from '../ShapeBuffer'
 
 /**
  *
@@ -8,14 +7,17 @@ import { ShapeBuffer } from '../../shapes/ShapeBuffer'
  * @class Rect
  * @extends {ShapeBuffer}
  */
-class Rect extends ShapeBuffer {
+class Rect<
+	PropArguments extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ShapeBuffer<PropArguments, DrawerProps> {
 	/**
 	 * Creates an instance of Rect.
 	 *
 	 * @param {ShapeBaseSettings} [settings={}]
 	 * @memberof Rect
 	 */
-	constructor(settings: IShapeBufferSettings = {}) {
+	constructor(settings: IShapeBufferSettings<PropArguments, DrawerProps> = {}) {
 		settings.type = 'Rect'
 		settings.shape = [-1, -1, 1, -1, 1, 1, -1, 1]
 		settings.adaptMode = EAdaptMode.None

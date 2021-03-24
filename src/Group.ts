@@ -1,10 +1,10 @@
-import { ISceneChildPropArguments, ISceneChildProps, ISceneChildSettings, IStreamArguments } from './types/scene-child'
-import { IBufferIndex, IShapeBounding } from './types/shape-base'
+import { ISceneChildProps, ISceneChildSettings, IStreamArguments } from './types/scene-child'
 
 import { Scene } from './Scene'
 import { SceneChild } from './SceneChild'
 import { ShapeBase } from './shapes/ShapeBase'
 import { Bounding } from './math/bounding'
+import { IBufferIndex, IPropArguments, IShapeBounding } from 'types'
 
 /**
  * A SceneChild container, propagates properties to children
@@ -108,6 +108,7 @@ class Group extends SceneChild {
 							this.children.map(e => e.order || 0)
 					  ) + 1
 					: 0
+			item.bUseParent = item.bUseParent || this.bUseParent
 
 			this.scene && Scene.propagateToChilden(item, this.scene)
 
@@ -213,10 +214,11 @@ class Group extends SceneChild {
 	 *
 	 * @param {number} generateId
 	 * @param {boolean} [bDirectSceneChild=false]
-	 * @param {ISceneChildPropArguments} [parentPropArguments]
+	 * @param {IPropArguments} [parentPropArguments]
 	 * @memberof Group
 	 */
-	public generate(generateId: number, bDirectSceneChild = false, parentPropArguments?: ISceneChildPropArguments): void {
+	public generate(generateId: number, bDirectSceneChild = false, parentPropArguments?: IPropArguments): void {
+		this.generateId = generateId
 		this.children.forEach(item => item.generate(generateId, bDirectSceneChild, parentPropArguments))
 	}
 
@@ -306,11 +308,11 @@ class Group extends SceneChild {
 	/**
 	 * Return length of buffer
 	 *
-	 * @param {ISceneChildPropArguments} propArguments
+	 * @param {IPropArguments} propArguments
 	 * @returns {number}
 	 * @memberof Group
 	 */
-	public getBufferLength(propArguments?: ISceneChildPropArguments): number {
+	public getBufferLength(propArguments?: IPropArguments): number {
 		return this.children.map(sceneChild => sceneChild.getBufferLength(propArguments)).reduce((p, c) => p + c, 0)
 	}
 

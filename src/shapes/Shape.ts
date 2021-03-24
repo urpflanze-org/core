@@ -1,16 +1,19 @@
-import { ShapeBase } from './ShapeBase'
-import { SceneChild } from '../SceneChild'
-import { IParentBufferIndex, IShapeBounding, IShapeSettings } from '../types/shape-base'
+import { IShapeBounding, IShapeSettings, ISceneChildProps, IBufferIndex, IRepetition, IPropArguments } from '../types'
+
 import { Scene } from '../Scene'
-import { IRecursionRepetition, IRepetition, ISceneChildPropArguments, ISceneChildProps } from '../types/scene-child'
-import { IBufferIndex } from '../types/shape-base'
+import { SceneChild } from '../SceneChild'
+
+import { ShapeBase } from './ShapeBase'
 
 /**
  * Container of ShapeBase or Group, it applies transformations on each repetition
  *
  * @category Core.Shapes
  */
-class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> {
+class Shape<
+	PropArguments extends IPropArguments = IPropArguments,
+	Props extends ISceneChildProps<PropArguments> = ISceneChildProps
+> extends ShapeBase<PropArguments, Props> {
 	/**
 	 * child shape
 	 *
@@ -23,7 +26,7 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	 *
 	 * @param {ShapeSettings} [settings={}]
 	 */
-	constructor(settings: IShapeSettings = {}) {
+	constructor(settings: IShapeSettings<PropArguments> = {}) {
 		settings.type = settings.type || 'Shape'
 		super(settings)
 
@@ -64,8 +67,8 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	 * @param {number | string} idOrName
 	 * @returns {(SceneChild | null)}
 	 */
-	public find(idOrName: number | string): SceneChild | null {
-		if (this.id === idOrName || this.name === idOrName) return this
+	public find(idOrName: number | string): SceneChild<any, any> | null {
+		if (this.id === idOrName || this.name === idOrName) return this as SceneChild<any, any>
 
 		if (this.shape) return this.shape.find(idOrName)
 
@@ -75,10 +78,10 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	/**
 	 * Return length of buffer
 	 *
-	 * @param {ISceneChildPropArguments} propArguments
+	 * @param {PropArguments} propArguments
 	 * @returns {number}
 	 */
-	public getBufferLength(propArguments?: ISceneChildPropArguments): number {
+	public getBufferLength(propArguments?: PropArguments): number {
 		if (this.bStatic && this.buffer && this.buffer.length > 0) return this.buffer.length
 
 		const childBufferLength = this.shape ? this.shape.getBufferLength(propArguments) : 0
@@ -91,10 +94,10 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	 *
 	 * @protected
 	 * @param {number} generateId
-	 * @param {ISceneChildPropArguments} propArguments
+	 * @param {PropArguments} propArguments
 	 * @returns {Float32Array}
 	 */
-	protected generateBuffer(generateId: number, propArguments: ISceneChildPropArguments): Float32Array {
+	protected generateBuffer(generateId: number, propArguments: PropArguments): Float32Array {
 		if (this.shape) {
 			this.shape.generate(generateId, false, propArguments)
 			return this.shape.getBuffer() || Shape.EMPTY_BUFFER
@@ -127,13 +130,13 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	 */
 	protected addIndex(
 		frameLength: number,
-		repetition: IRepetition,
-		recursion?: IRecursionRepetition
+		repetition: IRepetition
 		// singleRepetitionBounding: IShapeBounding
 	): void {
 		if (this.shape) {
-			const childIndexedBuffer = this.shape.getIndexedBuffer() || []
-			const parent: IParentBufferIndex = {
+			const childIndexedBuffer: Array<IBufferIndex> = this.shape.getIndexedBuffer() || []
+
+			const parentBufferIndex: IBufferIndex = {
 				shape: this,
 				frameLength,
 				// singleRepetitionBounding,
@@ -156,19 +159,13 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 				},
 			}
 
-			if (typeof recursion !== 'undefined') {
-				parent.recursion = {
-					index: recursion.index,
-					offset: recursion.offset,
-					count: recursion.offset,
-					level: recursion.level,
-				}
-			}
-
 			for (let i = 0, len = childIndexedBuffer.length; i < len; i++) {
-				const currentIndexed = { ...childIndexedBuffer[i] }
-				currentIndexed.parent = currentIndexed.parent ? Shape.setIndexedParent(currentIndexed.parent, parent) : parent
-				this.indexedBuffer.push(currentIndexed)
+				const currentIndexed: IBufferIndex = { ...childIndexedBuffer[i] }
+				const parent = currentIndexed.parent
+					? Shape.setIndexedParent(currentIndexed.parent, parentBufferIndex)
+					: parentBufferIndex
+
+				this.indexedBuffer.push({ ...currentIndexed, parent })
 			}
 		}
 	}
@@ -177,41 +174,13 @@ class Shape<K extends ISceneChildProps = ISceneChildProps> extends ShapeBase<K> 
 	 * Set parent of indexed
 	 *
 	 * @static
-	 * @param {(IBufferIndex | IParentBufferIndex)} current
-	 * @param {IParentBufferIndex} parent
-	 * @returns {(IBufferIndex | IParentBufferIndex)}
+	 * @param {(IBufferIndex )} current
+	 * @param {IBufferIndex} parent
+	 * @returns {(IBufferIndex )}
 	 */
-	static setIndexedParent(current: IParentBufferIndex, parent: IParentBufferIndex): IBufferIndex | IParentBufferIndex {
-		const index: IBufferIndex | IParentBufferIndex = {
-			shape: current.shape,
-			// singleRepetitionBounding: current.singleRepetitionBounding,
-			repetition: {
-				type: current.repetition.type,
-				angle: current.repetition.angle,
-				index: current.repetition.index,
-				count: current.repetition.count,
-				offset: current.repetition.offset,
-				row: {
-					index: current.repetition.row.index,
-					count: current.repetition.row.count,
-					offset: current.repetition.row.offset,
-				},
-				col: {
-					index: current.repetition.col.index,
-					count: current.repetition.col.count,
-					offset: current.repetition.col.offset,
-				},
-			},
-			frameLength: current.frameLength,
-		}
-
-		if (typeof current.recursion !== 'undefined') {
-			index.recursion = {
-				index: current.recursion.index,
-				offset: current.recursion.offset,
-				count: current.recursion.offset,
-				level: current.recursion.level,
-			}
+	static setIndexedParent(current: IBufferIndex, parent: IBufferIndex): IBufferIndex {
+		const index: IBufferIndex = {
+			...current,
 		}
 
 		index.parent = current.parent ? Shape.setIndexedParent(current.parent, parent) : parent

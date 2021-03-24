@@ -887,7 +887,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999,
 						"bOptional": true
@@ -939,7 +939,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999,
 						"bOptional": true
@@ -997,7 +997,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999,
 						"bOptional": true
@@ -1238,9 +1238,7 @@
 			"line": 32,
 			"character": 11
 		},
-		"extends": [
-			"SceneChild"
-		],
+		"extends": ["SceneChild"],
 		"description": "A SceneChild container, propagates properties to children",
 		"examples": [
 			"\n```javascript\n// Group example\n\nconst rect = new Urpflanze.Rect({\n\tdistance: 100 // <- if a property is set the group will not overwrite it\n})\nconst group = new Urpflanze.Group({\n\trepetitions: 3,\n\tdistance: 200\n})\n\ngroup.add(rect)\ngroup.add(new Urpflanze.Triangle())\n```"
@@ -1382,7 +1380,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999,
 						"bOptional": true
@@ -1466,7 +1464,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999,
 						"bOptional": true
@@ -1770,9 +1768,7 @@
 			"line": 36,
 			"character": 24
 		},
-		"extends": [
-			"SceneChild"
-		],
+		"extends": ["SceneChild"],
 		"description": "Main class for shape generation",
 		"constructor_ref": {
 			"parameters": [
@@ -1832,7 +1828,7 @@
 				"description": "Props",
 				"type": {
 					"type": "reference",
-					"name": "GShapeBaseProps"
+					"name": "K"
 				},
 				"order": 9999,
 				"bProtected": true
@@ -1951,7 +1947,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999,
 						"bOptional": true
@@ -1981,7 +1977,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -2057,7 +2053,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999,
 						"bOptional": true
@@ -2316,7 +2312,7 @@
 								{
 									"type": "reference",
 									"id": 2429,
-									"name": "ISceneChildPropArguments"
+									"name": "IPropArguments"
 								}
 							],
 							"name": "Partial"
@@ -2328,7 +2324,7 @@
 				"return_type": {
 					"type": "reference",
 					"id": 2429,
-					"name": "ISceneChildPropArguments"
+					"name": "IPropArguments"
 				},
 				"order": 9999,
 				"bStatic": true
@@ -2476,9 +2472,7 @@
 				"order": 9999
 			}
 		],
-		"examples": [
-			"\n```javascript\nUrpflanze.clamp(0, 1, 1.2) // 1\nUrpflanze.clamp(0, 1, -2) // 0\n```"
-		],
+		"examples": ["\n```javascript\nUrpflanze.clamp(0, 1, 1.2) // 1\nUrpflanze.clamp(0, 1, -2) // 0\n```"],
 		"return_type": {
 			"type": "intrinsic",
 			"name": "number"
@@ -2696,9 +2690,7 @@
 				"order": 9999
 			}
 		],
-		"examples": [
-			"\n```javascript\nUrpflanze.relativeClamp(0, 1, 0.5, 100, 200) // 150\n```\n"
-		],
+		"examples": ["\n```javascript\nUrpflanze.relativeClamp(0, 1, 0.5, 100, 200) // 150\n```\n"],
 		"return_type": {
 			"type": "intrinsic",
 			"name": "number"
@@ -2725,9 +2717,7 @@
 				"order": 9999
 			}
 		],
-		"examples": [
-			"\n```javascript\nUrpflanze.toDegrees(Math.PI) // 180\n```\n"
-		],
+		"examples": ["\n```javascript\nUrpflanze.toDegrees(Math.PI) // 180\n```\n"],
 		"return_type": {
 			"type": "intrinsic",
 			"name": "number"
@@ -2754,9 +2744,7 @@
 				"order": 9999
 			}
 		],
-		"examples": [
-			"\n```javascript\nUrpflanze.toRadians(180) // 3.141592653589793\n```\n"
-		],
+		"examples": ["\n```javascript\nUrpflanze.toRadians(180) // 3.141592653589793\n```\n"],
 		"return_type": {
 			"type": "intrinsic",
 			"name": "number"
@@ -2977,9 +2965,7 @@
 			"line": 174,
 			"character": 32
 		},
-		"extends": [
-			"IShapeLoopProps"
-		],
+		"extends": ["IShapeLoopProps"],
 		"description": "For <mark>wx</mark>, <mark>wy</mark> and <mark>wx</mark> see Lissajous on <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Lissajous_curve\">Wikipedia</a>",
 		"properties": [
 			{
@@ -3454,10 +3440,7 @@
 			"line": 199,
 			"character": 35
 		},
-		"extends": [
-			"ILissajousProps",
-			"IShapeLoopSettings"
-		],
+		"extends": ["ILissajousProps", "IShapeLoopSettings"],
 		"description": "http://paulbourke.net/geometry/supershape/",
 		"properties": [
 			{
@@ -4157,9 +4140,7 @@
 			"line": 95,
 			"character": 30
 		},
-		"extends": [
-			"IShapeLoopProps"
-		],
+		"extends": ["IShapeLoopProps"],
 		"properties": [
 			{
 				"name": "sideNumber",
@@ -4599,10 +4580,7 @@
 			"line": 107,
 			"character": 33
 		},
-		"extends": [
-			"IPolygonProps",
-			"IShapeLoopSettings"
-		],
+		"extends": ["IPolygonProps", "IShapeLoopSettings"],
 		"properties": [
 			{
 				"name": "sideNumber",
@@ -5195,9 +5173,7 @@
 			"line": 70,
 			"character": 37
 		},
-		"extends": [
-			"IBaseRepetition"
-		],
+		"extends": ["IBaseRepetition"],
 		"properties": [
 			{
 				"name": "index",
@@ -5259,9 +5235,7 @@
 			"line": 90,
 			"character": 28
 		},
-		"extends": [
-			"IBaseRepetition"
-		],
+		"extends": ["IBaseRepetition"],
 		"description": "Information about propArguments repetition",
 		"properties": [
 			{
@@ -5342,9 +5316,7 @@
 			"line": 114,
 			"character": 27
 		},
-		"extends": [
-			"IShapeLoopProps"
-		],
+		"extends": ["IShapeLoopProps"],
 		"description": "For <mark>n</mark> and <mark>d</mark> see Rose on <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Rose_(mathematics)\">Wikipedia</a>",
 		"properties": [
 			{
@@ -5802,10 +5774,7 @@
 			"line": 132,
 			"character": 30
 		},
-		"extends": [
-			"IRoseProps",
-			"IShapeLoopSettings"
-		],
+		"extends": ["IRoseProps", "IShapeLoopSettings"],
 		"properties": [
 			{
 				"name": "n",
@@ -6408,7 +6377,7 @@
 	},
 	{
 		"type": "Interface",
-		"name": "ISceneChildPropArguments",
+		"name": "IPropArguments",
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
@@ -6464,7 +6433,7 @@
 						{
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						}
 					],
 					"name": "Partial"
@@ -6861,9 +6830,7 @@
 			"line": 269,
 			"character": 36
 		},
-		"extends": [
-			"ISceneChildProps"
-		],
+		"extends": ["ISceneChildProps"],
 		"properties": [
 			{
 				"name": "id",
@@ -7355,9 +7322,7 @@
 			"line": 90,
 			"character": 35
 		},
-		"extends": [
-			"ISceneChildSettings"
-		],
+		"extends": ["ISceneChildSettings"],
 		"description": "ShapeBaseSettings",
 		"properties": [
 			{
@@ -7889,9 +7854,7 @@
 			"line": 8,
 			"character": 34
 		},
-		"extends": [
-			"IShapePrimitiveProps"
-		],
+		"extends": ["IShapePrimitiveProps"],
 		"properties": [
 			{
 				"name": "sideLength",
@@ -8303,10 +8266,7 @@
 			"line": 14,
 			"character": 37
 		},
-		"extends": [
-			"IShapeBufferProps",
-			"IShapePrimitiveSettings"
-		],
+		"extends": ["IShapeBufferProps", "IShapePrimitiveSettings"],
 		"properties": [
 			{
 				"name": "shape",
@@ -8961,9 +8921,7 @@
 			"line": 68,
 			"character": 32
 		},
-		"extends": [
-			"IShapePrimitiveProps"
-		],
+		"extends": ["IShapePrimitiveProps"],
 		"properties": [
 			{
 				"name": "loop",
@@ -9386,9 +9344,7 @@
 			"line": 56,
 			"character": 37
 		},
-		"extends": [
-			"IBaseRepetition"
-		],
+		"extends": ["IBaseRepetition"],
 		"properties": [
 			{
 				"name": "index",
@@ -9438,10 +9394,7 @@
 			"line": 80,
 			"character": 35
 		},
-		"extends": [
-			"IShapeLoopProps",
-			"IShapePrimitiveSettings"
-		],
+		"extends": ["IShapeLoopProps", "IShapePrimitiveSettings"],
 		"properties": [
 			{
 				"name": "loop",
@@ -10017,9 +9970,7 @@
 			"line": 163,
 			"character": 37
 		},
-		"extends": [
-			"ISceneChildProps"
-		],
+		"extends": ["ISceneChildProps"],
 		"properties": [
 			{
 				"name": "sideLength",
@@ -10431,10 +10382,7 @@
 			"line": 175,
 			"character": 40
 		},
-		"extends": [
-			"IShapePrimitiveProps",
-			"IShapeBaseSettings"
-		],
+		"extends": ["IShapePrimitiveProps", "IShapeBaseSettings"],
 		"properties": [
 			{
 				"name": "sideLength",
@@ -11006,9 +10954,7 @@
 			"line": 194,
 			"character": 37
 		},
-		"extends": [
-			"ISceneChildProps"
-		],
+		"extends": ["ISceneChildProps"],
 		"description": "Shape recursive animate props",
 		"properties": [
 			{
@@ -11437,10 +11383,7 @@
 			"line": 219,
 			"character": 40
 		},
-		"extends": [
-			"IShapeRecursiveProps",
-			"IShapeSettings"
-		],
+		"extends": ["IShapeRecursiveProps", "IShapeSettings"],
 		"description": "ShapeRecursive settings",
 		"properties": [
 			{
@@ -11972,9 +11915,7 @@
 			"line": 120,
 			"character": 31
 		},
-		"extends": [
-			"IShapeBaseSettings"
-		],
+		"extends": ["IShapeBaseSettings"],
 		"description": "Shape settings",
 		"properties": [
 			{
@@ -12455,9 +12396,7 @@
 			"line": 144,
 			"character": 29
 		},
-		"extends": [
-			"IShapeLoopProps"
-		],
+		"extends": ["IShapeLoopProps"],
 		"properties": [
 			{
 				"name": "spiral",
@@ -12925,10 +12864,7 @@
 			"line": 168,
 			"character": 32
 		},
-		"extends": [
-			"ISpiralProps",
-			"IShapeLoopSettings"
-		],
+		"extends": ["ISpiralProps", "IShapeLoopSettings"],
 		"properties": [
 			{
 				"name": "spiral",
@@ -13614,9 +13550,7 @@
 			"line": 205,
 			"character": 33
 		},
-		"extends": [
-			"IShapeLoopProps"
-		],
+		"extends": ["IShapeLoopProps"],
 		"properties": [
 			{
 				"name": "a",
@@ -14141,10 +14075,7 @@
 			"line": 247,
 			"character": 36
 		},
-		"extends": [
-			"ISuperShapeProps",
-			"IShapeLoopSettings"
-		],
+		"extends": ["ISuperShapeProps", "IShapeLoopSettings"],
 		"properties": [
 			{
 				"name": "a",
@@ -14844,7 +14775,7 @@
 									"type": {
 										"type": "reference",
 										"id": 2429,
-										"name": "ISceneChildPropArguments"
+										"name": "IPropArguments"
 									},
 									"order": 9999
 								}
@@ -14927,7 +14858,7 @@
 									"type": {
 										"type": "reference",
 										"id": 2429,
-										"name": "ISceneChildPropArguments"
+										"name": "IPropArguments"
 									}
 								}
 							],
@@ -15078,7 +15009,7 @@
 									"type": {
 										"type": "reference",
 										"id": 2429,
-										"name": "ISceneChildPropArguments"
+										"name": "IPropArguments"
 									}
 								}
 							],
@@ -15175,9 +15106,7 @@
 			"line": 13,
 			"character": 11
 		},
-		"extends": [
-			"ShapeBase"
-		],
+		"extends": ["ShapeBase"],
 		"description": "Container of ShapeBase or Group, it applies transformations on each repetition",
 		"constructor_ref": {
 			"parameters": [
@@ -15305,7 +15234,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -15326,7 +15255,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999,
 						"bOptional": true
@@ -15457,9 +15386,7 @@
 			"line": 12,
 			"character": 17
 		},
-		"extends": [
-			"ShapePrimitive"
-		],
+		"extends": ["ShapePrimitive"],
 		"constructor_ref": {
 			"parameters": [
 				{
@@ -15539,7 +15466,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -15598,7 +15525,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -15808,9 +15735,7 @@
 			"line": 38,
 			"character": 15
 		},
-		"extends": [
-			"ShapePrimitive"
-		],
+		"extends": ["ShapePrimitive"],
 		"description": "Shape Loop",
 		"constructor_ref": {
 			"parameters": [
@@ -15942,7 +15867,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -15963,7 +15888,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -15984,7 +15909,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999,
 						"bOptional": true
@@ -16006,7 +15931,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -16143,9 +16068,7 @@
 			"line": 17,
 			"character": 29
 		},
-		"extends": [
-			"ShapeBase"
-		],
+		"extends": ["ShapeBase"],
 		"constructor_ref": {
 			"parameters": [
 				{
@@ -16248,7 +16171,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -16335,9 +16258,7 @@
 			"line": 10,
 			"character": 20
 		},
-		"extends": [
-			"Shape"
-		],
+		"extends": ["Shape"],
 		"constructor_ref": {
 			"parameters": [
 				{
@@ -16433,7 +16354,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -16492,7 +16413,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -16512,7 +16433,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					},
@@ -16613,9 +16534,7 @@
 			"line": 12,
 			"character": 12
 		},
-		"extends": [
-			"ShapeLoop"
-		],
+		"extends": ["ShapeLoop"],
 		"constructor_ref": {
 			"parameters": [
 				{
@@ -16643,9 +16562,7 @@
 			"line": 12,
 			"character": 10
 		},
-		"extends": [
-			"ShapeBuffer"
-		],
+		"extends": ["ShapeBuffer"],
 		"constructor_ref": {
 			"parameters": [
 				{
@@ -16673,9 +16590,7 @@
 			"line": 13,
 			"character": 15
 		},
-		"extends": [
-			"ShapeLoop"
-		],
+		"extends": ["ShapeLoop"],
 		"description": "Lissajous shape",
 		"constructor_ref": {
 			"parameters": [
@@ -16729,7 +16644,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -16753,9 +16668,7 @@
 			"line": 14,
 			"character": 13
 		},
-		"extends": [
-			"ShapeLoop"
-		],
+		"extends": ["ShapeLoop"],
 		"description": "Polygon shape",
 		"constructor_ref": {
 			"parameters": [
@@ -16784,9 +16697,7 @@
 			"line": 11,
 			"character": 10
 		},
-		"extends": [
-			"ShapeBuffer"
-		],
+		"extends": ["ShapeBuffer"],
 		"constructor_ref": {
 			"parameters": [
 				{
@@ -16814,9 +16725,7 @@
 			"line": 14,
 			"character": 10
 		},
-		"extends": [
-			"ShapeLoop"
-		],
+		"extends": ["ShapeLoop"],
 		"description": "Rose shape",
 		"constructor_ref": {
 			"parameters": [
@@ -16852,7 +16761,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -16904,9 +16813,7 @@
 			"line": 14,
 			"character": 12
 		},
-		"extends": [
-			"ShapeLoop"
-		],
+		"extends": ["ShapeLoop"],
 		"description": "Spiral shape",
 		"constructor_ref": {
 			"parameters": [
@@ -17026,13 +16933,7 @@
 							{
 								"title": "Methods",
 								"kind": 2048,
-								"children": [
-									1945,
-									1947,
-									1946,
-									1948,
-									1949
-								]
+								"children": [1945, 1947, 1946, 1948, 1949]
 							}
 						]
 					}
@@ -17053,7 +16954,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -17130,9 +17031,7 @@
 			"line": 14,
 			"character": 16
 		},
-		"extends": [
-			"ShapeLoop"
-		],
+		"extends": ["ShapeLoop"],
 		"description": "ShperShape",
 		"constructor_ref": {
 			"parameters": [
@@ -17213,7 +17112,7 @@
 						"type": {
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						},
 						"order": 9999
 					}
@@ -17237,9 +17136,7 @@
 			"line": 10,
 			"character": 14
 		},
-		"extends": [
-			"ShapeBuffer"
-		],
+		"extends": ["ShapeBuffer"],
 		"description": "Triangle ShapeBuffer",
 		"constructor_ref": {
 			"parameters": [
@@ -17389,9 +17286,7 @@
 			"line": 70,
 			"character": 37
 		},
-		"extends": [
-			"IBaseRepetition"
-		],
+		"extends": ["IBaseRepetition"],
 		"properties": [
 			{
 				"name": "index",
@@ -17453,9 +17348,7 @@
 			"line": 90,
 			"character": 28
 		},
-		"extends": [
-			"IBaseRepetition"
-		],
+		"extends": ["IBaseRepetition"],
 		"description": "Information about propArguments repetition",
 		"properties": [
 			{
@@ -17529,7 +17422,7 @@
 	},
 	{
 		"type": "Interface",
-		"name": "ISceneChildPropArguments",
+		"name": "IPropArguments",
 		"order": 9999,
 		"source": {
 			"fileName": "types/scene-child.ts",
@@ -17585,7 +17478,7 @@
 						{
 							"type": "reference",
 							"id": 2429,
-							"name": "ISceneChildPropArguments"
+							"name": "IPropArguments"
 						}
 					],
 					"name": "Partial"
@@ -17982,9 +17875,7 @@
 			"line": 269,
 			"character": 36
 		},
-		"extends": [
-			"ISceneChildProps"
-		],
+		"extends": ["ISceneChildProps"],
 		"properties": [
 			{
 				"name": "id",
@@ -18422,9 +18313,7 @@
 			"line": 56,
 			"character": 37
 		},
-		"extends": [
-			"IBaseRepetition"
-		],
+		"extends": ["IBaseRepetition"],
 		"properties": [
 			{
 				"name": "index",
@@ -18561,7 +18450,7 @@
 									"type": {
 										"type": "reference",
 										"id": 2429,
-										"name": "ISceneChildPropArguments"
+										"name": "IPropArguments"
 									},
 									"order": 9999
 								}
@@ -18801,9 +18690,7 @@
 			"line": 90,
 			"character": 35
 		},
-		"extends": [
-			"ISceneChildSettings"
-		],
+		"extends": ["ISceneChildSettings"],
 		"description": "ShapeBaseSettings",
 		"properties": [
 			{
@@ -19335,9 +19222,7 @@
 			"line": 163,
 			"character": 37
 		},
-		"extends": [
-			"ISceneChildProps"
-		],
+		"extends": ["ISceneChildProps"],
 		"properties": [
 			{
 				"name": "sideLength",
@@ -19749,10 +19634,7 @@
 			"line": 175,
 			"character": 40
 		},
-		"extends": [
-			"IShapePrimitiveProps",
-			"IShapeBaseSettings"
-		],
+		"extends": ["IShapePrimitiveProps", "IShapeBaseSettings"],
 		"properties": [
 			{
 				"name": "sideLength",
@@ -20324,9 +20206,7 @@
 			"line": 194,
 			"character": 37
 		},
-		"extends": [
-			"ISceneChildProps"
-		],
+		"extends": ["ISceneChildProps"],
 		"description": "Shape recursive animate props",
 		"properties": [
 			{
@@ -20755,10 +20635,7 @@
 			"line": 219,
 			"character": 40
 		},
-		"extends": [
-			"IShapeRecursiveProps",
-			"IShapeSettings"
-		],
+		"extends": ["IShapeRecursiveProps", "IShapeSettings"],
 		"description": "ShapeRecursive settings",
 		"properties": [
 			{
@@ -21290,9 +21167,7 @@
 			"line": 120,
 			"character": 31
 		},
-		"extends": [
-			"IShapeBaseSettings"
-		],
+		"extends": ["IShapeBaseSettings"],
 		"description": "Shape settings",
 		"properties": [
 			{
@@ -21845,7 +21720,7 @@
 									"type": {
 										"type": "reference",
 										"id": 2429,
-										"name": "ISceneChildPropArguments"
+										"name": "IPropArguments"
 									}
 								}
 							],
@@ -21870,9 +21745,7 @@
 			"line": 174,
 			"character": 32
 		},
-		"extends": [
-			"IShapeLoopProps"
-		],
+		"extends": ["IShapeLoopProps"],
 		"description": "For <mark>wx</mark>, <mark>wy</mark> and <mark>wx</mark> see Lissajous on <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Lissajous_curve\">Wikipedia</a>",
 		"properties": [
 			{
@@ -22347,10 +22220,7 @@
 			"line": 199,
 			"character": 35
 		},
-		"extends": [
-			"ILissajousProps",
-			"IShapeLoopSettings"
-		],
+		"extends": ["ILissajousProps", "IShapeLoopSettings"],
 		"description": "http://paulbourke.net/geometry/supershape/",
 		"properties": [
 			{
@@ -22978,9 +22848,7 @@
 			"line": 95,
 			"character": 30
 		},
-		"extends": [
-			"IShapeLoopProps"
-		],
+		"extends": ["IShapeLoopProps"],
 		"properties": [
 			{
 				"name": "sideNumber",
@@ -23420,10 +23288,7 @@
 			"line": 107,
 			"character": 33
 		},
-		"extends": [
-			"IPolygonProps",
-			"IShapeLoopSettings"
-		],
+		"extends": ["IPolygonProps", "IShapeLoopSettings"],
 		"properties": [
 			{
 				"name": "sideNumber",
@@ -24016,9 +23881,7 @@
 			"line": 114,
 			"character": 27
 		},
-		"extends": [
-			"IShapeLoopProps"
-		],
+		"extends": ["IShapeLoopProps"],
 		"description": "For <mark>n</mark> and <mark>d</mark> see Rose on <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Rose_(mathematics)\">Wikipedia</a>",
 		"properties": [
 			{
@@ -24476,10 +24339,7 @@
 			"line": 132,
 			"character": 30
 		},
-		"extends": [
-			"IRoseProps",
-			"IShapeLoopSettings"
-		],
+		"extends": ["IRoseProps", "IShapeLoopSettings"],
 		"properties": [
 			{
 				"name": "n",
@@ -25089,9 +24949,7 @@
 			"line": 8,
 			"character": 34
 		},
-		"extends": [
-			"IShapePrimitiveProps"
-		],
+		"extends": ["IShapePrimitiveProps"],
 		"properties": [
 			{
 				"name": "sideLength",
@@ -25503,10 +25361,7 @@
 			"line": 14,
 			"character": 37
 		},
-		"extends": [
-			"IShapeBufferProps",
-			"IShapePrimitiveSettings"
-		],
+		"extends": ["IShapeBufferProps", "IShapePrimitiveSettings"],
 		"properties": [
 			{
 				"name": "shape",
@@ -26161,9 +26016,7 @@
 			"line": 68,
 			"character": 32
 		},
-		"extends": [
-			"IShapePrimitiveProps"
-		],
+		"extends": ["IShapePrimitiveProps"],
 		"properties": [
 			{
 				"name": "loop",
@@ -26586,10 +26439,7 @@
 			"line": 80,
 			"character": 35
 		},
-		"extends": [
-			"IShapeLoopProps",
-			"IShapePrimitiveSettings"
-		],
+		"extends": ["IShapeLoopProps", "IShapePrimitiveSettings"],
 		"properties": [
 			{
 				"name": "loop",
@@ -27165,9 +27015,7 @@
 			"line": 144,
 			"character": 29
 		},
-		"extends": [
-			"IShapeLoopProps"
-		],
+		"extends": ["IShapeLoopProps"],
 		"properties": [
 			{
 				"name": "spiral",
@@ -27635,10 +27483,7 @@
 			"line": 168,
 			"character": 32
 		},
-		"extends": [
-			"ISpiralProps",
-			"IShapeLoopSettings"
-		],
+		"extends": ["ISpiralProps", "IShapeLoopSettings"],
 		"properties": [
 			{
 				"name": "spiral",
@@ -28259,9 +28104,7 @@
 			"line": 205,
 			"character": 33
 		},
-		"extends": [
-			"IShapeLoopProps"
-		],
+		"extends": ["IShapeLoopProps"],
 		"properties": [
 			{
 				"name": "a",
@@ -28786,10 +28629,7 @@
 			"line": 247,
 			"character": 36
 		},
-		"extends": [
-			"ISuperShapeProps",
-			"IShapeLoopSettings"
-		],
+		"extends": ["ISuperShapeProps", "IShapeLoopSettings"],
 		"properties": [
 			{
 				"name": "a",
@@ -29513,7 +29353,7 @@
 									"type": {
 										"type": "reference",
 										"id": 2429,
-										"name": "ISceneChildPropArguments"
+										"name": "IPropArguments"
 									}
 								}
 							],

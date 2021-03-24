@@ -1,9 +1,8 @@
-import { ISceneSettings } from './types/scene'
+import { ISceneSettings, IStreamArguments } from './types'
 
 import { SceneChild } from './SceneChild'
 import { Group } from './Group'
 import { Shape } from './shapes/Shape'
-import { IStreamArguments } from './types/scene-child'
 
 /**
  * Container for all SceneChild.
@@ -260,7 +259,7 @@ class Scene {
 	 * @returns {boolean}
 	 * @memberof Scene
 	 */
-	public isFirstLevelChild(sceneChild: SceneChild): boolean {
+	public isFirstLevelChild(sceneChild: SceneChild<any, any>): boolean {
 		for (let i = 0, len = this.children.length; i < len; i++) if (this.children[i].id === sceneChild.id) return true
 
 		const parents = this.getParentsOfSceneChild(sceneChild)
