@@ -43,6 +43,14 @@ export interface IShapeSettings<PropArguments extends IPropArguments = IPropArgu
 	 * @order -20
 	 */
 	shape?: SceneChild
+
+	/**
+	 * With this parameter the shape child will be regenerate at each repetition,
+	 * useful if you want to encapsulate this shape in another.
+	 * In the case of ShapePrimitive drawer prop don't need to as they are generated during the buffer stream.
+	 * @order -15
+	 */
+	shapeUseParent?: boolean
 }
 
 /**
@@ -159,7 +167,15 @@ export interface IShapeRecursiveProps<PropArguments extends IPropArguments = IPr
  */
 export interface IShapeRecursiveSettings<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapeRecursiveProps<PropArguments>,
-		IShapeSettings<PropArguments> {}
+		IShapeSettings<PropArguments> {
+	/**
+	 * With this parameter the shape child will be regenerate at each recursion.
+	 * Combined with <mark>shapeUseParent</mark> the shape child will be regenerated at ach recursion of each repetition
+	 * In the case of ShapePrimitive drawer prop don't need to as they are generated during the buffer stream.
+	 * @order -15
+	 */
+	shapeUseRecursion?: boolean
+}
 
 /**
  * Size of a buffer and its position relative to the scene.

@@ -183,8 +183,6 @@ abstract class ShapeBase<
 			perspectiveOrigin: settings.perspectiveOrigin,
 		} as Props
 
-		this.bUseParent = !!settings.bUseParent
-
 		this.vertexCallback = settings.vertexCallback
 	}
 
@@ -295,7 +293,7 @@ abstract class ShapeBase<
 	 * @param {PropArguments} [parentPropArguments]
 	 */
 	public generate(generateId = 0, bDirectSceneChild = false, parentPropArguments?: PropArguments): void {
-		if (this.buffer && (this.bStatic || (generateId === this.generateId && !this.bUseParent))) {
+		if (this.buffer && this.bStatic) {
 			return
 		}
 
