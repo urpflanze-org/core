@@ -1,7 +1,6 @@
 // import { Bounding } from '../math/bounding'
 import {
 	IPropArguments,
-	IRecursionPropArguments,
 	IShapeRecursiveProps,
 	IShapeRecursiveSettings,
 	IBufferIndex,
@@ -11,8 +10,8 @@ import {
 	IParentRecursionPropArguments,
 } from '../types'
 
-import { Shape } from '../shapes/Shape'
-import { SceneChild } from 'SceneChild'
+import { Shape } from './Shape'
+import { SceneChild } from '../SceneChild'
 
 /**
  * @category Core.Shapes
