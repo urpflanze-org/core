@@ -294,7 +294,7 @@ abstract class ShapeBase<
 	 * @param {boolean} [bDirectSceneChild=false] adjust shape of center of scene
 	 * @param {PropArguments} [parentPropArguments]
 	 */
-	public generate(generateId: number, bDirectSceneChild = false, parentPropArguments?: PropArguments): void {
+	public generate(generateId = 0, bDirectSceneChild = false, parentPropArguments?: PropArguments): void {
 		if (this.buffer && (this.bStatic || (generateId === this.generateId && !this.bUseParent))) {
 			return
 		}
