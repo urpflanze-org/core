@@ -6,17 +6,18 @@ import { EAdaptMode, IDrawerProps, IShapePrimitiveProps, IShapePrimitiveSettings
  *
  * @category Core.Props and Settings Interfaces
  */
-export interface IShapeBufferProps<PA extends IPropArguments = IPropArguments> extends IShapePrimitiveProps<PA> {}
+export interface IShapeBufferProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapePrimitiveProps<PropArguments> {}
 
 /**
  *
  * @category Core.Props and Settings Interfaces
  */
 export interface IShapeBufferSettings<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends IShapeBufferProps<PA>,
-		IShapePrimitiveSettings<PA, D> {
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends IShapeBufferProps<PropArguments>,
+		IShapePrimitiveSettings<PropArguments, D> {
 	/**
 	 * [x1,y1, x2,y1-, ...., xn, yn]
 	 * @order -30
@@ -34,9 +35,9 @@ export interface IShapeBufferSettings<
  *
  * @category Core.Types
  */
-export type TShapeLoopGeneratorFormula<PA extends IPropArguments = IPropArguments> = (
+export type TShapeLoopGeneratorFormula<PropArguments extends IPropArguments = IPropArguments> = (
 	shapeLoopRepetition: IShapeLoopRepetition,
-	propArguments: PA
+	propArguments: PropArguments
 ) => [number, number]
 
 /**
@@ -59,23 +60,24 @@ export type TShapeLoopGeneratorFormula<PA extends IPropArguments = IPropArgument
  * ```
  * @category Core.Interfaces
  */
-export interface IShapeLoopGenerator<PA extends IPropArguments = IPropArguments> {
-	start?: TSceneChildProp<number, PA>
-	end?: TSceneChildProp<number, PA>
-	inc?: TSceneChildProp<number, PA>
-	vertex?: TShapeLoopGeneratorFormula<PA>
+export interface IShapeLoopGenerator<PropArguments extends IPropArguments = IPropArguments> {
+	start?: TSceneChildProp<number, PropArguments>
+	end?: TSceneChildProp<number, PropArguments>
+	inc?: TSceneChildProp<number, PropArguments>
+	vertex?: TShapeLoopGeneratorFormula<PropArguments>
 }
 
 /**
  *
  * @category Core.Props and Settings Interfaces
  */
-export interface IShapeLoopProps<PA extends IPropArguments = IPropArguments> extends IShapePrimitiveProps<PA> {
+export interface IShapeLoopProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapePrimitiveProps<PropArguments> {
 	/**
 	 * <a href="[base_url]/IShapeLoopGenerator">IShapeLoopGenerator</a> for more details
 	 * @order -30
 	 */
-	loop?: IShapeLoopGenerator<PA>
+	loop?: IShapeLoopGenerator<PropArguments>
 }
 
 /**
@@ -83,16 +85,16 @@ export interface IShapeLoopProps<PA extends IPropArguments = IPropArguments> ext
  * @category Core.Props and Settings Interfaces
  */
 export interface IShapeLoopSettings<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends IShapeLoopProps<PA>,
-		IShapePrimitiveSettings<PA, D> {
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends IShapeLoopProps<PropArguments>,
+		IShapePrimitiveSettings<PropArguments, D> {
 	/**
 	 * Array of properties on which shapeloop generation depends,
 	 * for example the circle varies the number of points based on the radius (sideLength)
 	 * @order -30
 	 */
-	loopDependencies?: Array<'propArguments' | keyof IShapeLoopProps<PA> | string>
+	loopDependencies?: Array<'propArguments' | keyof IShapeLoopProps<PropArguments> | string>
 }
 
 //////
@@ -101,12 +103,13 @@ export interface IShapeLoopSettings<
  *
  * @category Core.Primitive Interfaces
  */
-export interface IPolygonProps<PA extends IPropArguments = IPropArguments> extends IShapeLoopProps<PA> {
+export interface IPolygonProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
 	/**
 	 * sideNumber / segments
 	 * @order -35
 	 */
-	sideNumber?: TSceneChildProp<number, PA>
+	sideNumber?: TSceneChildProp<number, PropArguments>
 }
 
 /**
@@ -114,28 +117,29 @@ export interface IPolygonProps<PA extends IPropArguments = IPropArguments> exten
  * @category Core.Primitive Interfaces
  */
 export interface IPolygonSettings<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends IPolygonProps<PA>,
-		IShapeLoopSettings<PA, D> {}
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends IPolygonProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
 
 /**
  * For <mark>n</mark> and <mark>d</mark> see Rose on <a target="_blank" href="https://en.wikipedia.org/wiki/Rose_(mathematics)">Wikipedia</a>
  *
  * @category Core.Primitive Interfaces
  */
-export interface IRoseProps<PA extends IPropArguments = IPropArguments> extends IShapeLoopProps<PA> {
+export interface IRoseProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
 	/**
 	 * n coefficient
 	 * @order -31
 	 */
-	n?: TSceneChildProp<number, PA>
+	n?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * d coefficient
 	 * @order -30
 	 */
-	d?: TSceneChildProp<number, PA>
+	d?: TSceneChildProp<number, PropArguments>
 }
 
 /**
@@ -143,10 +147,10 @@ export interface IRoseProps<PA extends IPropArguments = IPropArguments> extends 
  * @category Core.Primitive Interfaces
  */
 export interface IRoseSettings<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends IRoseProps<PA>,
-		IShapeLoopSettings<PA, D> {}
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends IRoseProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
 
 /**
  *
@@ -158,7 +162,8 @@ export type TSpiralType = 'ARCHIMEDE' | 'HYPERBOLIC' | 'FERMAT' | 'LITUUS' | 'LO
  *
  * @category Core.Primitive Interfaces
  */
-export interface ISpiralProps<PA extends IPropArguments = IPropArguments> extends IShapeLoopProps<PA> {
+export interface ISpiralProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
 	/**
 	 * type of spiral
 	 * @order -35
@@ -169,13 +174,13 @@ export interface ISpiralProps<PA extends IPropArguments = IPropArguments> extend
 	 * number of twists
 	 * @order -34
 	 */
-	twists?: TSceneChildProp<number, PA>
+	twists?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * twist start
 	 * @order -33
 	 */
-	twistsStart?: TSceneChildProp<number, PA>
+	twistsStart?: TSceneChildProp<number, PropArguments>
 }
 
 /**
@@ -183,33 +188,34 @@ export interface ISpiralProps<PA extends IPropArguments = IPropArguments> extend
  * @category Core.Primitive Interfaces
  */
 export interface ISpiralSettings<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends ISpiralProps<PA>,
-		IShapeLoopSettings<PA, D> {}
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ISpiralProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
 
 /**
  * For <mark>wx</mark>, <mark>wy</mark> and <mark>wx</mark> see Lissajous on <a target="_blank" href="https://en.wikipedia.org/wiki/Lissajous_curve">Wikipedia</a>
  * @category Core.Primitive Interfaces
  */
-export interface ILissajousProps<PA extends IPropArguments = IPropArguments> extends IShapeLoopProps<PA> {
+export interface ILissajousProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
 	/**
 	 * wx coefficient
 	 * @order -37
 	 */
-	wx?: TSceneChildProp<number, PA>
+	wx?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * wy coefficient
 	 * @order -36
 	 */
-	wy?: TSceneChildProp<number, PA>
+	wy?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * wz coefficient
 	 * @order -35
 	 */
-	wz?: TSceneChildProp<number, PA>
+	wz?: TSceneChildProp<number, PropArguments>
 }
 
 /**
@@ -218,51 +224,52 @@ export interface ILissajousProps<PA extends IPropArguments = IPropArguments> ext
  * @category Core.Primitive Interfaces
  */
 export interface ILissajousSettings<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends ILissajousProps<PA>,
-		IShapeLoopSettings<PA, D> {}
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ILissajousProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
 
 /**
  *
  * @category Core.Primitive Interfaces
  */
-export interface ISuperShapeProps<PA extends IPropArguments = IPropArguments> extends IShapeLoopProps<PA> {
+export interface ISuperShapeProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
 	/**
 	 * a coefficient
 	 * @order -35
 	 */
-	a?: TSceneChildProp<number, PA>
+	a?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * b coefficient
 	 * @order -34
 	 */
-	b?: TSceneChildProp<number, PA>
+	b?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * m coefficient
 	 * @order -33
 	 */
-	m?: TSceneChildProp<number, PA>
+	m?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * n1 coefficient
 	 * @order -32
 	 */
-	n1?: TSceneChildProp<number, PA>
+	n1?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * n2 coefficient
 	 * @order -31
 	 */
-	n2?: TSceneChildProp<number, PA>
+	n2?: TSceneChildProp<number, PropArguments>
 
 	/**
 	 * n3 coefficient
 	 * @order -30
 	 */
-	n3?: TSceneChildProp<number, PA>
+	n3?: TSceneChildProp<number, PropArguments>
 }
 
 /**
@@ -270,7 +277,7 @@ export interface ISuperShapeProps<PA extends IPropArguments = IPropArguments> ex
  * @category Core.Primitive Interfaces
  */
 export interface ISuperShapeSettings<
-	PA extends IPropArguments = IPropArguments,
-	D extends IDrawerProps<PA> = IDrawerProps<PA>
-> extends ISuperShapeProps<PA>,
-		IShapeLoopSettings<PA, D> {}
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ISuperShapeProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
