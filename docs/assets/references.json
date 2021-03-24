@@ -1114,7 +1114,7 @@
 		"order": 2,
 		"source": {
 			"fileName": "SceneChild.ts",
-			"line": 24,
+			"line": 30,
 			"character": 25
 		},
 		"description": "The element to be added into a scene.\nPreserve props, drawing order, generate and return buffers.\nThe only implementations of this class are <a href=\"#/ref/Group\">Group</a> and <a href=\"#/ref/ShapeBase\">ShapeBase</a>",
@@ -1734,7 +1734,7 @@
 		"order": 3,
 		"source": {
 			"fileName": "Group.ts",
-			"line": 32,
+			"line": 38,
 			"character": 11
 		},
 		"extends": [
@@ -18064,7 +18064,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "shapes/ShapeBuffer.ts",
-			"line": 12,
+			"line": 16,
 			"character": 17
 		},
 		"extends": [
@@ -19259,7 +19259,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "shapes/primitives/Circle.ts",
-			"line": 14,
+			"line": 12,
 			"character": 12
 		},
 		"extends": [
@@ -19299,7 +19299,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "shapes/primitives/Line.ts",
-			"line": 13,
+			"line": 11,
 			"character": 10
 		},
 		"extends": [
@@ -19428,7 +19428,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "shapes/primitives/Polygon.ts",
-			"line": 14,
+			"line": 13,
 			"character": 13
 		},
 		"extends": [
@@ -19844,7 +19844,7 @@
 		"order": 9999,
 		"source": {
 			"fileName": "shapes/primitives/SuperShape.ts",
-			"line": 15,
+			"line": 13,
 			"character": 16
 		},
 		"extends": [
