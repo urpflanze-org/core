@@ -1,10 +1,7 @@
 /**
  * Types & Interface
  */
-export * from './types/scene'
-export * from './types/scene-child'
-export * from './types/shape-base'
-export * from './types/shape-primitives'
+export * from './types'
 
 // Set glMatrixArrayType
 import { glMatrix } from 'gl-matrix'
