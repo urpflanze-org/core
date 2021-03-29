@@ -1,3 +1,7 @@
+## 0.4.6 (March 29, 2021)
+
+- Fix typescript import path
+
 ## 0.4.5 (March 24, 2021)
 
 - Interface refactoring
