@@ -1,5 +1,5 @@
 import tap from 'tap'
-import { PI2, Rect, ShapeLoop } from '../src/index'
+import { Rect } from '../dist/index'
 
 ///
 
