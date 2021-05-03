@@ -1,5 +1,5 @@
 import { ShapeBase } from '../shapes/ShapeBase'
-import { IRecursionRepetition, IRepetition } from './repetitions'
+import { IBaseRepetition, IRecursionRepetition, IRepetition } from './repetitions'
 
 /**
  * Object argument for sceneChild props
@@ -58,4 +58,36 @@ export interface IParentRecursionPropArguments extends IPropArguments {
 	 * @order 7
 	 */
 	parent: IRecursionPropArguments
+}
+
+/**
+ *
+ *
+ * @category Core.Interfaces
+ */
+export interface IFollowPropArguments extends IPropArguments {
+	/**
+	 * Information about follow (if is encapsulated in a ShapeFollow)
+	 * @order 2
+	 */
+	follow: IBaseRepetition
+
+	/**
+	 * Parent repetition (if encapsulated)
+	 * @order 7
+	 */
+	parent?: IFollowPropArguments
+}
+
+/**
+ *
+ *
+ * @category Core.Interfaces
+ */
+export interface IParentFollowPropArguments extends IPropArguments {
+	/**
+	 * Parent repetition (if encapsulated)
+	 * @order 7
+	 */
+	parent: IFollowPropArguments
 }
