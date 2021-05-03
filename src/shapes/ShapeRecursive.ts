@@ -57,7 +57,7 @@ class ShapeRecursive<
 	 *
 	 * @param {IShapeRecursiveSettings} [settings={}]
 	 */
-	constructor(settings: IShapeRecursiveSettings<PropArguments> = {}) {
+	constructor(settings: IShapeRecursiveSettings<PropArguments>) {
 		settings.type = settings.type || 'ShapeRecursive'
 		super(settings)
 

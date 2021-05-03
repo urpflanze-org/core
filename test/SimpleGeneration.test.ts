@@ -27,7 +27,7 @@ rect = new Rect({
 
 rect.generate()
 
-tap.deepEqual(rect.isStatic(), false, 'check staticity when pass a function (repetition regeneration)')
+tap.deepEqual(rect.isStatic(), false, 'check staticity when pass a function')
 tap.deepEqual(indexes, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 'check repetition work')
 
 ///

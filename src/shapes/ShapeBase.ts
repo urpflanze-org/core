@@ -195,19 +195,21 @@ abstract class ShapeBase<
 		const props = this.props
 
 		return (
-			typeof props.distance !== 'function' &&
 			typeof props.repetitions !== 'function' &&
-			typeof props.rotateX !== 'function' &&
-			typeof props.rotateY !== 'function' &&
-			typeof props.rotateZ !== 'function' &&
+			typeof props.distance !== 'function' &&
 			typeof props.displace !== 'function' &&
+			typeof props.scale !== 'function' &&
+			typeof props.translate !== 'function' &&
 			typeof props.skewX !== 'function' &&
 			typeof props.skewY !== 'function' &&
 			typeof props.squeezeX !== 'function' &&
 			typeof props.squeezeY !== 'function' &&
-			typeof props.translate !== 'function' &&
-			typeof props.scale !== 'function' &&
-			typeof props.transformOrigin !== 'function'
+			typeof props.rotateX !== 'function' &&
+			typeof props.rotateY !== 'function' &&
+			typeof props.rotateZ !== 'function' &&
+			typeof props.transformOrigin !== 'function' &&
+			typeof props.perspective !== 'function' &&
+			typeof props.perspectiveOrigin !== 'function'
 		)
 	}
 

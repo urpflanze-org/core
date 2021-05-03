@@ -26,14 +26,14 @@ class Shape<
 	 *
 	 * @type {boolean}
 	 */
-	public shapeUseParent!: boolean
+	public shapeUseParent: boolean
 
 	/**
 	 * Creates an instance of Shape.
 	 *
 	 * @param {ShapeSettings} [settings={}]
 	 */
-	constructor(settings: IShapeSettings<PropArguments> = {}) {
+	constructor(settings: IShapeSettings<PropArguments>) {
 		settings.type = settings.type || 'Shape'
 		super(settings)
 
@@ -57,7 +57,8 @@ class Shape<
 	 * @returns {boolean}
 	 */
 	public isStatic(): boolean {
-		return super.isStatic() && !this.shapeUseParent
+		// return super.isStatic() && !this.shapeUseParent
+		return super.isStatic() && (this.shape ? this.shape.isStatic() : true)
 	}
 
 	/**
