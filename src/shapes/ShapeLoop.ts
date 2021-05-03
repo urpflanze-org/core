@@ -130,11 +130,20 @@ class ShapeLoop<
 
 	/**
 	 * Check if shape has static indexed
+	 * The number of vertices is defined by number of loop iteration
 	 *
 	 * @returns {boolean}
 	 */
 	public isStaticIndexed(): boolean {
-		return this.bStaticLoop && super.isStaticIndexed()
+		// return this.bStaticLoop && super.isStaticIndexed()
+		return (
+			super.isStaticIndexed() &&
+			(typeof this.props.loop !== 'undefined'
+				? typeof this.props.loop.start !== 'function' &&
+				  typeof this.props.loop.end !== 'function' &&
+				  typeof this.props.loop.inc !== 'function'
+				: true)
+		)
 	}
 
 	/**
