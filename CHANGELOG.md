@@ -1,3 +1,8 @@
+## 0.4.x (X x, 2021)
+
+- Add ShapeFollow
+- Fix ShapeLoop isStaticIndexed
+
 ## 0.4.5 (March 24, 2021)
 
 - Interface refactoring
