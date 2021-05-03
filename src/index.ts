@@ -24,6 +24,7 @@ export { ShapeLoop } from './shapes/ShapeLoop'
 export { ShapeBuffer } from './shapes/ShapeBuffer'
 export { Shape } from './shapes/Shape'
 export { ShapeRecursive } from './shapes/ShapeRecursive'
+export { ShapeFollow } from './shapes/ShapeFollow'
 
 export { Line } from './shapes/primitives/Line'
 export { Triangle } from './shapes/primitives/Triangle'
