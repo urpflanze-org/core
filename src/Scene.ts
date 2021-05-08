@@ -171,6 +171,7 @@ class Scene {
 
 			this.children.push(item)
 			item.clearBuffer(true, false)
+			item.generate(0, true)
 		}
 
 		this.sortChildren()
