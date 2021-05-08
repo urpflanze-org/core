@@ -31,6 +31,7 @@ export { Triangle } from './shapes/primitives/Triangle'
 export { Rect } from './shapes/primitives/Rect'
 export { Polygon } from './shapes/primitives/Polygon'
 export { Circle } from './shapes/primitives/Circle'
+export { Star } from './shapes/primitives/Star'
 
 export { Rose } from './shapes/primitives/Rose'
 export { Spiral } from './shapes/primitives/Spiral'
