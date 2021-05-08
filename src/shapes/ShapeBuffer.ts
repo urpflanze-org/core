@@ -85,13 +85,13 @@ class ShapeBuffer<
 	protected bindBuffer(propArguments: PropArguments) {
 		const sideLength = this.getRepetitionSideLength(propArguments)
 
-		const shapeBuffer = this.shape
+		const shapeBuffer = new Float32Array(this.shape.length)
 
 		const tmpBounding = [undefined, undefined, undefined, undefined]
 
 		for (let i = 0, len = shapeBuffer.length; i < len; i += 2) {
-			shapeBuffer[i] *= sideLength[0]
-			shapeBuffer[i + 1] *= sideLength[1]
+			shapeBuffer[i] = this.shape[i] * sideLength[0]
+			shapeBuffer[i + 1] = this.shape[i + 1] * sideLength[1]
 
 			Bounding.add(tmpBounding, shapeBuffer[i], shapeBuffer[i + 1])
 		}
