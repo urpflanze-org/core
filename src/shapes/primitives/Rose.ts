@@ -1,7 +1,43 @@
-import { IRoseProps, IRoseSettings, IDrawerProps, IPropArguments, IShapeLoopRepetition } from '../../types'
-
-import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { PI2 } from '../../math'
+import { ShapeLoop } from '../../shapes/ShapeLoop'
+import {
+	IDrawerProps,
+	IPropArguments,
+	IShapeLoopProps,
+	IShapeLoopRepetition,
+	IShapeLoopSettings,
+	TSceneChildProp,
+} from '../../types'
+
+/**
+ * For <mark>n</mark> and <mark>d</mark> see Rose on <a target="_blank" href="https://en.wikipedia.org/wiki/Rose_(mathematics)">Wikipedia</a>
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface IRoseProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
+	/**
+	 * n coefficient
+	 * @order -31
+	 */
+	n?: TSceneChildProp<number, PropArguments>
+
+	/**
+	 * d coefficient
+	 * @order -30
+	 */
+	d?: TSceneChildProp<number, PropArguments>
+}
+
+/**
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface IRoseSettings<
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends IRoseProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
 
 /**
  * Rose shape

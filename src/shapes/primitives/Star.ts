@@ -1,7 +1,35 @@
-import { IPropArguments, IStarProps, IStarSettings, IDrawerProps } from '../../types'
-
-import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { PI2 } from '../../math'
+import { ShapeLoop } from '../../shapes/ShapeLoop'
+import { IDrawerProps, IPropArguments, IShapeLoopProps, IShapeLoopSettings, TSceneChildProp } from '../../types'
+
+/**
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface IStarProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
+	/**
+	 * spikes {int}
+	 * @order -35
+	 */
+	spikes?: TSceneChildProp<number, PropArguments>
+
+	/**
+	 * spikes inner radius, from 0 to 1 (1 as sideLength)
+	 * @order -36
+	 */
+	innerRadius?: TSceneChildProp<number, PropArguments>
+}
+
+/**
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface IStarSettings<
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends IStarProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
 
 /**
  * Polygon shape

@@ -1,7 +1,49 @@
-import { ILissajousProps, ILissajousSettings, IShapeLoopRepetition, IDrawerProps, IPropArguments } from '../../types'
-
 import { PI2 } from '../../math'
 import { ShapeLoop } from '../../shapes/ShapeLoop'
+import {
+	IDrawerProps,
+	IPropArguments,
+	IShapeLoopProps,
+	IShapeLoopRepetition,
+	IShapeLoopSettings,
+	TSceneChildProp,
+} from '../../types'
+
+/**
+ * For <mark>wx</mark>, <mark>wy</mark> and <mark>wx</mark> see Lissajous on <a target="_blank" href="https://en.wikipedia.org/wiki/Lissajous_curve">Wikipedia</a>
+ * @category Core.Primitive Interfaces
+ */
+export interface ILissajousProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
+	/**
+	 * wx coefficient
+	 * @order -37
+	 */
+	wx?: TSceneChildProp<number, PropArguments>
+
+	/**
+	 * wy coefficient
+	 * @order -36
+	 */
+	wy?: TSceneChildProp<number, PropArguments>
+
+	/**
+	 * wz coefficient
+	 * @order -35
+	 */
+	wz?: TSceneChildProp<number, PropArguments>
+}
+
+/**
+ * http://paulbourke.net/geometry/supershape/
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface ILissajousSettings<
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ILissajousProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
 
 /**
  * Lissajous shape

@@ -1,14 +1,54 @@
-import {
-	ISpiralProps,
-	ISpiralSettings,
-	TSpiralType,
-	IPropArguments,
-	IDrawerProps,
-	IShapeLoopRepetition,
-} from '../../types'
-
-import { ShapeLoop } from '../ShapeLoop'
 import { PI2 } from '../../math'
+import {
+	IDrawerProps,
+	IPropArguments,
+	IShapeLoopProps,
+	IShapeLoopRepetition,
+	IShapeLoopSettings,
+	TSceneChildProp,
+} from '../../types'
+import { ShapeLoop } from '../ShapeLoop'
+
+/**
+ *
+ * @category Core.Types
+ */
+export type TSpiralType = 'ARCHIMEDE' | 'HYPERBOLIC' | 'FERMAT' | 'LITUUS' | 'LOGARITHMIC'
+
+/**
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface ISpiralProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
+	/**
+	 * type of spiral
+	 * @order -35
+	 */
+	spiral?: TSpiralType
+
+	/**
+	 * number of twists
+	 * @order -34
+	 */
+	twists?: TSceneChildProp<number, PropArguments>
+
+	/**
+	 * twist start
+	 * @order -33
+	 */
+	twistsStart?: TSceneChildProp<number, PropArguments>
+}
+
+/**
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface ISpiralSettings<
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ISpiralProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
 
 /**
  * Spiral shape
