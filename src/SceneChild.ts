@@ -157,6 +157,16 @@ abstract class SceneChild<
 	}
 
 	/**
+	 * Check SceneChild has prop
+	 *
+	 * @param {keyof Props} key
+	 * @returns
+	 */
+	public hasProp(key: keyof Props): boolean {
+		return typeof this.props[key] !== 'undefined'
+	}
+
+	/**
 	 * Set a single or multiple props and clear buffer if shape vertex depends from prop
 	 *
 	 * @abstract
