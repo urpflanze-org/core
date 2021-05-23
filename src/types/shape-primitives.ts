@@ -1,6 +1,46 @@
+import { EAdaptMode } from '../modifiers/Adapt'
+import { Modifier } from '../modifiers/Modifier'
 import { IPropArguments, TSceneChildProp } from '../types'
 import { IShapeLoopRepetition } from './repetitions'
-import { EAdaptMode, IDrawerProps, IShapePrimitiveProps, IShapePrimitiveSettings } from './shape-base'
+import { ISceneChildProps } from './scene-child'
+import { IDrawerProps, IShapeBaseSettings } from './shape-base'
+
+/**
+ *
+ * @category Core.Props and Settings Interfaces
+ */
+export interface IShapePrimitiveProps<PropArguments extends IPropArguments = IPropArguments>
+	extends ISceneChildProps<PropArguments> {
+	/**
+	 * scalar that multiplies the buffer or loop
+	 * @order -20
+	 */
+	sideLength?: TSceneChildProp<number | [number, number], PropArguments>
+}
+
+/**
+ *
+ * @category Core.Props and Settings Interfaces
+ */
+export interface IShapePrimitiveSettings<
+	PropArguments extends IPropArguments = IPropArguments,
+	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends IShapePrimitiveProps<PropArguments>,
+		IShapeBaseSettings<PropArguments> {
+	/**
+	 * Callback to apply transform at any vertex
+	 * @order -15.5
+	 */
+	bClosed?: boolean
+
+	/**
+	 *
+	 * @order -15
+	 */
+	drawer?: DrawerProps
+
+	modifiers?: Array<Modifier>
+}
 
 /**
  *
@@ -22,7 +62,7 @@ export interface IShapeBufferSettings<
 	 * [x1,y1, x2,y1-, ...., xn, yn]
 	 * @order -30
 	 */
-	shape?: Float32Array | Array<number>
+	shape?: Float32Array | Array<number> | ((propArguments: PropArguments) => Float32Array | Array<number>)
 
 	/**
 	 * Adapt buffer mode, see <a href="[base_url]/EAdaptMode">EAdaptMode</a> for more details
