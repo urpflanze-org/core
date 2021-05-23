@@ -38,6 +38,10 @@ export * from './shapes/primitives/Spiral'
 export * from './shapes/primitives/Lissajous'
 export * from './shapes/primitives/SuperShape'
 
+// Modifiers
+export * from './modifiers/Modifier'
+export * from './modifiers'
+
 // Utilities
 export {
 	lerp,
@@ -50,6 +54,7 @@ export {
 	angleFromRepetition,
 	angle2FromRepetition,
 	distanceFromRepetition,
+	interpolate,
 } from './Utilities'
 
 export { default as Vec2 } from './math/Vec2'

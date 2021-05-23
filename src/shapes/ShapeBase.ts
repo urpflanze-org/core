@@ -16,7 +16,7 @@ import {
 import * as glme from '../math/gl-matrix-extensions'
 import Vec2 from '../math/Vec2'
 import { PI2 } from '../math'
-import { Bounding } from '../math/bounding'
+import { Bounding } from '../modifiers/Adapt'
 
 import { clamp } from '../Utilities'
 import { SceneChild } from '../SceneChild'

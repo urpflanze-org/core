@@ -1,17 +1,15 @@
+import { PI2 } from '../math'
+import { Bounding } from '../modifiers/Adapt'
+import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import type {
+	IDrawerProps,
+	IPropArguments,
 	IShapeLoopGenerator,
 	IShapeLoopProps,
+	IShapeLoopRepetition,
 	IShapeLoopSettings,
 	TShapeLoopGeneratorFormula,
-	IPropArguments,
-	IDrawerProps,
-	IShapeLoopRepetition,
 } from '../types'
-
-import { PI2 } from '../math'
-import { Bounding } from '../math/bounding'
-
-import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { ShapeBase } from './ShapeBase'
 
 /**
@@ -249,8 +247,6 @@ class ShapeLoop<
 		const bufferLength = vertexLength * 2
 		const currentOrSingleLoopBuffer = new Float32Array(bufferLength)
 
-		const tmpBounding = [undefined, undefined, undefined, undefined]
-
 		for (let i = 0, j = 0; i < vertexLength; i++, j += 2) {
 			const current = start + inc * i
 			const offset = shapeLoop.count > 1 ? i / (shapeLoop.count - 1) : 1
@@ -260,20 +256,30 @@ class ShapeLoop<
 			shapeLoop.index = i + 1
 			shapeLoop.offset = offset
 
-			const vertex = Float32Array.from(getVertex(shapeLoop, propArguments))
+			const vertex = getVertex(shapeLoop, propArguments)
 
 			currentOrSingleLoopBuffer[j] = vertex[0]
 			currentOrSingleLoopBuffer[j + 1] = vertex[1]
 
-			currentOrSingleLoopBuffer[j] *= sideLength[0]
-			currentOrSingleLoopBuffer[j + 1] *= sideLength[1]
+			// currentOrSingleLoopBuffer[j] *= sideLength[0]
+			// currentOrSingleLoopBuffer[j + 1] *= sideLength[1]
 
-			Bounding.add(tmpBounding, currentOrSingleLoopBuffer[j], currentOrSingleLoopBuffer[j + 1])
+			// Bounding.add(tmpBounding, currentOrSingleLoopBuffer[j], currentOrSingleLoopBuffer[j + 1])
+		}
+
+		const tmpBounding = [undefined, undefined, undefined, undefined]
+		const buffer = this.applyModifiers(currentOrSingleLoopBuffer)
+
+		for (let i = 0, len = buffer.length; i < len; i += 2) {
+			buffer[i] = buffer[i] * sideLength[0]
+			buffer[i + 1] = buffer[i + 1] * sideLength[1]
+
+			Bounding.add(tmpBounding, buffer[i], buffer[i + 1])
 		}
 
 		Bounding.bind(this.currentGenerationPrimitiveBounding, tmpBounding)
 
-		return currentOrSingleLoopBuffer
+		return buffer
 	}
 
 	/**
@@ -295,21 +301,6 @@ class ShapeLoop<
 		const count = Math.ceil((end - start) / inc)
 
 		return { start, end, inc, count: count <= 0 ? 0 : count }
-	}
-
-	/**
-	 * Subdivide loop n times
-	 *
-	 * @param {number} [level=1]
-	 */
-	public subdivide(level = 1) {
-		const currentLoop: IShapeLoopGenerator<PropArguments> = this.props.loop || this.loop
-
-		// TODO: subdivide function?
-		if (typeof currentLoop.inc === 'number') {
-			currentLoop.inc = (currentLoop.inc || 1) / 2 ** level
-			this.setProp('loop', currentLoop)
-		}
 	}
 
 	/**

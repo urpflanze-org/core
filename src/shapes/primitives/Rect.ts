@@ -1,4 +1,5 @@
-import { IShapeBufferSettings, EAdaptMode, IDrawerProps, IPropArguments } from '../../types'
+import { EAdaptMode } from '../../modifiers/Adapt'
+import { IDrawerProps, IPropArguments, IShapeBufferSettings } from '../../types'
 import { ShapeBuffer } from '../ShapeBuffer'
 
 /**
