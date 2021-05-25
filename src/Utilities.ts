@@ -221,3 +221,106 @@ export function distanceFromRepetition(repetition: IRepetition, offsetFromCenter
 
 	return 1
 }
+
+/**
+ *
+ * @param from
+ * @param to
+ * @param offset
+ * @returns
+ */
+export function interpolate(from: Float32Array, to: Float32Array, offset = 0.5): Float32Array {
+	const fromBufferLength = from.length
+	const toBufferLength = to.length
+
+	if (fromBufferLength === toBufferLength) {
+		const result = new Float32Array(fromBufferLength)
+
+		for (let i = 0; i < fromBufferLength; i += 2) {
+			result[i] = (1 - offset) * from[i] + offset * to[i]
+			result[i + 1] = (1 - offset) * from[i + 1] + offset * to[i + 1]
+		}
+
+		return result
+	}
+
+	/////
+
+	const maxBufferLength = fromBufferLength > toBufferLength ? fromBufferLength : toBufferLength
+	const difference = Math.abs(fromBufferLength - toBufferLength)
+	const minBufferLength = maxBufferLength - difference
+
+	if (toBufferLength < toBufferLength) {
+		offset = 1 - offset
+	}
+
+	const b = fromBufferLength < toBufferLength ? to : from
+	const t = fromBufferLength < toBufferLength ? from : to
+
+	const a = new Float32Array(maxBufferLength)
+
+	/////
+
+	if (difference >= minBufferLength) {
+		const newPointsOnEdge = Math.floor(difference / minBufferLength)
+		// console.log({ newPointsOnEdge })
+		const newPointOffset = 1 / (newPointsOnEdge + 1)
+		const lastPoint = minBufferLength - 2
+
+		for (let i = 0, j = 0; i < minBufferLength; i += 2, j += 2 + newPointsOnEdge * 2) {
+			const ax = t[i]
+			const ay = t[i + 1]
+			const bx = i === lastPoint ? t[0] : t[i + 2]
+			const by = i === lastPoint ? t[1] : t[i + 3]
+
+			a[j] = ax
+			a[j + 1] = ay
+
+			for (let h = 0; h < newPointsOnEdge; h++) {
+				const o = newPointOffset * (h + 1)
+				a[j + 2 + h * 2] = (1 - o) * ax + o * bx
+				a[j + 2 + h * 2 + 1] = (1 - o) * ay + o * by
+			}
+		}
+	} else {
+		a.set(t)
+	}
+
+	////
+
+	const remainingPoints = (difference % minBufferLength) / 2
+
+	if (remainingPoints > 0) {
+		const totalLength = a.length
+		const clone = new Float32Array(totalLength)
+		clone.set(a)
+
+		const settedLength = totalLength - remainingPoints * 2
+		const offset = Math.floor(settedLength / remainingPoints)
+
+		for (let i = 0; i < remainingPoints; i++) {
+			const startIndex = i * offset
+			const endIndex = (i + 1) * offset
+			a.set(clone.subarray(startIndex, endIndex), startIndex + i * 2)
+
+			if (i > 0) {
+				a[startIndex + i * 2 - 2] = 0.5 * clone[startIndex - 2] + 0.5 * clone[startIndex]
+				a[startIndex + i * 2 - 1] = 0.5 * clone[startIndex - 1] + 0.5 * clone[startIndex + 1]
+			}
+		}
+
+		a[totalLength - 2] = 0.5 * clone[0] + 0.5 * clone[settedLength - 2]
+		a[totalLength - 1] = 0.5 * clone[1] + 0.5 * clone[settedLength - 1]
+	}
+
+	////
+
+	const result = new Float32Array(maxBufferLength)
+
+	for (let i = 0; i < maxBufferLength; i += 2) {
+		result[i] = (1 - offset) * a[i] + offset * b[i]
+		result[i + 1] = (1 - offset) * a[i + 1] + offset * b[i + 1]
+	}
+
+	return result
+}
