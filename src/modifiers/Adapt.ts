@@ -113,6 +113,8 @@ interface IAdaptSettings {
 }
 
 class Adapt extends Modifier {
+	static MODES = EAdaptMode
+
 	private rect: IShapeBounding
 	private mode: EAdaptMode
 

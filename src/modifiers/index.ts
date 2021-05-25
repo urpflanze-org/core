@@ -3,6 +3,7 @@ import { Mirror } from './Mirror'
 import { Smooth } from './Smooth'
 import { Solidify } from './Solidify'
 import { Subdivide } from './Subdivide'
+import { Close } from './Close'
 
 const Modifiers = {
 	Adapt,
@@ -10,6 +11,7 @@ const Modifiers = {
 	Smooth,
 	Solidify,
 	Subdivide,
+	Close,
 }
 
 export { Modifiers }
