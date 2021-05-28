@@ -257,61 +257,65 @@ export function interpolate(from: Float32Array, to: Float32Array, offset = 0.5):
 	const b = fromBufferLength < toBufferLength ? to : from
 	const t = fromBufferLength < toBufferLength ? from : to
 
+	let settedLength = t.length
 	const a = new Float32Array(maxBufferLength)
 
 	/////
 
-	if (difference >= minBufferLength) {
-		const newPointsOnEdge = Math.floor(difference / minBufferLength)
-		// console.log({ newPointsOnEdge })
-		const newPointOffset = 1 / (newPointsOnEdge + 1)
+	if (difference > minBufferLength) {
 		const lastPoint = minBufferLength - 2
+		const newPointsOnEdge = Math.floor(difference / lastPoint)
+		const newPointOffset = 1 / (newPointsOnEdge + 1)
 
 		for (let i = 0, j = 0; i < minBufferLength; i += 2, j += 2 + newPointsOnEdge * 2) {
 			const ax = t[i]
 			const ay = t[i + 1]
-			const bx = i === lastPoint ? t[0] : t[i + 2]
-			const by = i === lastPoint ? t[1] : t[i + 3]
+			const bx = t[i + 2]
+			const by = t[i + 3]
 
 			a[j] = ax
 			a[j + 1] = ay
 
-			for (let h = 0; h < newPointsOnEdge; h++) {
-				const o = newPointOffset * (h + 1)
-				a[j + 2 + h * 2] = (1 - o) * ax + o * bx
-				a[j + 2 + h * 2 + 1] = (1 - o) * ay + o * by
+			if (i < lastPoint) {
+				for (let h = 0; h < newPointsOnEdge; h++) {
+					const o = newPointOffset * (h + 1)
+					a[j + 2 + h * 2] = (1 - o) * ax + o * bx
+					a[j + 2 + h * 2 + 1] = (1 - o) * ay + o * by
+				}
+			} else {
+				a[j + 2] = ax
+				a[j + 3] = ay
 			}
 		}
+
+		settedLength = minBufferLength + newPointsOnEdge * lastPoint + 2
 	} else {
 		a.set(t)
 	}
 
 	////
 
-	const remainingPoints = (difference % minBufferLength) / 2
+	const remainingPoints = (maxBufferLength - settedLength) / 2
 
 	if (remainingPoints > 0) {
-		const totalLength = a.length
-		const clone = new Float32Array(totalLength)
-		clone.set(a)
-
-		const settedLength = totalLength - remainingPoints * 2
-		const offset = Math.floor(settedLength / remainingPoints)
+		const clone = new Float32Array(settedLength)
+		clone.set(a.subarray(0, settedLength))
+		let offset = Math.round(settedLength / (remainingPoints * 2)) * 2
+		if (offset % 2 === 1) offset++
 
 		for (let i = 0; i < remainingPoints; i++) {
 			const startIndex = i * offset
 			const endIndex = (i + 1) * offset
+			const d = endIndex - startIndex
 			a.set(clone.subarray(startIndex, endIndex), startIndex + i * 2)
 
-			if (i > 0) {
-				a[startIndex + i * 2 - 2] = 0.5 * clone[startIndex - 2] + 0.5 * clone[startIndex]
-				a[startIndex + i * 2 - 1] = 0.5 * clone[startIndex - 1] + 0.5 * clone[startIndex + 1]
-			}
+			a[startIndex + i * 2 + d] = 0.5 * clone[endIndex - 2] + 0.5 * clone[endIndex]
+			a[startIndex + i * 2 + d + 1] = 0.5 * clone[endIndex - 1] + 0.5 * clone[endIndex + 1]
 		}
-
-		a[totalLength - 2] = 0.5 * clone[0] + 0.5 * clone[settedLength - 2]
-		a[totalLength - 1] = 0.5 * clone[1] + 0.5 * clone[settedLength - 1]
 	}
+
+	a[maxBufferLength - 2] = t[minBufferLength - 2]
+	a[maxBufferLength - 1] = t[minBufferLength - 1]
 
 	////
 
