@@ -229,30 +229,38 @@ export function distanceFromRepetition(repetition: IRepetition, offsetFromCenter
  * @param offset
  * @returns
  */
-export function interpolate(from: Float32Array, to: Float32Array, offset = 0.5): Float32Array {
+export function interpolate(
+	from: Float32Array,
+	to: Float32Array,
+	initialOffset: number | Array<number> = 0.5
+): Float32Array {
 	const fromBufferLength = from.length
 	const toBufferLength = to.length
+	const maxBufferLength = fromBufferLength > toBufferLength ? fromBufferLength : toBufferLength
+	const difference = Math.abs(fromBufferLength - toBufferLength)
+	const minBufferLength = maxBufferLength - difference
+
+	const offset = typeof initialOffset === 'number' ? [initialOffset] : initialOffset
+
+	if (offset.length !== maxBufferLength) {
+		const tl = offset.length
+		for (let i = 0; i < maxBufferLength; i++) {
+			offset[i] = offset[i % tl]
+		}
+	}
 
 	if (fromBufferLength === toBufferLength) {
 		const result = new Float32Array(fromBufferLength)
 
 		for (let i = 0; i < fromBufferLength; i += 2) {
-			result[i] = (1 - offset) * from[i] + offset * to[i]
-			result[i + 1] = (1 - offset) * from[i + 1] + offset * to[i + 1]
+			result[i] = (1 - offset[i]) * from[i] + offset[i] * to[i]
+			result[i + 1] = (1 - offset[i]) * from[i + 1] + offset[i] * to[i + 1]
 		}
 
 		return result
 	}
 
 	/////
-
-	const maxBufferLength = fromBufferLength > toBufferLength ? fromBufferLength : toBufferLength
-	const difference = Math.abs(fromBufferLength - toBufferLength)
-	const minBufferLength = maxBufferLength - difference
-
-	if (toBufferLength < toBufferLength) {
-		offset = 1 - offset
-	}
 
 	const b = fromBufferLength < toBufferLength ? to : from
 	const t = fromBufferLength < toBufferLength ? from : to
@@ -322,8 +330,8 @@ export function interpolate(from: Float32Array, to: Float32Array, offset = 0.5):
 	const result = new Float32Array(maxBufferLength)
 
 	for (let i = 0; i < maxBufferLength; i += 2) {
-		result[i] = (1 - offset) * a[i] + offset * b[i]
-		result[i + 1] = (1 - offset) * a[i + 1] + offset * b[i + 1]
+		result[i] = (1 - offset[i]) * a[i] + offset[i] * b[i]
+		result[i + 1] = (1 - offset[i]) * a[i + 1] + offset[i] * b[i + 1]
 	}
 
 	return result
