@@ -4,11 +4,15 @@ import { Modifier } from './Modifier'
 export interface ISmoothSettings {
 	tension?: number
 	level?: number
+	closed?: boolean
+	// interpolationPoints?: number
 }
 
 class Smooth extends Modifier {
 	private tension: number
 	private level: number
+	private closed: boolean
+
 
 	constructor(args: ISmoothSettings = {}) {
 		super()
@@ -16,25 +20,17 @@ class Smooth extends Modifier {
 		this.tension = clamp(0, 1, args.tension || 0.5)
 		this.level = args.level || 1
 		this.level = this.level < 1 ? 1 : this.level
+		this.closed = args.closed === true	
 	}
 
 	public apply(buffer: Float32Array, bClosed: boolean): Float32Array {
-		let smoothed
+		let smoothed = buffer
 
-		if (bClosed) {
-			const bl = buffer.length
-			smoothed = new Float32Array(bl + 2)
-			smoothed[0] = buffer[bl - 2]
-			smoothed[1] = buffer[bl - 1]
-			smoothed.set(buffer, 2)
-		} else {
-			smoothed = buffer
-		}
-
-		for (let i = 0, len = this.level; i < len; i++) smoothed = Smooth.smooth(smoothed, this.tension)
-
+		for (let i = 0, len = this.level; i < len; i++) smoothed = Smooth.smooth(smoothed, this.tension, this.closed)
+		
 		return smoothed
 	}
+
 
 	/**
 	 * Chaikin smooth
@@ -48,18 +44,19 @@ class Smooth extends Modifier {
 	 * @link https://www.codeproject.com/Articles/1093960/D-Polyline-Vertex-Smoothing
 	 * @param buffer
 	 */
-	public static smooth(buffer: Float32Array, tension = 0.5): Float32Array {
+	public static smooth(buffer: Float32Array, tension = 0.5, bClosed: boolean = false): Float32Array {
 		const bufferLength = buffer.length
-		const smoothed = new Float32Array((bufferLength - 2) * 2 + 2)
+		const smoothed = new Float32Array((buffer.length - (bClosed ? 1 : 0)) * 2)
 
-		smoothed[0] = buffer[0]
-		smoothed[1] = buffer[1]
-
-		let smoothedLength = 2
-
+		if (!bClosed) {
+			smoothed[0] = buffer[0]
+			smoothed[1] = buffer[1]
+		}
+		
 		const cutdist = 0.05 + tension * 0.4
 		const ncutdist = 1 - cutdist
-
+		
+		let smoothedLength = bClosed ? 0 : 2
 		for (let i = 0, len = bufferLength - 2; i < len; i += 2, smoothedLength += 4) {
 			// q
 			smoothed[smoothedLength] = ncutdist * buffer[i] + cutdist * buffer[i + 2]
@@ -70,10 +67,14 @@ class Smooth extends Modifier {
 			smoothed[smoothedLength + 3] = cutdist * buffer[i + 1] + ncutdist * buffer[i + 3]
 		}
 
-		smoothed[smoothedLength] = buffer[bufferLength - 2]
-		smoothed[smoothedLength] = buffer[bufferLength - 1]
+		if (!bClosed) {
+			smoothed[smoothedLength] = buffer[bufferLength - 2]
+			smoothed[smoothedLength + 1] = buffer[bufferLength - 1]
+		} else {
+			smoothed[smoothedLength] = smoothed[0]
+			smoothed[smoothedLength + 1] = smoothed[1]
+		}
 
-		console.log({ buffer, smoothed })
 		return smoothed
 	}
 }
