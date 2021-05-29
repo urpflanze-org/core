@@ -67,6 +67,15 @@ class ShapeBuffer<
 	}
 
 	/**
+	 * Check shape is static indexed
+	 *
+	 * @returns boolean
+	 */
+	public isStaticIndexed(): boolean {
+		return typeof this.shape !== 'function' && super.isStaticIndexed()
+	}
+
+	/**
 	 *  Unset buffer
 	 *
 	 * @param {boolean} [bClearIndexed=false]
