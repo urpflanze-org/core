@@ -1,3 +1,4 @@
+import { ShapePrimitive } from 'shapes/ShapePrimitive'
 import { Modifier } from './Modifier'
 
 class Close extends Modifier {
@@ -5,7 +6,11 @@ class Close extends Modifier {
 		super()
 	}
 
-	public apply(buffer: Float32Array, bClosed: boolean) {
+	public apply(buffer: Float32Array, bClosed: boolean, shape: ShapePrimitive) {
+		return Close.call(buffer)
+	}
+
+	static call(buffer: Float32Array) {
 		const len = buffer.length
 
 		if (buffer[0] === buffer[len - 2] && buffer[1] === buffer[len - 1]) return buffer
