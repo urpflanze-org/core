@@ -297,11 +297,7 @@ export function distanceFromRepetition(repetition: IRepetition, offsetFromCenter
  * @param to
  * @returns
  */
-export function prepareBufferForInterpolation(
-	from: Float32Array,
-	to: Float32Array,
-	bClosed: boolean
-): [Float32Array, Float32Array] {
+export function prepareBufferForInterpolation(from: Float32Array, to: Float32Array): [Float32Array, Float32Array] {
 	const fromBufferLength = from.length
 	const toBufferLength = to.length
 
@@ -318,7 +314,7 @@ export function prepareBufferForInterpolation(
 	const b = fromBufferLength < toBufferLength ? to : from
 	const t = fromBufferLength < toBufferLength ? from : to
 
-	const a = distributePointsInBuffer(t, Math.floor(difference / 2), bClosed)
+	const a = distributePointsInBuffer(t, Math.floor(difference / 2))
 
 	// a[maxBufferLength - 2] = t[minBufferLength - 2]
 	// a[maxBufferLength - 1] = t[minBufferLength - 1]
@@ -336,10 +332,9 @@ export function prepareBufferForInterpolation(
 export function interpolate(
 	from: Float32Array,
 	to: Float32Array,
-	initialOffset: number | Array<number> = 0.5,
-	bClosed = false
+	initialOffset: number | Array<number> = 0.5
 ): Float32Array {
-	const [a, b] = prepareBufferForInterpolation(from, to, bClosed)
+	const [a, b] = prepareBufferForInterpolation(from, to)
 	const maxBufferLength = Math.max(a.length, b.length)
 	const offset = typeof initialOffset === 'number' ? [initialOffset] : initialOffset
 	const maxPoints = maxBufferLength / 2
@@ -363,98 +358,53 @@ export function interpolate(
 	return result
 }
 
-export function distributePointsInBuffer(
-	buffer: Float32Array,
-	count: number,
-	bClosed: boolean,
-	additionalPoint?: Float32Array
-): Float32Array {
+export function distributePointsInBuffer(buffer: Float32Array, count: number): Float32Array {
 	const bufferLen = buffer.length
 	const pointsLen = bufferLen / 2
-	const closedPointsLen = pointsLen - (bClosed ? 1 : 0)
+	const finalBufferLength = (pointsLen + count) * 2
+	const edges = pointsLen - 1
 
-	if (closedPointsLen > 1 && count >= closedPointsLen) {
-		const finalBufferLength = (pointsLen + count) * 2
+	if (edges > 1) {
 		const lastPoint = bufferLen - 2
-		const newPointsOnEdge = Math.floor(count / pointsLen)
-		const newPointOffset = 1 / (newPointsOnEdge + 1)
-		const result = new Float32Array(bufferLen + newPointsOnEdge * lastPoint + 2)
+		const newPointsOnEdge = Math.floor(count / edges)
+		const bufferWithPointsEveryEdge = bufferLen + newPointsOnEdge * lastPoint
+		let remainingPoints = (finalBufferLength - bufferWithPointsEveryEdge) / 2
+		const edgeRemainingIndex = Math.round(edges / remainingPoints)
+		const result = new Float32Array(finalBufferLength)
 
-		for (let i = 0, j = 0; i < bufferLen; i += 2, j += 2 + newPointsOnEdge * 2) {
+		for (let i = 0, edgeIndex = 0, r = 0; i < lastPoint; i += 2, edgeIndex++, r += 2) {
 			const ax = buffer[i]
 			const ay = buffer[i + 1]
 			const bx = buffer[i + 2]
 			const by = buffer[i + 3]
+			result[r] = ax
+			result[r + 1] = ay
 
-			result[j] = ax
-			result[j + 1] = ay
+			const addReminingPoints = remainingPoints > 0 && edgeIndex % edgeRemainingIndex === 0
+			const currentPointsOnEdge = newPointsOnEdge + (addReminingPoints ? 1 : 0)
+			const newPointOffset = 1 / (currentPointsOnEdge + 1)
 
-			if (i < lastPoint) {
-				for (let h = 0; h < newPointsOnEdge; h++) {
-					const o = newPointOffset * (h + 1)
-					result[j + 2 + h * 2] = (1 - o) * ax + o * bx
-					result[j + 2 + h * 2 + 1] = (1 - o) * ay + o * by
-				}
-			} else {
-				result[j + 2] = ax
-				result[j + 3] = ay
+			for (let h = 0; h < currentPointsOnEdge; h++, r += 2) {
+				const o = newPointOffset * (h + 1)
+				result[r + 2] = (1 - o) * ax + o * bx
+				result[r + 3] = (1 - o) * ay + o * by
+			}
+			if (addReminingPoints) {
+				remainingPoints--
 			}
 		}
+		result[finalBufferLength - 2] = buffer[bufferLen - 2]
+		result[finalBufferLength - 1] = buffer[bufferLen - 1]
 
-		const remainingPoints = (finalBufferLength - result.length) / 2
-
-		return remainingPoints > 0
-			? distributePointsInBufferRecursive(result, remainingPoints, bClosed, additionalPoint)
-			: result
-	}
-
-	return distributePointsInBufferRecursive(buffer, count, bClosed, additionalPoint)
-}
-
-export function distributePointsInBufferRecursive(
-	buffer: Float32Array,
-	count: number,
-	bClosed: boolean,
-	additionalPoint?: Float32Array
-): Float32Array {
-	if (count < 1) {
-		return buffer
-	}
-
-	const bufferLength = buffer.length
-	let leftCount = Math.floor(bufferLength / 2)
-	// leftCount -= leftCount % 2 === 1 ? 1 : 0
-	leftCount += leftCount % 2 === 1 ? 1 : 0
-	const left = buffer.subarray(0, leftCount)
-	const right = buffer.subarray(leftCount, bufferLength)
-
-	if (count === 1) {
-		if (buffer.length === 2 && additionalPoint) {
-			return Float32Array.from([
-				buffer[0],
-				buffer[1],
-				0.5 * buffer[0] + 0.5 * additionalPoint[0],
-				0.5 * buffer[1] + 0.5 * additionalPoint[1],
-			])
-		}
-
-		const result = new Float32Array(bufferLength + 2)
-		result.set(left, 0)
-		result[leftCount] = 0.5 * buffer[leftCount - 2] + 0.5 * buffer[leftCount]
-		result[leftCount + 1] = 0.5 * buffer[leftCount - 1] + 0.5 * buffer[leftCount + 1]
-		// result[leftCount] = 0.5 * buffer[leftCount] + 0.5 * buffer[leftCount + 2]
-		// result[leftCount + 1] = 0.5 * buffer[leftCount + 1] + 0.5 * buffer[leftCount + 3]
-		result.set(right, leftCount + 2)
 		return result
 	}
 
-	const forPart = Math.floor(count / 2)
+	const result = new Float32Array(finalBufferLength)
 
-	const leftResult = distributePointsInBuffer(left, count - forPart, bClosed, right.subarray(0, 2))
-	const rightResult = distributePointsInBuffer(right, forPart, bClosed, left.subarray(-2))
+	for (let i = 0; i < finalBufferLength; i += 2) {
+		result[i] = buffer[i % bufferLen]
+		result[i + 1] = buffer[(i + 1) % bufferLen]
+	}
 
-	const result = new Float32Array(leftResult.length + rightResult.length)
-	result.set(leftResult, 0)
-	result.set(rightResult, leftResult.length)
 	return result
 }
