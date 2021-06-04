@@ -380,7 +380,7 @@ export function distributePointsInBuffer(buffer: Float32Array, count: number): F
 			result[r] = ax
 			result[r + 1] = ay
 
-			const addReminingPoints = remainingPoints > 0 && edgeIndex % edgeRemainingIndex === 0
+			const addReminingPoints = remainingPoints > 0 && (edgeIndex % edgeRemainingIndex === 0 || i === lastPoint - 2)
 			const currentPointsOnEdge = newPointsOnEdge + (addReminingPoints ? 1 : 0)
 			const newPointOffset = 1 / (currentPointsOnEdge + 1)
 
