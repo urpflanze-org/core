@@ -331,7 +331,7 @@ abstract class ShapeBase<
 		const buffers = []
 		let currentIndex = 0
 		const centerMatrix = vec2.fromValues((repetitionColCount - 1) / 2, (repetitionRowCount - 1) / 2)
-		const sceneCenter: vec3 = this.scene ? [this.scene.center[0], this.scene.center[1], 0] : [0, 0, 0]
+		const sceneAnchor: vec3 = this.scene ? [this.scene.anchor[0], this.scene.anchor[1], 0] : [0, 0, 0]
 
 		const tmpTotalShapeBounding = [undefined, undefined, undefined, undefined]
 		const tmpSingleRepetitionBounding = [undefined, undefined, undefined, undefined]
@@ -394,12 +394,17 @@ abstract class ShapeBase<
 
 					const perspectiveSize = perspective > 0 ? Math.max(bounding.width, bounding.height) / 2 : 1
 					const perspectiveValue = perspective > 0 ? perspectiveSize + (1 - perspective) * (perspectiveSize * 10) : 0
-					const bTransformOrigin = perspective !== 0 || transformOrigin[0] !== 0 || transformOrigin[1] !== 0
+					const bTransformOrigin =
+						bounding.cx !== 0 ||
+						bounding.cy !== 0 ||
+						perspective !== 0 ||
+						transformOrigin[0] !== 0 ||
+						transformOrigin[1] !== 0
 					const bPerspectiveOrigin = perspectiveOrigin[0] !== 0 || perspectiveOrigin[1] !== 0
 
 					if (bTransformOrigin) {
-						transformOrigin[0] *= bounding.width / 2
-						transformOrigin[1] *= bounding.height / 2
+						transformOrigin[0] = transformOrigin[0] * (bounding.width / 2) + bounding.cx
+						transformOrigin[1] = transformOrigin[1] * (bounding.height / 2) + bounding.cy
 						transformOrigin[2] = perspectiveValue
 					}
 
@@ -443,7 +448,7 @@ abstract class ShapeBase<
 						mat4.identity(repetitionMatrix)
 						mat4.translate(repetitionMatrix, repetitionMatrix, offset)
 						if (bDirectSceneChild) {
-							mat4.translate(repetitionMatrix, repetitionMatrix, sceneCenter)
+							mat4.translate(repetitionMatrix, repetitionMatrix, sceneAnchor)
 						}
 						if (repetitionType === ERepetitionType.Ring)
 							mat4.rotateZ(repetitionMatrix, repetitionMatrix, repetition.angle + displace)
@@ -490,19 +495,19 @@ abstract class ShapeBase<
 						buffers[currentIndex][bufferIndex] = vertex[0]
 						buffers[currentIndex][bufferIndex + 1] = vertex[1]
 
-						// Bounding.add(tmpSingleRepetitionBounding, vertex[0], vertex[1])
-						Bounding.add(tmpTotalShapeBounding, vertex[0], vertex[1])
+						Bounding.add(tmpSingleRepetitionBounding, vertex[0], vertex[1])
+						// Bounding.add(tmpTotalShapeBounding, vertex[0], vertex[1])
 					}
 				}
 
-				// Bounding.sum(tmpTotalShapeBounding, tmpSingleRepetitionBounding)
+				Bounding.sum(tmpTotalShapeBounding, tmpSingleRepetitionBounding)
 
 				// After buffer creation, add a frame into indexedBuffer if not static or update bounding
-				// const singleRepetitionBounding = { cx: 0, cy: 0, x: -1, y: -1, width: 2, height: 2 }
-				// Bounding.bind(singleRepetitionBounding, tmpSingleRepetitionBounding)
+				const singleRepetitionBounding = { cx: 0, cy: 0, x: -1, y: -1, width: 2, height: 2 }
+				Bounding.bind(singleRepetitionBounding, tmpSingleRepetitionBounding)
 
 				if (!this.bStaticIndexed || !this.bIndexed) {
-					this.addIndex(bufferLength, repetition)
+					this.addIndex(bufferLength, repetition, singleRepetitionBounding)
 				}
 			}
 		}
@@ -540,14 +545,14 @@ abstract class ShapeBase<
 	 * @abstract
 	 * @param {number} frameLength
 	 * @param {IRepetition} currentRepetition
-	//  * @param {IShapeBounding} singleRepetitionBounding
+	 * @param {IShapeBounding} singleRepetitionBounding
 	 * @returns {number} nextIndex
 	 */
 	protected abstract addIndex(
 		frameLength: number,
-		currentRepetition: IRepetition
-	): // singleRepetitionBounding: IShapeBounding
-	void
+		currentRepetition: IRepetition,
+		singleRepetitionBounding: IShapeBounding
+	): void
 
 	/**
 	 * Get number of repetitions
