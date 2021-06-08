@@ -13,7 +13,7 @@ class Close extends Modifier {
 	static call(buffer: Float32Array) {
 		const len = buffer.length
 
-		if (buffer[0] === buffer[len - 2] && buffer[1] === buffer[len - 1]) return buffer
+		if (Close.isClosed(buffer)) return buffer
 
 		const result = new Float32Array(len + 2)
 		result.set(buffer, 0)
@@ -21,6 +21,11 @@ class Close extends Modifier {
 		result[len + 1] = result[1]
 
 		return result
+	}
+
+	static isClosed(buffer: Float32Array): boolean {
+		const len = buffer.length
+		return buffer[0] === buffer[len - 2] && buffer[1] === buffer[len - 1]
 	}
 }
 

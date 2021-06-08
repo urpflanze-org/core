@@ -33,7 +33,7 @@ class Subdivide extends Modifier {
 	 * @param {boolean} [bClosed=true]
 	 * @returns {(Float32Array)}
 	 */
-	public static subdivide(buffer: Float32Array, bClosed = true): Float32Array {
+	public static subdivide(buffer: Float32Array, bClosed = false): Float32Array {
 		const bufferLength = buffer.length
 		const subdivided = new Float32Array(bufferLength * 2 - (bClosed ? 0 : 2))
 

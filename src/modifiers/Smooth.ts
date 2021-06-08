@@ -1,4 +1,5 @@
 import { clamp } from '../Utilities'
+import { Close } from './Close'
 import { Modifier } from './Modifier'
 
 export interface ISmoothSettings {
@@ -13,24 +14,35 @@ class Smooth extends Modifier {
 	private level: number
 	private closed: boolean
 
-
 	constructor(args: ISmoothSettings = {}) {
 		super()
 
 		this.tension = clamp(0, 1, args.tension || 0.5)
 		this.level = args.level || 1
 		this.level = this.level < 1 ? 1 : this.level
-		this.closed = args.closed === true	
+		this.closed = args.closed === true
 	}
 
 	public apply(buffer: Float32Array, bClosed: boolean): Float32Array {
+		if (bClosed && !Close.isClosed(buffer)) {
+			const bufferLen = buffer.length
+
+			const mofified = new Float32Array(bufferLen + 2)
+			mofified.set(buffer, 0)
+
+			mofified[bufferLen] = buffer[0]
+			mofified[bufferLen + 1] = buffer[1]
+
+			buffer = mofified
+		}
+
 		let smoothed = buffer
 
-		for (let i = 0, len = this.level; i < len; i++) smoothed = Smooth.smooth(smoothed, this.tension, this.closed)
-		
+		for (let i = 0, len = this.level; i < len; i++)
+			smoothed = Smooth.smooth(smoothed, this.tension, bClosed || this.closed)
+
 		return smoothed
 	}
-
 
 	/**
 	 * Chaikin smooth
@@ -52,10 +64,10 @@ class Smooth extends Modifier {
 			smoothed[0] = buffer[0]
 			smoothed[1] = buffer[1]
 		}
-		
+
 		const cutdist = 0.05 + tension * 0.4
 		const ncutdist = 1 - cutdist
-		
+
 		let smoothedLength = bClosed ? 0 : 2
 		for (let i = 0, len = bufferLength - 2; i < len; i += 2, smoothedLength += 4) {
 			// q
