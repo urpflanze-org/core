@@ -4,6 +4,7 @@ import { Smooth } from './Smooth'
 import { Solidify } from './Solidify'
 import { Subdivide } from './Subdivide'
 import { Close } from './Close'
+import { Offset } from './Offset'
 
 const Modifiers = {
 	Adapt,
@@ -12,6 +13,7 @@ const Modifiers = {
 	Solidify,
 	Subdivide,
 	Close,
+	Offset,
 }
 
 export { Modifiers }
