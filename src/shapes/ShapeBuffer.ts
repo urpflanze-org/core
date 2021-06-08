@@ -96,7 +96,8 @@ class ShapeBuffer<
 		const sideLength = this.getRepetitionSideLength(propArguments)
 
 		const shapeBuffer = this.applyModifiers(
-			Float32Array.from(typeof this.shape === 'function' ? this.shape(propArguments) : this.shape)
+			Float32Array.from(typeof this.shape === 'function' ? this.shape(propArguments) : this.shape),
+			propArguments
 		)
 
 		const tmpBounding = [undefined, undefined, undefined, undefined]
@@ -109,7 +110,6 @@ class ShapeBuffer<
 		}
 
 		Bounding.bind(this.currentGenerationPrimitiveBounding, tmpBounding)
-
 		this.shapeBuffer = shapeBuffer
 	}
 
@@ -136,7 +136,7 @@ class ShapeBuffer<
 	protected generateBuffer(generateId: number, propArguments: PropArguments): Float32Array {
 		if (
 			typeof this.shapeBuffer === 'undefined' ||
-			typeof this.props.sideLength === 'function' ||
+			// typeof this.props.sideLength === 'function' ||
 			typeof this.shape === 'function'
 		) {
 			this.bindBuffer(propArguments)
@@ -164,6 +164,18 @@ class ShapeBuffer<
 	 */
 	public getAdaptMode(): EAdaptMode {
 		return this.adaptMode as EAdaptMode
+	}
+
+	/**
+	 * Get static buffer
+	 *
+	 * @param sideLength
+	 * @returns
+	 */
+	public static getBuffer(props: IShapeBufferSettings = {}): Float32Array {
+		const shape = new this({ ...props, sideLength: props.sideLength || 1 })
+		shape.generate()
+		return shape.getBuffer() || new Float32Array()
 	}
 }
 

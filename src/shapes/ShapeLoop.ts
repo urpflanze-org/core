@@ -232,9 +232,9 @@ class ShapeLoop<
 		const { start, inc, /*end,*/ count } = this.getLoop(propArguments)
 
 		const sideLength = this.getRepetitionSideLength(propArguments)
-		const getVertex = (this.props.loop && this.props.loop.vertex
-			? this.props.loop.vertex
-			: this.loop.vertex) as TShapeLoopGeneratorFormula
+		const getVertex = (
+			this.props.loop && this.props.loop.vertex ? this.props.loop.vertex : this.loop.vertex
+		) as TShapeLoopGeneratorFormula
 
 		const shapeLoop: IShapeLoopRepetition = {
 			index: 0,
@@ -268,7 +268,7 @@ class ShapeLoop<
 		}
 
 		const tmpBounding = [undefined, undefined, undefined, undefined]
-		const buffer = this.applyModifiers(currentOrSingleLoopBuffer)
+		const buffer = this.applyModifiers(currentOrSingleLoopBuffer, propArguments)
 
 		for (let i = 0, len = buffer.length; i < len; i += 2) {
 			buffer[i] = buffer[i] * sideLength[0]
@@ -310,6 +310,18 @@ class ShapeLoop<
 	 */
 	public setShape(loop: IShapeLoopGenerator): void {
 		this.setProp('loop', loop)
+	}
+
+	/**
+	 * Get static buffer
+	 *
+	 * @param sideLength
+	 * @returns
+	 */
+	public static getBuffer<Props extends IShapeLoopProps>(props: Props): Float32Array {
+		const shape = new this({ ...props, sideLength: props.sideLength || 1 })
+		shape.generate()
+		return shape.getBuffer() || new Float32Array()
 	}
 }
 
