@@ -156,7 +156,7 @@ const randoms: {
  * @param seed
  * @returns
  */
-export function random(seed?: string | number) {
+export function random(seed?: string | number | null, min = 0, max = 1, decimals?: number) {
 	const key: string = seed + ''
 
 	if (typeof randoms[key] === 'undefined') {
@@ -164,7 +164,9 @@ export function random(seed?: string | number) {
 		randoms[key] = sfc32(seed(), seed(), seed(), seed())
 	}
 
-	return randoms[key]()
+	const value = min + randoms[key]() * (max - min)
+
+	return typeof decimals !== 'undefined' ? Math.round(value * 10 ** decimals) / 10 ** decimals : value
 }
 
 /**
