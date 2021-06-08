@@ -17,6 +17,11 @@ export interface ISceneSettings {
 	height?: number
 
 	/**
+	 * Set the center of the scene, default center
+	 */
+	anchor?: ['left' | 'right' | 'center', 'top' | 'bottom' | 'center']
+
+	/**
 	 * Default background color
 	 * @order 3
 	 */
