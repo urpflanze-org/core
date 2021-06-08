@@ -51,12 +51,15 @@ export {
 	toRadians,
 	now,
 	noise,
+	random,
 	angleFromRepetition,
 	angle2FromRepetition,
 	distanceFromRepetition,
 	interpolate,
+	prepareBufferForInterpolation,
+	distributePointsInBuffer,
 } from './Utilities'
 
 export { default as Vec2 } from './math/Vec2'
 
-export { PHI, PI2, log, pmod } from './math'
+export { PHI, PI2, log, mod } from './math'
