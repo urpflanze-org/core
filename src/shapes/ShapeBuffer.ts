@@ -136,7 +136,7 @@ class ShapeBuffer<
 	protected generateBuffer(generateId: number, propArguments: PropArguments): Float32Array {
 		if (
 			typeof this.shapeBuffer === 'undefined' ||
-			// typeof this.props.sideLength === 'function' ||
+			typeof this.props.sideLength === 'function' ||
 			typeof this.shape === 'function'
 		) {
 			this.bindBuffer(propArguments)
