@@ -50,7 +50,10 @@ abstract class ShapePrimitive<
 	 * @protected
 	 * @type {(Array<Modifier> | Modifier)}
 	 */
-	protected modifiers?: Array<Modifier> | Modifier
+	protected modifiers?:
+		| Array<Modifier | ((propArguments: PropArguments) => Modifier)>
+		| Modifier
+		| ((propArguments: PropArguments) => Modifier)
 
 	/**
 	 * Creates an instance of ShapePrimitive.
@@ -108,14 +111,20 @@ abstract class ShapePrimitive<
 	 * @param buffer
 	 * @returns
 	 */
-	public applyModifiers(buffer: Float32Array): Float32Array {
+	public applyModifiers(buffer: Float32Array, propArguments: PropArguments): Float32Array {
 		if (typeof this.modifiers === 'undefined') return buffer
 
 		let modified = buffer
 		const modifiers = Array.isArray(this.modifiers) ? this.modifiers : [this.modifiers]
 
 		for (let i = 0, len = modifiers.length; i < len; i++) {
-			modified = modifiers[i].apply(modified, this.bClosed)
+			const modifier: Modifier =
+				modifiers[i] instanceof Modifier
+					? modifiers[i]
+					: (modifiers[i] as (propArguments: PropArguments) => Modifier)(propArguments)
+
+			//@ts-ignore
+			modified = modifier.apply(modified, this.bClosed, this)
 		}
 
 		return modified
@@ -139,15 +148,11 @@ abstract class ShapePrimitive<
 	 * @param {IRepetition} repetition
 	 * @returns {number} nextIndex
 	 */
-	protected addIndex(
-		frameLength: number,
-		repetition: IRepetition
-		// singleRepetitionBounding: IShapeBounding
-	): void {
+	protected addIndex(frameLength: number, repetition: IRepetition, singleRepetitionBounding: IShapeBounding): void {
 		const index: IBufferIndex = {
 			shape: this,
 			frameLength,
-			// singleRepetitionBounding,
+			singleRepetitionBounding,
 			repetition: {
 				type: repetition.type,
 				angle: repetition.angle,
