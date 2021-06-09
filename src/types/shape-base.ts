@@ -1,6 +1,20 @@
-import { ISceneChildProps, ISceneChildSettings, TSceneChildProp } from '../types/scene-child'
-import { IBaseRepetition } from './repetitions'
+import { ISceneChildSettings } from '../types/scene-child'
 import { IPropArguments } from './propArguments'
+import { IBaseRepetition } from './repetitions'
+
+export enum EBoundingType {
+	/**
+	 * Relative to the real bounding of the shape
+	 * @order 2
+	 */
+	Relative = 1,
+
+	/**
+	 * Fixed to te width and height of the shape
+	 * @order 3
+	 */
+	Fixed = 2,
+}
 
 /**
  * Callback to pass at vertextCallback property
@@ -26,6 +40,13 @@ export interface IShapeBaseSettings<PropArguments extends IPropArguments = IProp
 	 * @order -13
 	 */
 	vertexCallback?: TVertexCallback<PropArguments>
+
+	/**
+	 * Using to shape transformation
+	 *
+	 * @order -14
+	 */
+	boundingType?: EBoundingType
 }
 
 /**

@@ -11,6 +11,7 @@ import {
 	IRepetition,
 	ERepetitionType,
 	IPropArguments,
+	EBoundingType,
 } from '../types'
 
 import * as glme from '../math/gl-matrix-extensions'
@@ -142,6 +143,8 @@ abstract class ShapeBase<
 	 */
 	public vertexCallback?: TVertexCallback<PropArguments>
 
+	public boundingType?: EBoundingType
+
 	/**
 	 * The bounding inside the scene
 	 *
@@ -184,6 +187,7 @@ abstract class ShapeBase<
 		} as Props
 
 		this.vertexCallback = settings.vertexCallback
+		this.boundingType = settings.boundingType || EBoundingType.Fixed
 	}
 
 	/**
@@ -395,16 +399,20 @@ abstract class ShapeBase<
 					const perspectiveSize = perspective > 0 ? Math.max(bounding.width, bounding.height) / 2 : 1
 					const perspectiveValue = perspective > 0 ? perspectiveSize + (1 - perspective) * (perspectiveSize * 10) : 0
 					const bTransformOrigin =
-						bounding.cx !== 0 ||
-						bounding.cy !== 0 ||
+						(this.boundingType === EBoundingType.Relative ? bounding.cx !== 0 || bounding.cy !== 0 : true) ||
 						perspective !== 0 ||
 						transformOrigin[0] !== 0 ||
 						transformOrigin[1] !== 0
 					const bPerspectiveOrigin = perspectiveOrigin[0] !== 0 || perspectiveOrigin[1] !== 0
 
 					if (bTransformOrigin) {
-						transformOrigin[0] = transformOrigin[0] * (bounding.width / 2) + bounding.cx
-						transformOrigin[1] = transformOrigin[1] * (bounding.height / 2) + bounding.cy
+						if (this.boundingType === EBoundingType.Relative) {
+							transformOrigin[0] = transformOrigin[0] * (bounding.width / 2) + bounding.cx
+							transformOrigin[1] = transformOrigin[1] * (bounding.height / 2) + bounding.cy
+						} else {
+							transformOrigin[0] *= bounding.width / 2
+							transformOrigin[1] *= bounding.height / 2
+						}
 						transformOrigin[2] = perspectiveValue
 					}
 
@@ -435,8 +443,13 @@ abstract class ShapeBase<
 						 */
 						if (perspectiveValue > 0) {
 							if (bPerspectiveOrigin) {
-								perspectiveOrigin[0] *= bounding.width / 2
-								perspectiveOrigin[1] *= bounding.height / 2
+								if (this.boundingType === EBoundingType.Relative) {
+									perspectiveOrigin[0] = perspectiveOrigin[0] * (bounding.width / 2) + bounding.cx
+									perspectiveOrigin[1] = perspectiveOrigin[1] * (bounding.height / 2) + bounding.cy
+								} else {
+									perspectiveOrigin[0] *= bounding.width / 2
+									perspectiveOrigin[1] *= bounding.height / 2
+								}
 								perspectiveOrigin[2] = 0
 							}
 							mat4.perspective(perspectiveMatrix, -Math.PI / 2, 1, 0, Infinity)
