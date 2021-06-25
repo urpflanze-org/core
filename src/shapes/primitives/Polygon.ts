@@ -1,7 +1,29 @@
-import { IPropArguments, IPolygonProps, IPolygonSettings, IDrawerProps } from '../../types'
-
-import { ShapeLoop } from '../../shapes/ShapeLoop'
 import { PI2 } from '../../math'
+import { ShapeLoop } from '../../shapes/ShapeLoop'
+import { IDrawerProps, IPropArguments, IShapeLoopProps, IShapeLoopSettings, TSceneChildProp } from '../../types'
+
+/**
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface IPolygonProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
+	/**
+	 * sideNumber / segments
+	 * @order -35
+	 */
+	sideNumber?: TSceneChildProp<number, PropArguments>
+}
+
+/**
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface IPolygonSettings<
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends IPolygonProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
 
 /**
  * Polygon shape

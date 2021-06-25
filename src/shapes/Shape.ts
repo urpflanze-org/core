@@ -22,11 +22,18 @@ class Shape<
 	public shape?: SceneChild
 
 	/**
+	 * regenerate child shape each repetition
+	 *
+	 * @type {boolean}
+	 */
+	public shapeUseParent: boolean
+
+	/**
 	 * Creates an instance of Shape.
 	 *
 	 * @param {ShapeSettings} [settings={}]
 	 */
-	constructor(settings: IShapeSettings<PropArguments> = {}) {
+	constructor(settings: IShapeSettings<PropArguments>) {
 		settings.type = settings.type || 'Shape'
 		super(settings)
 
@@ -38,6 +45,7 @@ class Shape<
 				settings.shape
 			)
 		}
+		this.shapeUseParent = !!settings.shapeUseParent
 
 		this.bStatic = this.isStatic()
 		this.bStaticIndexed = this.isStaticIndexed()
@@ -49,6 +57,7 @@ class Shape<
 	 * @returns {boolean}
 	 */
 	public isStatic(): boolean {
+		// return super.isStatic() && !this.shapeUseParent
 		return super.isStatic() && (this.shape ? this.shape.isStatic() : true)
 	}
 
@@ -99,8 +108,13 @@ class Shape<
 	 */
 	protected generateBuffer(generateId: number, propArguments: PropArguments): Float32Array {
 		if (this.shape) {
-			this.shape.generate(generateId, false, propArguments)
-			return this.shape.getBuffer() || Shape.EMPTY_BUFFER
+			if (this.shapeUseParent || this.shape.generateId !== generateId) {
+				if (this.shapeUseParent) {
+					this.shape.clearBuffer(true, false)
+				}
+				this.shape.generate(generateId, false, propArguments)
+			}
+			return this.shape.getBuffer() as Float32Array
 		}
 
 		return Shape.EMPTY_BUFFER
@@ -128,18 +142,14 @@ class Shape<
 	 * @param {IRepetition} repetition
 	 * @returns {number} nextIndex
 	 */
-	protected addIndex(
-		frameLength: number,
-		repetition: IRepetition
-		// singleRepetitionBounding: IShapeBounding
-	): void {
+	protected addIndex(frameLength: number, repetition: IRepetition, singleRepetitionBounding: IShapeBounding): void {
 		if (this.shape) {
 			const childIndexedBuffer: Array<IBufferIndex> = this.shape.getIndexedBuffer() || []
 
 			const parentBufferIndex: IBufferIndex = {
 				shape: this,
 				frameLength,
-				// singleRepetitionBounding,
+				singleRepetitionBounding,
 				repetition: {
 					type: repetition.type,
 					angle: repetition.angle,

@@ -1,7 +1,66 @@
-import { ISuperShapeProps, ISuperShapeSettings, IPropArguments, IDrawerProps, IShapeLoopRepetition } from '../../types'
-
-import { ShapeLoop } from '../ShapeLoop'
 import { PI2 } from '../../math'
+import {
+	IDrawerProps,
+	IPropArguments,
+	IShapeLoopProps,
+	IShapeLoopRepetition,
+	IShapeLoopSettings,
+	TSceneChildProp,
+} from '../../types'
+import { ShapeLoop } from '../ShapeLoop'
+
+/**
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface ISuperShapeProps<PropArguments extends IPropArguments = IPropArguments>
+	extends IShapeLoopProps<PropArguments> {
+	/**
+	 * a coefficient
+	 * @order -35
+	 */
+	a?: TSceneChildProp<number, PropArguments>
+
+	/**
+	 * b coefficient
+	 * @order -34
+	 */
+	b?: TSceneChildProp<number, PropArguments>
+
+	/**
+	 * m coefficient
+	 * @order -33
+	 */
+	m?: TSceneChildProp<number, PropArguments>
+
+	/**
+	 * n1 coefficient
+	 * @order -32
+	 */
+	n1?: TSceneChildProp<number, PropArguments>
+
+	/**
+	 * n2 coefficient
+	 * @order -31
+	 */
+	n2?: TSceneChildProp<number, PropArguments>
+
+	/**
+	 * n3 coefficient
+	 * @order -30
+	 */
+	n3?: TSceneChildProp<number, PropArguments>
+}
+
+/**
+ *
+ * @category Core.Primitive Interfaces
+ */
+export interface ISuperShapeSettings<
+	PropArguments extends IPropArguments = IPropArguments,
+	D extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
+> extends ISuperShapeProps<PropArguments>,
+		IShapeLoopSettings<PropArguments, D> {}
 
 /**
  * ShperShape

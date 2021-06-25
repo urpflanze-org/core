@@ -1,16 +1,18 @@
 // import { Bounding } from '../math/bounding'
 import {
 	IPropArguments,
-	IRecursionPropArguments,
 	IShapeRecursiveProps,
 	IShapeRecursiveSettings,
 	IBufferIndex,
 	IBufferIndexWithRecursion,
 	IRecursionRepetition,
 	IRepetition,
+	IParentRecursionPropArguments,
+	IShapeBounding,
 } from '../types'
 
-import { Shape } from '../shapes/Shape'
+import { Shape } from './Shape'
+import { SceneChild } from '../SceneChild'
 
 /**
  * @category Core.Shapes
@@ -27,6 +29,13 @@ class ShapeRecursive<
 	 */
 	//protected currentGenerationRecursiveBounding: IShapeBounding
 
+	/**
+	 * child shape
+	 *
+	 * @type {(SceneChild)}
+	 */
+	public shape?: SceneChild<IParentRecursionPropArguments>
+
 	// /**
 	//  * Inner recursion
 	//  *
@@ -37,11 +46,19 @@ class ShapeRecursive<
 	protected shapeRecursiveBuffer: Float32Array | undefined
 
 	/**
+	 * Regenerate child buffer each recursion
+	 *
+	 * @protected
+	 * @type {boolean}
+	 */
+	protected shapeUseRecursion!: boolean
+
+	/**
 	 * Creates an instance of ShapeRecursive.
 	 *
 	 * @param {IShapeRecursiveSettings} [settings={}]
 	 */
-	constructor(settings: IShapeRecursiveSettings<PropArguments> = {}) {
+	constructor(settings: IShapeRecursiveSettings<PropArguments>) {
 		settings.type = settings.type || 'ShapeRecursive'
 		super(settings)
 
@@ -54,6 +71,7 @@ class ShapeRecursive<
 		this.bStatic = this.isStatic()
 		this.bStaticIndexed = this.isStaticIndexed()
 
+		this.shapeUseRecursion = !!settings.shapeUseRecursion
 		// this.currentGenerationRecursiveBounding = Bounding.empty()
 	}
 
@@ -115,14 +133,19 @@ class ShapeRecursive<
 	 * @returns {Float32Array}
 	 */
 	protected generateBuffer(generateId: number, propArguments: PropArguments): Float32Array {
-		if (
-			(this.shape && (this.shape.bUseParent || this.shape.generateId !== generateId)) ||
-			typeof this.shapeRecursiveBuffer === 'undefined'
-		) {
-			this.bindBuffer(generateId, propArguments)
+		if (this.shape) {
+			if (
+				typeof this.shapeRecursiveBuffer === 'undefined' ||
+				this.shapeUseParent ||
+				this.shape.generateId !== generateId
+			) {
+				this.bindBuffer(generateId, propArguments)
+			}
+
+			return this.shapeRecursiveBuffer as Float32Array
 		}
 
-		return this.shapeRecursiveBuffer as Float32Array
+		return Shape.EMPTY_BUFFER
 	}
 
 	/**
@@ -133,14 +156,11 @@ class ShapeRecursive<
 	 * @param {PropArguments} propArguments
 	 */
 	protected bindBuffer(generateId: number, propArguments: PropArguments): void {
-		if (typeof this.shape === 'undefined') {
-			this.shapeRecursiveBuffer = Shape.EMPTY_BUFFER
-			return
-		}
-
 		const recursions = Math.floor(this.getProp('recursions', propArguments, 1))
 		const recursionVertex = Math.floor(this.getProp('recursionVertex', propArguments, 0))
 		const recursionScale = this.getProp('recursionScale', propArguments, 2)
+
+		const childShape = this.shape as SceneChild<IParentRecursionPropArguments>
 
 		let currentRecursionRepetition: IRecursionRepetition = {
 			index: 1,
@@ -148,15 +168,20 @@ class ShapeRecursive<
 			count: 1,
 			level: { index: 1, offset: recursions > 1 ? 0 : 1, count: 1 },
 		}
+		const recursionPropArguments = {
+			...propArguments,
+			recursion: currentRecursionRepetition,
+		}
+		childShape.generate(generateId, false, recursionPropArguments)
+		const firstGenerationChildBuffer = childShape.getBuffer() as Float32Array
 
 		if (recursions <= 1) {
-			const buffer = this.generateShapeBuffer(propArguments, generateId, currentRecursionRepetition)
 			// this.currentGenerationRecursiveBounding = this.shape.getBounding()
-			this.shapeRecursiveBuffer = buffer
+			this.shapeRecursiveBuffer = firstGenerationChildBuffer
 			return
 		}
 
-		let shapeBuffer = this.generateShapeBuffer(propArguments, generateId, currentRecursionRepetition)
+		let shapeBuffer = firstGenerationChildBuffer
 		const storedRecursion: Array<IRecursionRepetition> = [currentRecursionRepetition]
 		let paretRecursionIndex = 0,
 			added = 1
@@ -204,7 +229,12 @@ class ShapeRecursive<
 				}
 				storedRecursion.push(currentRecursionRepetition)
 
-				shapeBuffer = this.generateShapeBuffer(propArguments, generateId, currentRecursionRepetition)
+				if (this.shapeUseRecursion) {
+					recursionPropArguments.recursion = currentRecursionRepetition
+					childShape.generate(generateId, false, recursionPropArguments)
+
+					shapeBuffer = childShape.getBuffer() as Float32Array
+				}
 
 				const shapeVertexBufferIndex =
 					recursionBufferStartIndex + currentShapeRecursionRepetition * singleShapeBufferLength
@@ -262,15 +292,6 @@ class ShapeRecursive<
 		this.shapeRecursiveBuffer = recusiveShapeBuffer
 	}
 
-	protected generateShapeBuffer(
-		propArguments: IPropArguments,
-		generateId: number,
-		recursionRepetition: IRecursionRepetition
-	): Float32Array {
-		;(propArguments as IRecursionPropArguments).recursion = recursionRepetition
-		return super.generateBuffer(generateId, propArguments as PropArguments)
-	}
-
 	/**
 	 * Add this to indexedBuffer
 	 *
@@ -279,13 +300,9 @@ class ShapeRecursive<
 	 * @param {IRepetition} repetition
 	 * @returns {number} nextIndex
 	 */
-	protected addIndex(
-		frameLength: number,
-		repetition: IRepetition
-		// singleRepetitionBounding: IShapeBounding
-	): void {
+	protected addIndex(frameLength: number, repetition: IRepetition, singleRepetitionBounding: IShapeBounding): void {
 		if (this.shape) {
-			const propArguments = ({ repetition, shape: this } as IPropArguments) as PropArguments
+			const propArguments = { repetition, shape: this } as IPropArguments as PropArguments
 
 			const recursions = Math.floor(this.getProp('recursions', propArguments, 1))
 			const recursionVertex = Math.floor(this.getProp('recursionVertex', propArguments, 0))
@@ -295,7 +312,7 @@ class ShapeRecursive<
 			const bufferIndex: IBufferIndexWithRecursion = {
 				shape: this,
 				frameLength: frameLength,
-				// singleRepetitionBounding,
+				singleRepetitionBounding,
 				repetition: {
 					type: repetition.type,
 					angle: repetition.angle,
@@ -341,9 +358,11 @@ class ShapeRecursive<
 					recursion: currentRecursionRepetition,
 				}
 
-				const parent = (currentIndexed.parent
-					? Shape.setIndexedParent(currentIndexed.parent, recursionBufferIndex)
-					: recursionBufferIndex) as IBufferIndexWithRecursion
+				const parent = (
+					currentIndexed.parent
+						? Shape.setIndexedParent(currentIndexed.parent, recursionBufferIndex)
+						: recursionBufferIndex
+				) as IBufferIndexWithRecursion
 
 				this.indexedBuffer.push({
 					...currentIndexed,
@@ -352,12 +371,12 @@ class ShapeRecursive<
 			}
 
 			if (recursions > 1) {
-				const realVertexCount = this.shape.getBufferLength(propArguments) / 2
+				const realVertexCount = this.shape.getBufferLength({ ...propArguments, parent: { ...bufferIndex } }) / 2
 				const vertexCount = recursionVertex <= 0 ? realVertexCount : Math.min(recursionVertex, realVertexCount)
 
-				const storedRecursion: Array<Array<IRecursionRepetition>> = (this.indexedBuffer as Array<
-					Required<IBufferIndexWithRecursion>
-				>).map(indexed => [indexed.parent.recursion])
+				const storedRecursion: Array<Array<IRecursionRepetition>> = (
+					this.indexedBuffer as Array<Required<IBufferIndexWithRecursion>>
+				).map(indexed => [indexed.parent.recursion])
 
 				let paretRecursionIndex = 0,
 					added = 1

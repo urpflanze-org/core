@@ -13,13 +13,13 @@ const MATRIX: Array<number> = new Array(4)
  */
 const Vec2 = {
 	/**
-	 * Create new vertex
+	 * from new vertex
 	 *
 	 * @param {Array<number> | number} [x=0]
 	 * @param {number} [y]
 	 * @returns {Array<number>}
 	 */
-	create: (x: Array<number> | number = 0, y?: number): Array<number> => {
+	from: (x: Array<number> | number = 0, y?: number): Array<number> => {
 		const out = new Array(2)
 		if (typeof x === 'number') {
 			out[0] = x

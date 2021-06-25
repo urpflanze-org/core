@@ -1,4 +1,5 @@
-import { IShapeBufferSettings, EAdaptMode, IDrawerProps, IPropArguments } from '../../types'
+import { EAdaptMode } from '../../modifiers/Adapt'
+import { IDrawerProps, IPropArguments, IShapeBufferSettings } from '../../types'
 import { ShapeBuffer } from '../ShapeBuffer'
 
 /**
@@ -19,7 +20,7 @@ class Rect<
 	 */
 	constructor(settings: IShapeBufferSettings<PropArguments, DrawerProps> = {}) {
 		settings.type = 'Rect'
-		settings.shape = [-1, -1, 1, -1, 1, 1, -1, 1]
+		settings.shape = [1, 1, -1, 1, -1, -1, 1, -1]
 		settings.adaptMode = EAdaptMode.None
 
 		super(settings)

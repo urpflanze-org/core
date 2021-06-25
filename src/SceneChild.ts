@@ -91,37 +91,6 @@ abstract class SceneChild<
 	public generateId = -1
 
 	/**
-	 * With this parameter the shape will be created at each repetition,
-	 * useful if you want to encapsulate this shape in another and use its <mark>repetition</mark> object.
-	 * In the case of ShapePrimitive the style prop don't need to as they are generated during the buffer stream.
-	 *
-	 * @public
-	 * @type {boolean}
-	 * @example
-	 *
-	 *
-	 * ```javascript
-	 * // Use parent repetition for generate different types of roses
-	 *
-	 * const rose = new Urpflanze.Rose({
-	 * 	repetitions: 3,
-	 * 	n: ({ parent }) => parent.repetition.index, // <- use parent
-	 * 	d: ({ repetition }) => repetition.index,
-	 * 	sideLength: 20,
-	 * 	distance: 30,
-	 * 	bUseParent: true // <- add this for use `parent` as propArgument of `n` property
-	 * })
-	 *
-	 * const shape = new Urpflanze.Shape({
-	 * 	shape: rose,
-	 * 	repetitions: 4,
-	 * 	distance: 100
-	 * })
-	 * ```
-	 */
-	public bUseParent: boolean
-
-	/**
 	 * Creates an instance of SceneChild.
 	 * Base values will be assigned in case they are not passed
 	 *
@@ -133,7 +102,6 @@ abstract class SceneChild<
 		this.type = settings.type || 'SceneChild'
 		this.name = settings.name || this.type + '_' + this.id
 		this.data = settings.data || {}
-		this.bUseParent = !!settings.bUseParent
 
 		this.props = {} as Props
 	}
@@ -189,6 +157,16 @@ abstract class SceneChild<
 	}
 
 	/**
+	 * Check SceneChild has prop
+	 *
+	 * @param {keyof Props} key
+	 * @returns
+	 */
+	public hasProp(key: keyof Props): boolean {
+		return typeof this.props[key] !== 'undefined'
+	}
+
+	/**
 	 * Set a single or multiple props and clear buffer if shape vertex depends from prop
 	 *
 	 * @abstract
@@ -228,7 +206,7 @@ abstract class SceneChild<
 	 * @param {boolean} bDirectSceneChild
 	 * @param {PropArguments} parentPropArguments
 	 */
-	abstract generate(generateId: number, bDirectSceneChild: boolean, parentPropArguments?: PropArguments): void
+	abstract generate(generateId: number, bDirectSceneChild: boolean, parentPropArguments?: IPropArguments): void
 
 	/**
 	 * Get buffer bounding
