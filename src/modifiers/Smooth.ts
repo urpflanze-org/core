@@ -10,15 +10,17 @@ export interface ISmoothSettings {
 }
 
 class Smooth extends Modifier {
-	private tension: number
+	private tension: Array<number>
 	private level: number
 	private closed: boolean
 
 	constructor(args: ISmoothSettings = {}) {
 		super()
 
-		this.tension = clamp(0, 1, args.tension || 0.5)
 		this.level = args.level || 1
+
+		const tension = Array.isArray(args.tension) ? args.tension : [args.tension]
+		this.tension = new Array(this.level).fill(0.5).map((v, i) => clamp(0, 1, tension[i] || v))
 		this.level = this.level < 1 ? 1 : this.level
 		this.closed = args.closed === true
 	}
@@ -39,7 +41,7 @@ class Smooth extends Modifier {
 		let smoothed = buffer
 
 		for (let i = 0, len = this.level; i < len; i++)
-			smoothed = Smooth.smooth(smoothed, this.tension, bClosed || this.closed)
+			smoothed = Smooth.smooth(smoothed, this.tension[i], bClosed || this.closed)
 
 		return smoothed
 	}
