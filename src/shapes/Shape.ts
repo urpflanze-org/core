@@ -109,6 +109,9 @@ class Shape<
 	protected generateBuffer(generateId: number, propArguments: PropArguments): Float32Array {
 		if (this.shape) {
 			if (this.shapeUseParent || this.shape.generateId !== generateId) {
+				if (this.shapeUseParent) {
+					this.shape.clearBuffer(true, false)
+				}
 				this.shape.generate(generateId, false, propArguments)
 			}
 			return this.shape.getBuffer() as Float32Array
@@ -139,18 +142,14 @@ class Shape<
 	 * @param {IRepetition} repetition
 	 * @returns {number} nextIndex
 	 */
-	protected addIndex(
-		frameLength: number,
-		repetition: IRepetition
-		// singleRepetitionBounding: IShapeBounding
-	): void {
+	protected addIndex(frameLength: number, repetition: IRepetition, singleRepetitionBounding: IShapeBounding): void {
 		if (this.shape) {
 			const childIndexedBuffer: Array<IBufferIndex> = this.shape.getIndexedBuffer() || []
 
 			const parentBufferIndex: IBufferIndex = {
 				shape: this,
 				frameLength,
-				// singleRepetitionBounding,
+				singleRepetitionBounding,
 				repetition: {
 					type: repetition.type,
 					angle: repetition.angle,
