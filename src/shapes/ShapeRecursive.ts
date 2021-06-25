@@ -8,6 +8,7 @@ import {
 	IRecursionRepetition,
 	IRepetition,
 	IParentRecursionPropArguments,
+	IShapeBounding,
 } from '../types'
 
 import { Shape } from './Shape'
@@ -299,13 +300,9 @@ class ShapeRecursive<
 	 * @param {IRepetition} repetition
 	 * @returns {number} nextIndex
 	 */
-	protected addIndex(
-		frameLength: number,
-		repetition: IRepetition
-		// singleRepetitionBounding: IShapeBounding
-	): void {
+	protected addIndex(frameLength: number, repetition: IRepetition, singleRepetitionBounding: IShapeBounding): void {
 		if (this.shape) {
-			const propArguments = ({ repetition, shape: this } as IPropArguments) as PropArguments
+			const propArguments = { repetition, shape: this } as IPropArguments as PropArguments
 
 			const recursions = Math.floor(this.getProp('recursions', propArguments, 1))
 			const recursionVertex = Math.floor(this.getProp('recursionVertex', propArguments, 0))
@@ -315,7 +312,7 @@ class ShapeRecursive<
 			const bufferIndex: IBufferIndexWithRecursion = {
 				shape: this,
 				frameLength: frameLength,
-				// singleRepetitionBounding,
+				singleRepetitionBounding,
 				repetition: {
 					type: repetition.type,
 					angle: repetition.angle,
@@ -361,9 +358,11 @@ class ShapeRecursive<
 					recursion: currentRecursionRepetition,
 				}
 
-				const parent = (currentIndexed.parent
-					? Shape.setIndexedParent(currentIndexed.parent, recursionBufferIndex)
-					: recursionBufferIndex) as IBufferIndexWithRecursion
+				const parent = (
+					currentIndexed.parent
+						? Shape.setIndexedParent(currentIndexed.parent, recursionBufferIndex)
+						: recursionBufferIndex
+				) as IBufferIndexWithRecursion
 
 				this.indexedBuffer.push({
 					...currentIndexed,
@@ -375,9 +374,9 @@ class ShapeRecursive<
 				const realVertexCount = this.shape.getBufferLength({ ...propArguments, parent: { ...bufferIndex } }) / 2
 				const vertexCount = recursionVertex <= 0 ? realVertexCount : Math.min(recursionVertex, realVertexCount)
 
-				const storedRecursion: Array<Array<IRecursionRepetition>> = (this.indexedBuffer as Array<
-					Required<IBufferIndexWithRecursion>
-				>).map(indexed => [indexed.parent.recursion])
+				const storedRecursion: Array<Array<IRecursionRepetition>> = (
+					this.indexedBuffer as Array<Required<IBufferIndexWithRecursion>>
+				).map(indexed => [indexed.parent.recursion])
 
 				let paretRecursionIndex = 0,
 					added = 1
