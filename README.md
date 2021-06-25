@@ -41,26 +41,24 @@ You can see a preview [here](https://editor.urpflanze.org)
 - [Menu](#menu)
 - [Installation](#installation)
 - [Creating a shape](#creating-a-shape)
-	- [ShapeBuffer](#shapebuffer)
-	- [ShapeLoop](#shapeloop)
-- [Primitive shapes](#primitive-shapes)
-		- [ShapeBuffer](#shapebuffer-1)
-		- [ShapeLoop](#shapeloop-1)
-	- [Modifiers](#modifiers)
+  - [ShapeBuffer](#shapebuffer)
+  - [ShapeLoop](#shapeloop)
+- [Primitive shapes](#primitive-shapes) - [ShapeBuffer](#shapebuffer-1) - [ShapeLoop](#shapeloop-1)
+  - [Modifiers](#modifiers)
 - [Repetitions](#repetitions)
-	- [Ring repetitions](#ring-repetitions)
-	- [Matrix repetitions](#matrix-repetitions)
+  - [Ring repetitions](#ring-repetitions)
+  - [Matrix repetitions](#matrix-repetitions)
 - [Manage repetitions](#manage-repetitions)
-	- [Repetitions examples](#repetitions-examples)
-	- [List of properties](#list-of-properties)
+  - [Repetitions examples](#repetitions-examples)
+  - [List of properties](#list-of-properties)
 - [Encapsulation](#encapsulation)
-	- [Shape](#shape)
-	- [Group](#group)
-	- [Using repetition property of the encapsulator](#using-repetition-property-of-the-encapsulator)
+  - [Shape](#shape)
+  - [Group](#group)
+  - [Using repetition property of the encapsulator](#using-repetition-property-of-the-encapsulator)
 - [Recursion](#recursion)
 - [Vertex Callback](#vertex-callback)
 - [Scene](#scene)
-	- [Simple Drawer](#simple-drawer)
+  - [Simple Drawer](#simple-drawer)
 - [Examples](#examples)
 
 ---
@@ -209,7 +207,6 @@ The list of modifiers is:
 - `Smooth`: Makes the shape smoother
 - `Subdivide`: Adds midpoints on the edges of the shape
 - `Solidify`: (in progress) Tread the edge of the shape
--
 
 ---
 
