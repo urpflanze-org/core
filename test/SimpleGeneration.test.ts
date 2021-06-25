@@ -10,7 +10,7 @@ let rect = new Rect({
 rect.generate()
 
 tap.deepEqual(rect.isStatic(), true, 'check staticity if all props are static (no repetition generation)')
-tap.deepEqual(rect.getBuffer(), [-10, -10, 10, -10, 10, 10, -10, 10], 'simple generation')
+tap.deepEqual(rect.getBuffer(), [10, 10, -10, 10, -10, -10, 10, -10], 'simple generation')
 
 ///
 
