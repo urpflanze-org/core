@@ -2,6 +2,7 @@ import { ShapeBase } from '../shapes/ShapeBase'
 import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { IPropArguments } from './propArguments'
 import { IBaseRepetition, IRecursionRepetition } from './repetitions'
+import { IShapeBounding } from './shape-base'
 
 /**
  * Object for index the buffer
@@ -24,7 +25,10 @@ export type IBufferIndex<PropArguments extends IPropArguments = IPropArguments> 
 	 */
 	parent?: IBufferIndex<PropArguments>
 
-	// singleRepetitionBounding: IShapeBounding
+	/**
+	 * Current frame bunding
+	 */
+	singleRepetitionBounding: IShapeBounding
 }
 
 /**
