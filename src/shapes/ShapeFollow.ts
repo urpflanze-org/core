@@ -9,6 +9,7 @@ import {
 	IParentFollowPropArguments,
 	IBufferIndexWithFollow,
 	IBaseRepetition,
+	IShapeBounding,
 } from '../types'
 
 import { Shape } from './Shape'
@@ -144,6 +145,7 @@ class ShapeFollow<
 
 		followShape.generate(generateId, false, propArguments)
 		const followBuffer = followShape.getBuffer() as Float32Array
+		// const followIndexed = followShape.getIndexedBuffer() as Array<IBufferIndex>
 
 		const followPropArguments = {
 			...propArguments,
@@ -152,6 +154,7 @@ class ShapeFollow<
 				offset: 1,
 				count: 1,
 			},
+			// follow_repetition: followIndexed[0].repetition,
 		}
 
 		const childShape = this.shape as SceneChild<IParentFollowPropArguments>
@@ -176,6 +179,7 @@ class ShapeFollow<
 
 			if (this.shapeUseFollow) {
 				followPropArguments.follow = currentFollowRepetition
+				// followPropArguments.follow_repetition = followIndexed[currentShapeFollowRepetition].repetition
 				childShape.generate(generateId, false, followPropArguments)
 
 				shapeBuffer = childShape.getBuffer() as Float32Array
@@ -213,18 +217,14 @@ class ShapeFollow<
 	 * @param {IRepetition} repetition
 	 * @returns {number} nextIndex
 	 */
-	protected addIndex(
-		frameLength: number,
-		repetition: IRepetition
-		// singleRepetitionBounding: IShapeBounding
-	): void {
+	protected addIndex(frameLength: number, repetition: IRepetition, singleRepetitionBounding: IShapeBounding): void {
 		if (this.shape) {
-			const propArguments = ({ repetition, shape: this } as IPropArguments) as PropArguments
+			const propArguments = { repetition, shape: this } as IPropArguments as PropArguments
 
 			const bufferIndex: IBufferIndexWithFollow = {
 				shape: this,
 				frameLength: frameLength,
-				// singleRepetitionBounding,
+				singleRepetitionBounding,
 				repetition: {
 					type: repetition.type,
 					angle: repetition.angle,
@@ -256,7 +256,7 @@ class ShapeFollow<
 				childIndexed < childIndexedLen;
 				childIndexed++
 			) {
-				const vertexCount = this.follow.getBufferLength({ ...propArguments, parent: { ...bufferIndex } }) / 2
+				const vertexCount = this.follow.getBuffer()!.length / 2 // this.follow.getBufferLength({ ...propArguments, parent: { ...bufferIndex } }) / 2
 
 				for (let j = 0, len = vertexCount; j < len; j++) {
 					const followOffset = len > 1 ? j / (len - 1) : 1
