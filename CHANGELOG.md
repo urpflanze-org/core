@@ -1,7 +1,11 @@
-## 0.4.x (X x, 2021)
+## 0.5.0 (X x, 2021)
 
 - Add ShapeFollow
 - Fix ShapeLoop isStaticIndexed
+- Add 'interpolate' utility for buffer morphing
+- ShapeBuffer add dynamic shape
+- Add Modifiers
+- Add SingleRepetitionBounding in indexedBuffer
 
 ## 0.4.5 (March 24, 2021)
 
