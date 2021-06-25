@@ -41,23 +41,26 @@ You can see a preview [here](https://editor.urpflanze.org)
 - [Menu](#menu)
 - [Installation](#installation)
 - [Creating a shape](#creating-a-shape)
-  - [ShapeBuffer](#shapebuffer)
-  - [ShapeLoop](#shapeloop)
-- [Primitive shapes](#primitive-shapes) - [ShapeBuffer](#shapebuffer-1) - [ShapeLoop](#shapeloop-1)
+	- [ShapeBuffer](#shapebuffer)
+	- [ShapeLoop](#shapeloop)
+- [Primitive shapes](#primitive-shapes)
+		- [ShapeBuffer](#shapebuffer-1)
+		- [ShapeLoop](#shapeloop-1)
+	- [Modifiers](#modifiers)
 - [Repetitions](#repetitions)
-  - [Ring repetitions](#ring-repetitions)
-  - [Matrix repetitions](#matrix-repetitions)
+	- [Ring repetitions](#ring-repetitions)
+	- [Matrix repetitions](#matrix-repetitions)
 - [Manage repetitions](#manage-repetitions)
-  - [Repetitions examples](#repetitions-examples)
-  - [List of properties](#list-of-properties)
+	- [Repetitions examples](#repetitions-examples)
+	- [List of properties](#list-of-properties)
 - [Encapsulation](#encapsulation)
-  - [Shape](#shape)
-  - [Group](#group)
-  - [Using repetition property of the encapsulator](#using-repetition-property-of-the-encapsulator)
+	- [Shape](#shape)
+	- [Group](#group)
+	- [Using repetition property of the encapsulator](#using-repetition-property-of-the-encapsulator)
 - [Recursion](#recursion)
 - [Vertex Callback](#vertex-callback)
 - [Scene](#scene)
-  - [Simple Drawer](#simple-drawer)
+	- [Simple Drawer](#simple-drawer)
 - [Examples](#examples)
 
 ---
@@ -155,7 +158,18 @@ console.log(circle.getBuffer().length)
 
 ## Primitive shapes
 
-In this package there are already some basic shapes:
+In this package there are already some primitive shapes.
+You can use the static `getBuffer` method to receive a buffer.
+
+```javascript
+console.log(Urpflanze.Rect.getBuffer(/*{ ...props }*/))
+// Float32Array(8) [
+//    1,  1, -1,  1,
+//   -1, -1,  1, -1
+// ]
+```
+
+List of all primitives:
 
 #### ShapeBuffer
 
@@ -174,6 +188,31 @@ In this package there are already some basic shapes:
 
 ---
 
+### Modifiers
+
+On primitive shapes you can apply modifiers to the buffer before transformations are applied:
+
+```javascript
+const squircle = new Urpflanze.Rect({
+	modifiers: [new Urpflanze.Modifiers.Smooth({ level: 3, tension: 0.3 })],
+})
+```
+
+![](https://docs.urpflanze.org/core/assets/images/readme/modifiers-1.png)
+
+The list of modifiers is:
+
+- `Adapt`: Fit the shape into a rectangle
+- `Close`: Adds a close point to the buffer
+- `Mirror`: clones the shape on the x, y axes
+- `Offset`: Slice of a buffer
+- `Smooth`: Makes the shape smoother
+- `Subdivide`: Adds midpoints on the edges of the shape
+- `Solidify`: (in progress) Tread the edge of the shape
+-
+
+---
+
 ## Repetitions
 
 Using Urpflanze you can manage two types of repetitions: **ring** or **matrix**.
@@ -183,7 +222,7 @@ Using Urpflanze you can manage two types of repetitions: **ring** or **matrix**.
 For this type of repetition you can set a numeric value to the `repetitions` property to indicate the number of times it will repeat and the` distance` property to indicate the distance from the center.
 
 ```javascript
-new Urpflanze.Rect({
+const rects = new Urpflanze.Rect({
 	repetitions: 8,
 	distance: 100,
 	sideLength: 25,
@@ -195,7 +234,7 @@ new Urpflanze.Rect({
 Basically the shapes will be rotated towards the center, if you want to avoid this effect you have to rotate the vorma inversely to the current angle of the repetition.
 
 ```javascript
-new Urpflanze.Rect({
+const rects = new Urpflanze.Rect({
 	repetitions: 8,
 	sideLength: 25,
 	distance: 100,
@@ -210,7 +249,7 @@ new Urpflanze.Rect({
 To repeat the shape as an array, just pass an Array of numbers indicating the number of rows and columns to the `repetitions` property. The `distance` property in this case will also be an Array containing the distance between the rows and columns.
 
 ```javascript
-new Urpflanze.Rect({
+const matrix = new Urpflanze.Rect({
 	repetitions: [3, 4],
 	sideLength: 20,
 	distance: [80, 50],
@@ -238,7 +277,7 @@ For matrix repetitions you can also use `repetition.row` and` repetition.col` al
 ### Repetitions examples
 
 ```javascript
-new Urpflanze.Rect({
+const spiral = new Urpflanze.Rect({
 	repetitions: 8,
 	sideLength: 25,
 	distance: ({ repetition }) => repetition.offset * 100,
@@ -249,7 +288,7 @@ new Urpflanze.Rect({
 ![](https://docs.urpflanze.org/core/assets/images/readme/repetition-1.png)
 
 ```javascript
-new Urpflanze.Rect({
+const matrix = new Urpflanze.Rect({
 	repetitions: [4],
 	sideLength: 25,
 	distance: 50,
@@ -339,7 +378,7 @@ You can use the `repetition` object of whoever encapsulates a shape by setting t
 This parameter is optional since a new buffer of points will be generated at each repetition of the encapsulator.
 
 ```javascript
-const rect = new Urpflanze.Rect({
+const rects = new Urpflanze.Rect({
 	bUseParent: true, // <--
 
 	repetitions: [5],
@@ -351,7 +390,7 @@ const rect = new Urpflanze.Rect({
 })
 
 const container = new Urpflanze.Shape({
-	shape: rect,
+	shape: rects,
 	repetitions: [5],
 	distance: 50,
 	scale: 0.4,
@@ -400,23 +439,21 @@ The function takes 3 arguments:
 const rects = new Urpflanze.Rect({
 	repetitions: [10, 1],
 	sideLength: 100,
-	scale: propArguments => propArguments.repetition.row.offset * 0.9 + 0.1,
-
+	scale: propArguments => propArguments.repetition.row.offset * 0.95 + 0.05,
+	modifiers: new Urpflanze.Modifiers.Subdivide({ level: 5 }),
 	vertexCallback: (vertex, vertexRepetition, propArguments) => {
-		const angle = vertexRepetition.offset * Urpflanze.PI2
+		const angle = Math.atan2(vertex[1], vertex[0])
 
 		const x = Math.cos(angle)
 		const y = Math.sin(angle)
 
 		const offset = propArguments.repetition.row.offset ** 2 * 20
-		const noise = Urpflanze.noise('seed', angle * 2) * offset
+		const noise = Urpflanze.noise('seed', vertexRepetition.offset * 10) * offset
 
 		vertex[0] += x * noise
 		vertex[1] += y * noise
 	},
 })
-
-rects.subdivide(5)
 ```
 
 ![](https://docs.urpflanze.org/core/assets/images/readme/vertexcallback-1.png)

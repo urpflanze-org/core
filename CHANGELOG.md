@@ -1,6 +1,16 @@
+## 0.5.0 (June 25, 2021)
+
+- Add ShapeFollow
+- Fix ShapeLoop isStaticIndexed
+- Add 'interpolate' utility for buffer morphing
+- ShapeBuffer add dynamic shape
+- Add Modifiers
+- Add SingleRepetitionBounding in indexedBuffer
+
 ## 0.4.6 (March 29, 2021)
 
 - Fix typescript import path
+
 
 ## 0.4.5 (March 24, 2021)
 

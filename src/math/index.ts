@@ -26,7 +26,7 @@ export const PHI = (1 + Math.sqrt(5)) / 2
  * @param value number
  * @param base number
  */
-export const pmod = (value: number, base: number): number => {
+export const mod = (value: number, base: number): number => {
 	const result = value % base
 
 	return result < 0 ? result + base : result

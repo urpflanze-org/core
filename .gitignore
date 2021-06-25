@@ -4,6 +4,7 @@ dist
 testing 
 .vscode
 package-lock.json
+.nyc_output
 
 
 

@@ -9,9 +9,10 @@ import {
 } from '../types'
 
 import * as glme from '../math/gl-matrix-extensions'
-import { Bounding } from '../math/bounding'
 
 import { ShapeBase } from './ShapeBase'
+import { Modifier } from '../modifiers/Modifier'
+import { Bounding } from '../modifiers/Adapt'
 
 /**
  * @category Core.Abstract
@@ -44,6 +45,17 @@ abstract class ShapePrimitive<
 	public currentGenerationPrimitiveBounding: IShapeBounding = Bounding.empty()
 
 	/**
+	 * Apply modifiers on buffer
+	 *
+	 * @protected
+	 * @type {(Array<Modifier> | Modifier)}
+	 */
+	protected modifiers?:
+		| Array<Modifier | ((propArguments: PropArguments) => Modifier)>
+		| Modifier
+		| ((propArguments: PropArguments) => Modifier)
+
+	/**
 	 * Creates an instance of ShapePrimitive.
 	 *
 	 * @param {IShapePrimitiveSettings} [settings={}]
@@ -59,6 +71,7 @@ abstract class ShapePrimitive<
 				: glme.toVec2(settings.sideLength)
 
 		this.drawer = settings.drawer || ({} as DrawerProps)
+		this.modifiers = settings.modifiers
 		this.bClosed = settings.bClosed ?? true
 	}
 
@@ -72,6 +85,12 @@ abstract class ShapePrimitive<
 		return typeof this.props.sideLength !== 'function' && super.isStatic()
 	}
 
+	/**
+	 * Return sideLength for current repetition
+	 *
+	 * @param propArguments
+	 * @returns
+	 */
 	public getRepetitionSideLength(propArguments: PropArguments): [number, number] {
 		if (this.bStatic) {
 			// not set default value into constructor because it can be overridden by group
@@ -84,6 +103,31 @@ abstract class ShapePrimitive<
 		}
 
 		return glme.toVec2(this.getProp('sideLength', propArguments, [50, 50]))
+	}
+
+	/**
+	 * Apply modifiers on single repetition buffer
+	 *
+	 * @param buffer
+	 * @returns
+	 */
+	public applyModifiers(buffer: Float32Array, propArguments: PropArguments): Float32Array {
+		if (typeof this.modifiers === 'undefined') return buffer
+
+		let modified = buffer
+		const modifiers = Array.isArray(this.modifiers) ? this.modifiers : [this.modifiers]
+
+		for (let i = 0, len = modifiers.length; i < len; i++) {
+			const modifier: Modifier =
+				modifiers[i] instanceof Modifier
+					? modifiers[i]
+					: (modifiers[i] as (propArguments: PropArguments) => Modifier)(propArguments)
+
+			//@ts-ignore
+			modified = modifier.apply(modified, this.bClosed, this)
+		}
+
+		return modified
 	}
 
 	/**
@@ -104,15 +148,11 @@ abstract class ShapePrimitive<
 	 * @param {IRepetition} repetition
 	 * @returns {number} nextIndex
 	 */
-	protected addIndex(
-		frameLength: number,
-		repetition: IRepetition
-		// singleRepetitionBounding: IShapeBounding
-	): void {
+	protected addIndex(frameLength: number, repetition: IRepetition, singleRepetitionBounding: IShapeBounding): void {
 		const index: IBufferIndex = {
 			shape: this,
 			frameLength,
-			// singleRepetitionBounding,
+			singleRepetitionBounding,
 			repetition: {
 				type: repetition.type,
 				angle: repetition.angle,

@@ -1,6 +1,6 @@
 {
 	"name": "@urpflanze/core",
-	"version": "0.4.6",
+	"version": "0.5.0",
 	"description": "Create 2d primitive shapes, encapsulate and repeat them by handling each repetition and generate recursive shapes",
 	"license": "GPL-3.0-or-later",
 	"docs": "https://docs.urpflanze.org/core",
@@ -51,6 +51,7 @@
 	],
 	"scripts": {
 		"build": "tsc",
+		"test": "tap",
 		"watch": "tsc --watch",
 		"lint": "eslint src --ext .ts",
 		"prepublishOnly": "npm run build",
@@ -62,10 +63,12 @@
 		"simplex-noise": "^2.4.0"
 	},
 	"devDependencies": {
+		"@types/tap": "^14.10.3",
 		"@typescript-eslint/eslint-plugin": "^4.16.1",
 		"@urpflanze/typedoc-docs": "^0.1.13",
 		"eslint": "^7.21.0",
 		"eslint-config-prettier": "^8.1.0",
+		"tap": "^14.11.0",
 		"typescript": "4.2"
 	},
 	"googleAnalyticsID": "G-01VM1TGE22"

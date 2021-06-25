@@ -1,17 +1,15 @@
+import { PI2 } from '../math'
+import { Bounding } from '../modifiers/Adapt'
+import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import type {
+	IDrawerProps,
+	IPropArguments,
 	IShapeLoopGenerator,
 	IShapeLoopProps,
+	IShapeLoopRepetition,
 	IShapeLoopSettings,
 	TShapeLoopGeneratorFormula,
-	IPropArguments,
-	IDrawerProps,
-	IShapeLoopRepetition,
 } from '../types'
-
-import { PI2 } from '../math'
-import { Bounding } from '../math/bounding'
-
-import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { ShapeBase } from './ShapeBase'
 
 /**
@@ -130,11 +128,20 @@ class ShapeLoop<
 
 	/**
 	 * Check if shape has static indexed
+	 * The number of vertices is defined by number of loop iteration
 	 *
 	 * @returns {boolean}
 	 */
 	public isStaticIndexed(): boolean {
-		return this.bStaticLoop && super.isStaticIndexed()
+		// return this.bStaticLoop && super.isStaticIndexed()
+		return (
+			super.isStaticIndexed() &&
+			(typeof this.props.loop !== 'undefined'
+				? typeof this.props.loop.start !== 'function' &&
+				  typeof this.props.loop.end !== 'function' &&
+				  typeof this.props.loop.inc !== 'function'
+				: true)
+		)
 	}
 
 	/**
@@ -225,9 +232,9 @@ class ShapeLoop<
 		const { start, inc, /*end,*/ count } = this.getLoop(propArguments)
 
 		const sideLength = this.getRepetitionSideLength(propArguments)
-		const getVertex = (this.props.loop && this.props.loop.vertex
-			? this.props.loop.vertex
-			: this.loop.vertex) as TShapeLoopGeneratorFormula
+		const getVertex = (
+			this.props.loop && this.props.loop.vertex ? this.props.loop.vertex : this.loop.vertex
+		) as TShapeLoopGeneratorFormula
 
 		const shapeLoop: IShapeLoopRepetition = {
 			index: 0,
@@ -240,8 +247,6 @@ class ShapeLoop<
 		const bufferLength = vertexLength * 2
 		const currentOrSingleLoopBuffer = new Float32Array(bufferLength)
 
-		const tmpBounding = [undefined, undefined, undefined, undefined]
-
 		for (let i = 0, j = 0; i < vertexLength; i++, j += 2) {
 			const current = start + inc * i
 			const offset = shapeLoop.count > 1 ? i / (shapeLoop.count - 1) : 1
@@ -251,20 +256,30 @@ class ShapeLoop<
 			shapeLoop.index = i + 1
 			shapeLoop.offset = offset
 
-			const vertex = Float32Array.from(getVertex(shapeLoop, propArguments))
+			const vertex = getVertex(shapeLoop, propArguments)
 
 			currentOrSingleLoopBuffer[j] = vertex[0]
 			currentOrSingleLoopBuffer[j + 1] = vertex[1]
 
-			currentOrSingleLoopBuffer[j] *= sideLength[0]
-			currentOrSingleLoopBuffer[j + 1] *= sideLength[1]
+			// currentOrSingleLoopBuffer[j] *= sideLength[0]
+			// currentOrSingleLoopBuffer[j + 1] *= sideLength[1]
 
-			Bounding.add(tmpBounding, currentOrSingleLoopBuffer[j], currentOrSingleLoopBuffer[j + 1])
+			// Bounding.add(tmpBounding, currentOrSingleLoopBuffer[j], currentOrSingleLoopBuffer[j + 1])
+		}
+
+		const tmpBounding = [undefined, undefined, undefined, undefined]
+		const buffer = this.applyModifiers(currentOrSingleLoopBuffer, propArguments)
+
+		for (let i = 0, len = buffer.length; i < len; i += 2) {
+			buffer[i] = buffer[i] * sideLength[0]
+			buffer[i + 1] = buffer[i + 1] * sideLength[1]
+
+			Bounding.add(tmpBounding, buffer[i], buffer[i + 1])
 		}
 
 		Bounding.bind(this.currentGenerationPrimitiveBounding, tmpBounding)
 
-		return currentOrSingleLoopBuffer
+		return buffer
 	}
 
 	/**
@@ -289,27 +304,24 @@ class ShapeLoop<
 	}
 
 	/**
-	 * Subdivide loop n times
-	 *
-	 * @param {number} [level=1]
-	 */
-	public subdivide(level = 1) {
-		const currentLoop: IShapeLoopGenerator<PropArguments> = this.props.loop || this.loop
-
-		// TODO: subdivide function?
-		if (typeof currentLoop.inc === 'number') {
-			currentLoop.inc = (currentLoop.inc || 1) / 2 ** level
-			this.setProp('loop', currentLoop)
-		}
-	}
-
-	/**
 	 * Set shape from loop generator
 	 *
 	 * @param {(IShapeLoopGenerator)} [shape]
 	 */
 	public setShape(loop: IShapeLoopGenerator): void {
 		this.setProp('loop', loop)
+	}
+
+	/**
+	 * Get static buffer
+	 *
+	 * @param sideLength
+	 * @returns
+	 */
+	public static getBuffer<Props extends IShapeLoopProps>(props: Props): Float32Array {
+		const shape = new this({ ...props, sideLength: props.sideLength || 1 })
+		shape.generate()
+		return shape.getBuffer() || new Float32Array()
 	}
 }
 

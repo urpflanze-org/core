@@ -29,6 +29,11 @@ class Scene {
 	public center: [number, number]
 
 	/**
+	 * Refers to the scene anchor point for shape translation
+	 */
+	public anchor: [number, number]
+
+	/**
 	 * Default background color (black)
 	 */
 	public background = 'hsla(0, 0%, 0%, 1)'
@@ -64,6 +69,18 @@ class Scene {
 		this.children = []
 
 		this.center = [this.width / 2, this.height / 2]
+		this.anchor = [
+			!settings.anchor || settings.anchor[0] === 'center'
+				? this.center[0]
+				: settings.anchor[0] === 'left'
+				? 0
+				: this.width,
+			!settings.anchor || settings.anchor[1] === 'center'
+				? this.center[1]
+				: settings.anchor[1] === 'top'
+				? 0
+				: this.height,
+		]
 	}
 
 	/**
@@ -96,7 +113,10 @@ class Scene {
 	public resize(width: number, height: number = width): void {
 		this.width = width
 		this.height = height
+
 		this.center = [this.width / 2, this.height / 2]
+		const anchor = [this.width / this.anchor[0], this.height / this.anchor[1]]
+		this.anchor = [this.width / anchor[0], this.height / anchor[1]]
 
 		this.children.forEach(sceneChild => sceneChild.clearBuffer(true, false))
 	}
@@ -107,7 +127,7 @@ class Scene {
 	 * @param {number} [atTime] time in ms
 	 * @memberof Scene
 	 */
-	public update(atTime: number): void {
+	public update(atTime = 0): void {
 		this.currentTime = atTime
 
 		for (let i = 0, len = this.children.length; i < len; i++) {
@@ -171,6 +191,7 @@ class Scene {
 
 			this.children.push(item)
 			item.clearBuffer(true, false)
+			item.generate(0, true)
 		}
 
 		this.sortChildren()

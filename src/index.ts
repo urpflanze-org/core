@@ -1,10 +1,7 @@
 /**
  * Types & Interface
  */
-export * from './types/scene'
-export * from './types/scene-child'
-export * from './types/shape-base'
-export * from './types/shape-primitives'
+export * from './types'
 
 // Set glMatrixArrayType
 import { glMatrix } from 'gl-matrix'
@@ -15,29 +12,35 @@ glMatrix.setMatrixArrayType(Array)
  * Core
  */
 
-export { Scene } from './Scene'
-export { SceneChild } from './SceneChild'
+export * from './Scene'
+export * from './SceneChild'
 
-export { Group } from './Group'
+export * from './Group'
 
 // Shapes
-export { ShapeBase } from './shapes/ShapeBase'
-export { ShapePrimitive } from './shapes/ShapePrimitive'
-export { ShapeLoop } from './shapes/ShapeLoop'
-export { ShapeBuffer } from './shapes/ShapeBuffer'
-export { Shape } from './shapes/Shape'
-export { ShapeRecursive } from './shapes/ShapeRecursive'
+export * from './shapes/ShapeBase'
+export * from './shapes/ShapePrimitive'
+export * from './shapes/ShapeLoop'
+export * from './shapes/ShapeBuffer'
+export * from './shapes/Shape'
+export * from './shapes/ShapeRecursive'
+export * from './shapes/ShapeFollow'
 
-export { Line } from './shapes/primitives/Line'
-export { Triangle } from './shapes/primitives/Triangle'
-export { Rect } from './shapes/primitives/Rect'
-export { Polygon } from './shapes/primitives/Polygon'
-export { Circle } from './shapes/primitives/Circle'
+export * from './shapes/primitives/Line'
+export * from './shapes/primitives/Triangle'
+export * from './shapes/primitives/Rect'
+export * from './shapes/primitives/Polygon'
+export * from './shapes/primitives/Circle'
+export * from './shapes/primitives/Star'
 
-export { Rose } from './shapes/primitives/Rose'
-export { Spiral } from './shapes/primitives/Spiral'
-export { Lissajous } from './shapes/primitives/Lissajous'
-export { SuperShape } from './shapes/primitives/SuperShape'
+export * from './shapes/primitives/Rose'
+export * from './shapes/primitives/Spiral'
+export * from './shapes/primitives/Lissajous'
+export * from './shapes/primitives/SuperShape'
+
+// Modifiers
+export * from './modifiers/Modifier'
+export * from './modifiers'
 
 // Utilities
 export {
@@ -48,11 +51,15 @@ export {
 	toRadians,
 	now,
 	noise,
+	random,
 	angleFromRepetition,
 	angle2FromRepetition,
 	distanceFromRepetition,
+	interpolate,
+	prepareBufferForInterpolation,
+	distributePointsInBuffer,
 } from './Utilities'
 
 export { default as Vec2 } from './math/Vec2'
 
-export { PHI, PI2, log, pmod } from './math'
+export { PHI, PI2, log, mod } from './math'

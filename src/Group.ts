@@ -10,7 +10,7 @@ import {
 import { Scene } from './Scene'
 import { SceneChild } from './SceneChild'
 import { ShapeBase } from './shapes/ShapeBase'
-import { Bounding } from './math/bounding'
+import { Bounding } from './modifiers/Adapt'
 
 /**
  * A SceneChild container, propagates properties to children
@@ -114,7 +114,6 @@ class Group extends SceneChild {
 							this.children.map(e => e.order || 0)
 					  ) + 1
 					: 0
-			item.bUseParent = item.bUseParent || this.bUseParent
 
 			this.scene && Scene.propagateToChilden(item, this.scene)
 

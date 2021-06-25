@@ -1,7 +1,8 @@
 import { ShapeBase } from '../shapes/ShapeBase'
 import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { IPropArguments } from './propArguments'
-import { IRecursionRepetition } from './repetitions'
+import { IBaseRepetition, IRecursionRepetition } from './repetitions'
+import { IShapeBounding } from './shape-base'
 
 /**
  * Object for index the buffer
@@ -24,7 +25,10 @@ export type IBufferIndex<PropArguments extends IPropArguments = IPropArguments> 
 	 */
 	parent?: IBufferIndex<PropArguments>
 
-	// singleRepetitionBounding: IShapeBounding
+	/**
+	 * Current frame bunding
+	 */
+	singleRepetitionBounding: IShapeBounding
 }
 
 /**
@@ -36,5 +40,17 @@ export interface IBufferIndexWithRecursion
 	extends IBufferIndex<
 		IPropArguments & {
 			recursion: IRecursionRepetition
+		}
+	> {}
+
+/**
+ * Object for index the buffer
+ *
+ * @category Core.Stream
+ */
+export interface IBufferIndexWithFollow
+	extends IBufferIndex<
+		IPropArguments & {
+			follow: IBaseRepetition
 		}
 	> {}
