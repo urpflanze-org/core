@@ -19,7 +19,7 @@ class Triangle<
 	 */
 	constructor(settings: IShapeBufferSettings<PropArgument, DrawerProps> = {}) {
 		settings.type = 'Triangle'
-		settings.shape = [-1, -1, 1, 0, -1, 1]
+		settings.shape = [1, 0, -1, 1, -1, -1]
 		settings.adaptMode = EAdaptMode.None
 
 		super(settings)
