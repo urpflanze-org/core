@@ -488,6 +488,9 @@ abstract class ShapeBase<
 								bPerspectiveOrigin && vec3.sub(vertex, vertex, perspectiveOrigin)
 							}
 
+							// apply repetition matrix
+							vec3.transformMat4(vertex, vertex, repetitionMatrix)
+
 							// custom vertex manipulation
 							if (this.vertexCallback) {
 								const index = bufferIndex / 2
@@ -500,9 +503,6 @@ abstract class ShapeBase<
 
 								this.vertexCallback(vertex, vertexRepetition, propArguments)
 							}
-
-							// final, apply repetition matrix
-							vec3.transformMat4(vertex, vertex, repetitionMatrix)
 						}
 
 						buffers[currentIndex][bufferIndex] = vertex[0]
