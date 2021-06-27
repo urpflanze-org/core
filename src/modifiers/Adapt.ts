@@ -1,4 +1,4 @@
-import { IShapeBounding } from 'types'
+import { IShapeBounding } from '../types'
 import { Modifier } from './Modifier'
 
 /**

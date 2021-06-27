@@ -1,4 +1,4 @@
-import { ShapePrimitive } from 'shapes/ShapePrimitive'
+import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { Modifier } from './Modifier'
 
 class Close extends Modifier {
