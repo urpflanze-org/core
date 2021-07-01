@@ -41,24 +41,26 @@ You can see a preview [here](https://editor.urpflanze.org)
 - [Menu](#menu)
 - [Installation](#installation)
 - [Creating a shape](#creating-a-shape)
-  - [ShapeBuffer](#shapebuffer)
-  - [ShapeLoop](#shapeloop)
-- [Primitive shapes](#primitive-shapes) - [ShapeBuffer](#shapebuffer-1) - [ShapeLoop](#shapeloop-1)
-  - [Modifiers](#modifiers)
+	- [ShapeBuffer](#shapebuffer)
+	- [ShapeLoop](#shapeloop)
+- [Primitive shapes](#primitive-shapes)
+		- [ShapeBuffer](#shapebuffer-1)
+		- [ShapeLoop](#shapeloop-1)
+	- [Modifiers](#modifiers)
 - [Repetitions](#repetitions)
-  - [Ring repetitions](#ring-repetitions)
-  - [Matrix repetitions](#matrix-repetitions)
+	- [Ring repetitions](#ring-repetitions)
+	- [Matrix repetitions](#matrix-repetitions)
 - [Manage repetitions](#manage-repetitions)
-  - [Repetitions examples](#repetitions-examples)
-  - [List of properties](#list-of-properties)
+	- [Repetitions examples](#repetitions-examples)
+	- [List of properties](#list-of-properties)
 - [Encapsulation](#encapsulation)
-  - [Shape](#shape)
-  - [Group](#group)
-  - [Using repetition property of the encapsulator](#using-repetition-property-of-the-encapsulator)
+	- [Shape](#shape)
+	- [Group](#group)
+	- [Using repetition property of the encapsulator](#using-repetition-property-of-the-encapsulator)
 - [Recursion](#recursion)
 - [Vertex Callback](#vertex-callback)
 - [Scene](#scene)
-  - [Simple Drawer](#simple-drawer)
+	- [Simple Drawer](#simple-drawer)
 - [Examples](#examples)
 
 ---
@@ -371,13 +373,11 @@ const shape = new Urpflanze.Shape({
 
 ### Using repetition property of the encapsulator
 
-You can use the `repetition` object of whoever encapsulates a shape by setting the` bUseParent` property.
+You can use the `repetition` object of whoever encapsulates a shape by setting the `shapeUseParent` property.
 This parameter is optional since a new buffer of points will be generated at each repetition of the encapsulator.
 
 ```javascript
 const rects = new Urpflanze.Rect({
-	bUseParent: true, // <--
-
 	repetitions: [5],
 	sideLength: 10,
 	distance: 20,
@@ -387,6 +387,7 @@ const rects = new Urpflanze.Rect({
 })
 
 const container = new Urpflanze.Shape({
+	shapeUseParent: true, // <--
 	shape: rects,
 	repetitions: [5],
 	distance: 50,
@@ -400,18 +401,18 @@ const container = new Urpflanze.Shape({
 
 ## Recursion
 
-Another possibility is to use the `ShapeRecursive` to repeat any` Shape` on each of its points.
+Another possibility is to use the `ShapeRecursive` to repeat any `Shape` on each of its points.
 
 You can use the `recursion` property of type [IRecursionRepetition](https://docs.urpflanze.org/core/#/ref/IRecursionRepetition)
 
 ```javascript
 const rect = new Urpflanze.Rect({
-	// bUseRecursion: true,
-	// [prop]: ({ recursion }) => ...
 	sideLength: 50,
 })
 
 const container = new Urpflanze.ShapeRecursive({
+	// shapeUseRecursion: true,
+	// [prop]: ({ recursion }) => ...
 	shape: rect,
 	recursionScale: 2,
 	recursions: 4,
