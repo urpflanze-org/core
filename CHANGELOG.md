@@ -1,3 +1,7 @@
+## 0.5.3 (July 17, 2021)
+
+- Add "build" folder to files in package.json
+
 ## 0.5.2 (July 17, 2021)
 
 - Improve building system (ESM/CJS/Browser)

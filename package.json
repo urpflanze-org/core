@@ -9,6 +9,7 @@
 	"main": "dist/cjs/index.js",
 	"types": "dist/cjs/index.d.ts",
 	"files": [
+		"build",
 		"dist",
 		"package.json",
 		"README.md",
