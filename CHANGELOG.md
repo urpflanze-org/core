@@ -1,3 +1,11 @@
+## 0.5.2 (July 17, 2021)
+
+- Improve building system (ESM/CJS/Browser)
+
+## 0.5.1 (June 27, 2021)
+
+- Fix absolute imports
+
 ## 0.5.0 (June 25, 2021)
 
 - Add ShapeFollow
@@ -10,7 +18,6 @@
 ## 0.4.6 (March 29, 2021)
 
 - Fix typescript import path
-
 
 ## 0.4.5 (March 24, 2021)
 
