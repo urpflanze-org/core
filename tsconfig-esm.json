@@ -1,0 +1,28 @@
+{
+	"compilerOptions": {
+		"sourceMap": true,
+		"noImplicitAny": true,
+		"module": "ES2020",
+		"target": "ES2020",
+		"moduleResolution": "node",
+		"removeComments": false,
+		"preserveConstEnums": true,
+		"baseUrl": "src",
+		"declaration": true,
+		"declarationMap": true,
+		"outDir": "dist/esm",
+		"declarationDir": "dist/esm",
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"isolatedModules": true,
+		"typeRoots": ["./node_modules/@types"],
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+		"allowUnreachableCode": false
+	},
+	"compileOnSave": true,
+	"include": ["src/**/*"],
+	"exclude": ["node_modules"]
+}
