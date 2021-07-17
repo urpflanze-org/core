@@ -199,8 +199,20 @@ abstract class ShapeBase<
 		this.anchor =
 			settings.anchor && Array.isArray(settings.anchor)
 				? [
-						settings.anchor[0] === 'left' ? 1 : settings.anchor[0] === 'right' ? -1 : 0,
-						settings.anchor[1] === 'top' ? 1 : settings.anchor[1] === 'bottom' ? -1 : 0,
+						typeof settings.anchor[0] === 'number'
+							? clamp(-1, 1, settings.anchor[0]) * -1
+							: settings.anchor[0] === 'left'
+							? 1
+							: settings.anchor[0] === 'right'
+							? -1
+							: 0,
+						typeof settings.anchor[1] === 'number'
+							? clamp(-1, 1, settings.anchor[1]) * -1
+							: settings.anchor[1] === 'top'
+							? 1
+							: settings.anchor[1] === 'bottom'
+							? -1
+							: 0,
 				  ]
 				: [0, 0]
 

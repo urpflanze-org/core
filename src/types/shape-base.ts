@@ -37,7 +37,7 @@ export interface IShapeBaseSettings<PropArguments extends IPropArguments = IProp
 	/**
 	 * Set the center of the shape, default center
 	 */
-	anchor?: ['left' | 'right' | 'center', 'top' | 'bottom' | 'center']
+	anchor?: ['left' | 'right' | 'center' | number, 'top' | 'bottom' | 'center' | number]
 
 	/**
 	 * Callback to apply transform at any vertex
