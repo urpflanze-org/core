@@ -1,3 +1,7 @@
+## 0.5.5 (July 17, 2021)
+
+- Add anchor to ShapeBase
+
 ## 0.5.4 (July 17, 2021)
 
 - Fix anchor settings
