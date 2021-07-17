@@ -3,6 +3,7 @@ import { ISceneSettings, IStreamArguments } from './types'
 import { SceneChild } from './SceneChild'
 import { Group } from './Group'
 import { Shape } from './shapes/Shape'
+import { clamp } from './Utilities'
 
 /**
  * Container for all SceneChild.
@@ -72,8 +73,20 @@ class Scene {
 		this.anchor =
 			settings.anchor && Array.isArray(settings.anchor)
 				? [
-						settings.anchor[0] === 'left' ? 0 : settings.anchor[0] === 'right' ? this.width : this.center[0],
-						settings.anchor[1] === 'top' ? 0 : settings.anchor[1] === 'bottom' ? this.height : this.center[1],
+						typeof settings.anchor[0] === 'number'
+							? (0.5 + clamp(-1, 1, settings.anchor[0]) * 0.5) * this.width
+							: settings.anchor[0] === 'left'
+							? 0
+							: settings.anchor[0] === 'right'
+							? this.width
+							: this.center[0],
+						typeof settings.anchor[1] === 'number'
+							? (0.5 + clamp(-1, 1, settings.anchor[1]) * 0.5) * this.height
+							: settings.anchor[1] === 'top'
+							? 0
+							: settings.anchor[1] === 'bottom'
+							? this.height
+							: this.center[1],
 				  ]
 				: [this.center[0], this.center[1]]
 	}
