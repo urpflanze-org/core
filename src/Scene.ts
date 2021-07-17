@@ -69,10 +69,13 @@ class Scene {
 		this.children = []
 
 		this.center = [this.width / 2, this.height / 2]
-		this.anchor = [
-			settings.anchor[0] === 'left' ? 0 : settings.anchor[0] === 'right' ? this.width : this.center[0],
-			settings.anchor[1] === 'top' ? 0 : settings.anchor[1] === 'bottom' ? this.height : this.center[1],
-		]
+		this.anchor =
+			settings.anchor && Array.isArray(settings.anchor)
+				? [
+						settings.anchor[0] === 'left' ? 0 : settings.anchor[0] === 'right' ? this.width : this.center[0],
+						settings.anchor[1] === 'top' ? 0 : settings.anchor[1] === 'bottom' ? this.height : this.center[1],
+				  ]
+				: [this.center[0], this.center[1]]
 	}
 
 	/**
