@@ -1,5 +1,5 @@
 /*!
- * @license Urpflanze v"0.5.4"
+ * @license Urpflanze v"0.5.5"
  * urpflanze.js
  *
  * Github: https://github.com/urpflanze-org/core
@@ -225,6 +225,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SceneChild__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _Group__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _shapes_Shape__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25);
+/* harmony import */ var _Utilities__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20);
+
 
 
 
@@ -275,8 +277,20 @@ class Scene {
         this.anchor =
             settings.anchor && Array.isArray(settings.anchor)
                 ? [
-                    settings.anchor[0] === 'left' ? 0 : settings.anchor[0] === 'right' ? this.width : this.center[0],
-                    settings.anchor[1] === 'top' ? 0 : settings.anchor[1] === 'bottom' ? this.height : this.center[1],
+                    typeof settings.anchor[0] === 'number'
+                        ? (0.5 + (0,_Utilities__WEBPACK_IMPORTED_MODULE_3__.clamp)(-1, 1, settings.anchor[0]) * 0.5) * this.width
+                        : settings.anchor[0] === 'left'
+                            ? 0
+                            : settings.anchor[0] === 'right'
+                                ? this.width
+                                : this.center[0],
+                    typeof settings.anchor[1] === 'number'
+                        ? (0.5 + (0,_Utilities__WEBPACK_IMPORTED_MODULE_3__.clamp)(-1, 1, settings.anchor[1]) * 0.5) * this.height
+                        : settings.anchor[1] === 'top'
+                            ? 0
+                            : settings.anchor[1] === 'bottom'
+                                ? this.height
+                                : this.center[1],
                 ]
                 : [this.center[0], this.center[1]];
     }
@@ -1076,8 +1090,32 @@ class ShapeBase extends _SceneChild__WEBPACK_IMPORTED_MODULE_6__.SceneChild {
             perspective: settings.perspective,
             perspectiveOrigin: settings.perspectiveOrigin,
         };
+        this.anchor =
+            settings.anchor && Array.isArray(settings.anchor)
+                ? [
+                    typeof settings.anchor[0] === 'number'
+                        ? (0,_Utilities__WEBPACK_IMPORTED_MODULE_5__.clamp)(-1, 1, settings.anchor[0]) * -1
+                        : settings.anchor[0] === 'left'
+                            ? 1
+                            : settings.anchor[0] === 'right'
+                                ? -1
+                                : 0,
+                    typeof settings.anchor[1] === 'number'
+                        ? (0,_Utilities__WEBPACK_IMPORTED_MODULE_5__.clamp)(-1, 1, settings.anchor[1]) * -1
+                        : settings.anchor[1] === 'top'
+                            ? 1
+                            : settings.anchor[1] === 'bottom'
+                                ? -1
+                                : 0,
+                ]
+                : [0, 0];
+        this.boundingType =
+            typeof settings.boundingType === 'string'
+                ? settings.boundingType === 'relative'
+                    ? _types__WEBPACK_IMPORTED_MODULE_0__.EBoundingType.Relative
+                    : _types__WEBPACK_IMPORTED_MODULE_0__.EBoundingType.Fixed
+                : settings.boundingType || _types__WEBPACK_IMPORTED_MODULE_0__.EBoundingType.Fixed;
         this.vertexCallback = settings.vertexCallback;
-        this.boundingType = settings.boundingType || _types__WEBPACK_IMPORTED_MODULE_0__.EBoundingType.Fixed;
     }
     /**
      * Check if the shape should be generated every time
@@ -1307,6 +1345,11 @@ class ShapeBase extends _SceneChild__WEBPACK_IMPORTED_MODULE_6__.SceneChild {
                         if (bDirectSceneChild) {
                             gl_matrix__WEBPACK_IMPORTED_MODULE_7__.translate(repetitionMatrix, repetitionMatrix, sceneAnchor);
                         }
+                        /**
+                         * Apply anchor
+                         */
+                        const shapeAnchor = [this.anchor[0] * (bounding.width / 2), this.anchor[1] * (bounding.height / 2), 0];
+                        gl_matrix__WEBPACK_IMPORTED_MODULE_7__.translate(repetitionMatrix, repetitionMatrix, shapeAnchor);
                         if (repetitionType === _types__WEBPACK_IMPORTED_MODULE_0__.ERepetitionType.Ring)
                             gl_matrix__WEBPACK_IMPORTED_MODULE_7__.rotateZ(repetitionMatrix, repetitionMatrix, repetition.angle + displace);
                     }
@@ -1330,7 +1373,7 @@ class ShapeBase extends _SceneChild__WEBPACK_IMPORTED_MODULE_6__.SceneChild {
                             // apply repetition matrix
                             gl_matrix__WEBPACK_IMPORTED_MODULE_9__.transformMat4(vertex, vertex, repetitionMatrix);
                             // custom vertex manipulation
-                            if (this.vertexCallback) {
+                            if (typeof this.vertexCallback !== 'undefined') {
                                 const index = bufferIndex / 2;
                                 const count = bufferLength / 2;
                                 const vertexRepetition = {
@@ -1344,10 +1387,10 @@ class ShapeBase extends _SceneChild__WEBPACK_IMPORTED_MODULE_6__.SceneChild {
                         buffers[currentIndex][bufferIndex] = vertex[0];
                         buffers[currentIndex][bufferIndex + 1] = vertex[1];
                         _modifiers_Adapt__WEBPACK_IMPORTED_MODULE_4__.Bounding.add(tmpSingleRepetitionBounding, vertex[0], vertex[1]);
-                        // Bounding.add(tmpTotalShapeBounding, vertex[0], vertex[1])
+                        _modifiers_Adapt__WEBPACK_IMPORTED_MODULE_4__.Bounding.add(tmpTotalShapeBounding, vertex[0], vertex[1]);
                     }
                 }
-                _modifiers_Adapt__WEBPACK_IMPORTED_MODULE_4__.Bounding.sum(tmpTotalShapeBounding, tmpSingleRepetitionBounding);
+                // Bounding.sum(tmpTotalShapeBounding, tmpSingleRepetitionBounding)
                 // After buffer creation, add a frame into indexedBuffer if not static or update bounding
                 const singleRepetitionBounding = { cx: 0, cy: 0, x: -1, y: -1, width: 2, height: 2 };
                 _modifiers_Adapt__WEBPACK_IMPORTED_MODULE_4__.Bounding.bind(singleRepetitionBounding, tmpSingleRepetitionBounding);
@@ -7569,7 +7612,7 @@ class Line extends _ShapeBuffer__WEBPACK_IMPORTED_MODULE_1__.ShapeBuffer {
      */
     constructor(settings = {}) {
         settings.type = 'Line';
-        settings.shape = [-1, 0, 1, 0];
+        settings.shape = Line.buffer;
         settings.adaptMode = _modifiers_Adapt__WEBPACK_IMPORTED_MODULE_0__.EAdaptMode.None;
         settings.bClosed = false;
         super(settings);
@@ -7655,6 +7698,7 @@ class Line extends _ShapeBuffer__WEBPACK_IMPORTED_MODULE_1__.ShapeBuffer {
         return Float32Array.from(solidified);
     }
 }
+Line.buffer = [-1, 0, 1, 0];
 
 //# sourceMappingURL=Line.js.map
 
@@ -7685,11 +7729,12 @@ class Triangle extends _ShapeBuffer__WEBPACK_IMPORTED_MODULE_1__.ShapeBuffer {
      */
     constructor(settings = {}) {
         settings.type = 'Triangle';
-        settings.shape = [1, 0, -1, 1, -1, -1];
+        settings.shape = Triangle.buffer;
         settings.adaptMode = _modifiers_Adapt__WEBPACK_IMPORTED_MODULE_0__.EAdaptMode.None;
         super(settings);
     }
 }
+Triangle.buffer = [1, 0, -1, 1, -1, -1];
 
 //# sourceMappingURL=Triangle.js.map
 
@@ -7721,11 +7766,12 @@ class Rect extends _ShapeBuffer__WEBPACK_IMPORTED_MODULE_1__.ShapeBuffer {
      */
     constructor(settings = {}) {
         settings.type = 'Rect';
-        settings.shape = [1, 1, -1, 1, -1, -1, 1, -1];
+        settings.shape = Rect.buffer;
         settings.adaptMode = _modifiers_Adapt__WEBPACK_IMPORTED_MODULE_0__.EAdaptMode.None;
         super(settings);
     }
 }
+Rect.buffer = [1, 1, -1, 1, -1, -1, 1, -1];
 
 //# sourceMappingURL=Rect.js.map
 
