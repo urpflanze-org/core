@@ -1,0 +1,28 @@
+{
+	"compilerOptions": {
+		"sourceMap": true,
+		"noImplicitAny": true,
+		"module": "CommonJS",
+		"target": "ES2019",
+		"moduleResolution": "node",
+		"removeComments": false,
+		"preserveConstEnums": true,
+		"baseUrl": "src",
+		"declaration": true,
+		"declarationMap": true,
+		"outDir": "dist/cjs",
+		"declarationDir": "dist/cjs",
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"isolatedModules": true,
+		"typeRoots": ["./node_modules/@types"],
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+		"allowUnreachableCode": false
+	},
+	"compileOnSave": true,
+	"include": ["src/**/*"],
+	"exclude": ["node_modules"]
+}
