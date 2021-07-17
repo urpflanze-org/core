@@ -1,3 +1,8 @@
+## 0.5.4 (July 17, 2021)
+
+- Fix anchor settings
+- Fix module path for cdn
+
 ## 0.5.3 (July 17, 2021)
 
 - Add "build" folder to files in package.json
