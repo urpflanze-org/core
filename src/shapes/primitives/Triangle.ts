@@ -11,6 +11,8 @@ class Triangle<
 	PropArgument extends IPropArguments = IPropArguments,
 	DrawerProps extends IDrawerProps<PropArgument> = IDrawerProps<PropArgument>
 > extends ShapeBuffer<PropArgument, DrawerProps> {
+	static buffer = [1, 0, -1, 1, -1, -1]
+
 	/**
 	 * Creates an instance of Triangleeee.
 	 *
@@ -19,7 +21,7 @@ class Triangle<
 	 */
 	constructor(settings: IShapeBufferSettings<PropArgument, DrawerProps> = {}) {
 		settings.type = 'Triangle'
-		settings.shape = [1, 0, -1, 1, -1, -1]
+		settings.shape = Triangle.buffer
 		settings.adaptMode = EAdaptMode.None
 
 		super(settings)

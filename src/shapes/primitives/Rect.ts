@@ -12,6 +12,8 @@ class Rect<
 	PropArguments extends IPropArguments = IPropArguments,
 	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
 > extends ShapeBuffer<PropArguments, DrawerProps> {
+	static buffer: Array<number> = [1, 1, -1, 1, -1, -1, 1, -1]
+
 	/**
 	 * Creates an instance of Rect.
 	 *
@@ -20,7 +22,7 @@ class Rect<
 	 */
 	constructor(settings: IShapeBufferSettings<PropArguments, DrawerProps> = {}) {
 		settings.type = 'Rect'
-		settings.shape = [1, 1, -1, 1, -1, -1, 1, -1]
+		settings.shape = Rect.buffer
 		settings.adaptMode = EAdaptMode.None
 
 		super(settings)

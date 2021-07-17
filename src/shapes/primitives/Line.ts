@@ -13,6 +13,8 @@ class Line<
 	PropArguments extends IPropArguments = IPropArguments,
 	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
 > extends ShapeBuffer<PropArguments, DrawerProps> {
+	static buffer = [-1, 0, 1, 0]
+
 	/**
 	 * Two point, based on ShapeBuffer
 	 *
@@ -21,7 +23,7 @@ class Line<
 	 */
 	constructor(settings: IShapeBufferSettings<PropArguments, DrawerProps> = {}) {
 		settings.type = 'Line'
-		settings.shape = [-1, 0, 1, 0]
+		settings.shape = Line.buffer
 		settings.adaptMode = EAdaptMode.None
 
 		settings.bClosed = false
