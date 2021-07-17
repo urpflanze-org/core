@@ -143,6 +143,16 @@ abstract class ShapeBase<
 	 */
 	public vertexCallback?: TVertexCallback<PropArguments>
 
+	/**
+	 * Anchor point for draw shape, default center
+	 */
+	public anchor: [number, number]
+
+	/**
+	 * Used for apply transformation
+	 *
+	 * @type {EBoundingType}
+	 */
 	public boundingType?: EBoundingType
 
 	/**
@@ -186,8 +196,22 @@ abstract class ShapeBase<
 			perspectiveOrigin: settings.perspectiveOrigin,
 		} as Props
 
+		this.anchor =
+			settings.anchor && Array.isArray(settings.anchor)
+				? [
+						settings.anchor[0] === 'left' ? 1 : settings.anchor[0] === 'right' ? -1 : 0,
+						settings.anchor[1] === 'top' ? 1 : settings.anchor[1] === 'bottom' ? -1 : 0,
+				  ]
+				: [0, 0]
+
+		this.boundingType =
+			typeof settings.boundingType === 'string'
+				? settings.boundingType === 'relative'
+					? EBoundingType.Relative
+					: EBoundingType.Fixed
+				: settings.boundingType || EBoundingType.Fixed
+
 		this.vertexCallback = settings.vertexCallback
-		this.boundingType = settings.boundingType || EBoundingType.Fixed
 	}
 
 	/**
@@ -463,6 +487,13 @@ abstract class ShapeBase<
 						if (bDirectSceneChild) {
 							mat4.translate(repetitionMatrix, repetitionMatrix, sceneAnchor)
 						}
+
+						/**
+						 * Apply anchor
+						 */
+						const shapeAnchor: vec3 = [this.anchor[0] * (bounding.width / 2), this.anchor[1] * (bounding.height / 2), 0]
+						mat4.translate(repetitionMatrix, repetitionMatrix, shapeAnchor)
+
 						if (repetitionType === ERepetitionType.Ring)
 							mat4.rotateZ(repetitionMatrix, repetitionMatrix, repetition.angle + displace)
 					}
@@ -492,7 +523,7 @@ abstract class ShapeBase<
 							vec3.transformMat4(vertex, vertex, repetitionMatrix)
 
 							// custom vertex manipulation
-							if (this.vertexCallback) {
+							if (typeof this.vertexCallback !== 'undefined') {
 								const index = bufferIndex / 2
 								const count = bufferLength / 2
 								const vertexRepetition = {
@@ -504,21 +535,20 @@ abstract class ShapeBase<
 								this.vertexCallback(vertex, vertexRepetition, propArguments)
 							}
 						}
-
 						buffers[currentIndex][bufferIndex] = vertex[0]
 						buffers[currentIndex][bufferIndex + 1] = vertex[1]
 
 						Bounding.add(tmpSingleRepetitionBounding, vertex[0], vertex[1])
-						// Bounding.add(tmpTotalShapeBounding, vertex[0], vertex[1])
+
+						Bounding.add(tmpTotalShapeBounding, vertex[0], vertex[1])
 					}
 				}
 
-				Bounding.sum(tmpTotalShapeBounding, tmpSingleRepetitionBounding)
+				// Bounding.sum(tmpTotalShapeBounding, tmpSingleRepetitionBounding)
 
 				// After buffer creation, add a frame into indexedBuffer if not static or update bounding
 				const singleRepetitionBounding = { cx: 0, cy: 0, x: -1, y: -1, width: 2, height: 2 }
 				Bounding.bind(singleRepetitionBounding, tmpSingleRepetitionBounding)
-
 				if (!this.bStaticIndexed || !this.bIndexed) {
 					this.addIndex(bufferLength, repetition, singleRepetitionBounding)
 				}

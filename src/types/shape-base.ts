@@ -35,6 +35,11 @@ export type TVertexCallback<PropArguments extends IPropArguments = IPropArgument
 export interface IShapeBaseSettings<PropArguments extends IPropArguments = IPropArguments>
 	extends ISceneChildSettings<PropArguments> {
 	/**
+	 * Set the center of the shape, default center
+	 */
+	anchor?: ['left' | 'right' | 'center', 'top' | 'bottom' | 'center']
+
+	/**
 	 * Callback to apply transform at any vertex
 	 *
 	 * @order -13
@@ -46,7 +51,7 @@ export interface IShapeBaseSettings<PropArguments extends IPropArguments = IProp
 	 *
 	 * @order -14
 	 */
-	boundingType?: EBoundingType
+	boundingType?: EBoundingType | 'fixed' | 'relative'
 }
 
 /**
