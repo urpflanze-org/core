@@ -1,5 +1,5 @@
 import tap from 'tap'
-import { Polygon, ShapeBuffer, interpolate, distributePointsInBuffer } from '../dist/index'
+import { distributePointsInBuffer } from '../dist/cjs'
 
 ///
 /**

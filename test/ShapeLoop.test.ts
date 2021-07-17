@@ -1,5 +1,5 @@
 import tap from 'tap'
-import { PI2, ShapeLoop } from '../dist/index'
+import { PI2, ShapeLoop } from '../dist/cjs'
 
 const sl = new ShapeLoop({
 	sideLength: 1,

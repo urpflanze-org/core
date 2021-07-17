@@ -1,5 +1,5 @@
 import tap from 'tap'
-import { Rect, Shape } from '../dist/index'
+import { Rect, Shape } from '../dist/cjs'
 
 ///
 let called = 0
