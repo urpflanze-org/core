@@ -1,5 +1,5 @@
 /*!
- * @license Urpflanze v"0.5.3"
+ * @license Urpflanze v"0.5.4"
  * urpflanze.js
  *
  * Github: https://github.com/urpflanze-org/core
@@ -272,18 +272,13 @@ class Scene {
             this.color = settings.color;
         this.children = [];
         this.center = [this.width / 2, this.height / 2];
-        this.anchor = [
-            !settings.anchor || settings.anchor[0] === 'center'
-                ? this.center[0]
-                : settings.anchor[0] === 'left'
-                    ? 0
-                    : this.width,
-            !settings.anchor || settings.anchor[1] === 'center'
-                ? this.center[1]
-                : settings.anchor[1] === 'top'
-                    ? 0
-                    : this.height,
-        ];
+        this.anchor =
+            settings.anchor && Array.isArray(settings.anchor)
+                ? [
+                    settings.anchor[0] === 'left' ? 0 : settings.anchor[0] === 'right' ? this.width : this.center[0],
+                    settings.anchor[1] === 'top' ? 0 : settings.anchor[1] === 'bottom' ? this.height : this.center[1],
+                ]
+                : [this.center[0], this.center[1]];
     }
     /**
      * Return width percentage
