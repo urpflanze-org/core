@@ -66,7 +66,7 @@ export type TDrawerProp<T, G extends IPropArguments = IPropArguments> = T | { (p
  * @category Core.Props and Settings Interfaces
  */
 export interface IDrawerProps<G extends IPropArguments = IPropArguments> {
-	[key: string]: TDrawerProp<string | number, G>
+	[key: string]: TDrawerProp<string | number, G> | undefined
 }
 
 /**
