@@ -9,7 +9,7 @@ const MATRIX: Array<number> = new Array(4)
 /**
  * Vec2 operation
  *
- * @category Core.Utilities
+ * @category Math
  */
 const Vec2 = {
 	/**

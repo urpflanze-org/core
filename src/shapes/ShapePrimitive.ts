@@ -15,7 +15,7 @@ import { Modifier } from '../modifiers/Modifier'
 import { Bounding } from '../modifiers/Adapt'
 
 /**
- * @category Core.Abstract
+ * @category Scene
  */
 abstract class ShapePrimitive<
 	PropArguments extends IPropArguments = IPropArguments,

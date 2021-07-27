@@ -11,7 +11,7 @@ import { ShapeLoop } from '../ShapeLoop'
 
 /**
  *
- * @category Core.Primitive Interfaces
+ * @category Shapes.Settings
  */
 export interface ISuperShapeProps<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapeLoopProps<PropArguments> {
@@ -54,7 +54,7 @@ export interface ISuperShapeProps<PropArguments extends IPropArguments = IPropAr
 
 /**
  *
- * @category Core.Primitive Interfaces
+ * @category Shapes.Settings
  */
 export interface ISuperShapeSettings<
 	PropArguments extends IPropArguments = IPropArguments,
@@ -65,7 +65,7 @@ export interface ISuperShapeSettings<
 /**
  * ShperShape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class SuperShape
  * @extends {ShapeLoop}
  */

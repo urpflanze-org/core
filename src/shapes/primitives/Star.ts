@@ -4,7 +4,7 @@ import { IDrawerProps, IPropArguments, IShapeLoopProps, IShapeLoopSettings, TSce
 
 /**
  *
- * @category Core.Primitive Interfaces
+ * @category Shapes.Settings
  */
 export interface IStarProps<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapeLoopProps<PropArguments> {
@@ -23,7 +23,7 @@ export interface IStarProps<PropArguments extends IPropArguments = IPropArgument
 
 /**
  *
- * @category Core.Primitive Interfaces
+ * @category Shapes.Settings
  */
 export interface IStarSettings<
 	PropArguments extends IPropArguments = IPropArguments,
@@ -34,7 +34,7 @@ export interface IStarSettings<
 /**
  * Polygon shape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Polygon
  * @extends {ShapeLoop}
  */

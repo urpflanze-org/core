@@ -1,10 +1,22 @@
 import { Modifier } from './Modifier'
 
-interface IOffsetSettings {
+/**
+ *
+ * @category Modifiers.Settings
+ * @interface IOffsetSettings
+ */
+export interface IOffsetSettings {
 	from?: number
 	to?: number
 }
 
+/**
+ * Takes a part of the buffer
+ *
+ * @category Modifiers
+ * @class Offset
+ * @extends {Modifier}
+ */
 class Offset extends Modifier {
 	private from?: number
 	private to?: number

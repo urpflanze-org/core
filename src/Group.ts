@@ -16,7 +16,7 @@ import { Bounding } from './modifiers/Adapt'
  * A SceneChild container, propagates properties to children
  *
  * @order 3
- * @category Core.Scene
+ * @category Scene.Containers
  * @extends {SceneChild}
  * @example
  * ```javascript

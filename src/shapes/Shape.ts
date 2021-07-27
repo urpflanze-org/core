@@ -8,7 +8,7 @@ import { ShapeBase } from './ShapeBase'
 /**
  * Container of ShapeBase or Group, it applies transformations on each repetition
  *
- * @category Core.Shapes
+ * @category Scene.Containers
  */
 class Shape<
 	PropArguments extends IPropArguments = IPropArguments,

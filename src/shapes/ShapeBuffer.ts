@@ -3,7 +3,9 @@ import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { IDrawerProps, IPropArguments, IShapeBufferSettings, IShapePrimitiveProps } from '../types'
 
 /**
- * @category Core.Shapes
+ * Create a shape from static buffer
+ *
+ * @category Shapes.Primitives
  */
 class ShapeBuffer<
 	PropArguments extends IPropArguments = IPropArguments,

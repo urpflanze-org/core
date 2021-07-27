@@ -8,7 +8,7 @@ import { IShapeBaseSettings } from './shape-base'
 /**
  * Shape settings
  *
- * @category Core.Props and Settings Interfaces
+ * @category Types & Interfaces.Shapes
  */
 export interface IShapeSettings<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapeBaseSettings<PropArguments> {
@@ -30,7 +30,7 @@ export interface IShapeSettings<PropArguments extends IPropArguments = IPropArgu
 /**
  * Shape recursive animate props
  *
- * @category Core.Props and Settings Interfaces
+ * @category Types & Interfaces.Shapes
  */
 export interface IShapeRecursiveProps<PropArguments extends IPropArguments = IPropArguments>
 	extends ISceneChildProps<PropArguments> {
@@ -56,7 +56,7 @@ export interface IShapeRecursiveProps<PropArguments extends IPropArguments = IPr
 /**
  * ShapeRecursive settings
  *
- * @category Core.Props and Settings Interfaces
+ * @category Types & Interfaces.Shapes
  */
 export interface IShapeRecursiveSettings<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapeRecursiveProps<PropArguments>,
@@ -73,7 +73,7 @@ export interface IShapeRecursiveSettings<PropArguments extends IPropArguments = 
 /**
  * Shape Follow animate props
  *
- * @category Core.Props and Settings Interfaces
+ * @category Types & Interfaces.Shapes
  */
 export interface IShapeFollowProps<PropArguments extends IPropArguments = IPropArguments>
 	extends ISceneChildProps<PropArguments> {}
@@ -81,7 +81,7 @@ export interface IShapeFollowProps<PropArguments extends IPropArguments = IPropA
 /**
  * ShapeFollow settings
  *
- * @category Core.Props and Settings Interfaces
+ * @category Types & Interfaces.Shapes
  */
 export interface IShapeFollowSettings<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapeFollowProps<PropArguments>,

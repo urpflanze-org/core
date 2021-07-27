@@ -2,13 +2,25 @@ import { clamp } from '../Utilities'
 import { Close } from './Close'
 import { Modifier } from './Modifier'
 
+/**
+ *
+ * @category Modifiers.Settings
+ * @export
+ * @interface ISmoothSettings
+ */
 export interface ISmoothSettings {
 	tension?: number
 	level?: number
 	closed?: boolean
-	// interpolationPoints?: number
 }
 
+/**
+ * Smooth the corners
+ *
+ * @category Modifiers
+ * @class Smooth
+ * @extends {Modifier}
+ */
 class Smooth extends Modifier {
 	private tension: Array<number>
 	private level: number

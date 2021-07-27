@@ -250,9 +250,22 @@ const final = new Urpflanze.Shape({
     rotateY: Urpflanze.toRadians(60),
 })
 </code></pre>
-<p>|                                     lines                                     |                                   container                                   |                                     final                                     |
-| :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
-| <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-1.png" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-2.png" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-3.png" alt="" /> |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">lines</th>
+<th style="text-align:center;">container</th>
+<th style="text-align:center;">final</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;"><img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-1.png" alt="" /></td>
+<td style="text-align:center;"><img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-2.png" alt="" /></td>
+<td style="text-align:center;"><img src="https://docs.urpflanze.org/core/assets/images/readme/encapsulation-3.png" alt="" /></td>
+</tr>
+</tbody>
+</table>
 <h3 id="group">Group</h3>
 <pre class="prettyprint"><code class="javascript language-javascript">const group = new Urpflanze.Group({
     repetitions: 4,
@@ -276,9 +289,20 @@ const shape = new Urpflanze.Shape({
     rotateZ: ({ repetition }) =&gt; -repetition.angle,
 })
 </code></pre>
-<p>|                                 group                                 |                                 shape                                 |
-| :-------------------------------------------------------------------: | :-------------------------------------------------------------------: |
-| <img src="https://docs.urpflanze.org/core/assets/images/readme/group-1.png" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/group-2.png" alt="" /> |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">group</th>
+<th style="text-align:center;">shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;"><img src="https://docs.urpflanze.org/core/assets/images/readme/group-1.png" alt="" /></td>
+<td style="text-align:center;"><img src="https://docs.urpflanze.org/core/assets/images/readme/group-2.png" alt="" /></td>
+</tr>
+</tbody>
+</table>
 <h3 id="usingrepetitionpropertyoftheencapsulator">Using repetition property of the encapsulator</h3>
 <p>You can use the <code>repetition</code> object of whoever encapsulates a shape by setting the <code>shapeUseParent</code> property.
 This parameter is optional since a new buffer of points will be generated at each repetition of the encapsulator.</p>
@@ -416,8 +440,19 @@ for(let i = 0, len = sceneChilds.length; i &lt; len; i++) {
 <hr />
 <h2 id="examples">Examples</h2>
 <p>Draw point in a console (using <a href="https://github.com/madbence/node-drawille">this package</a>)</p>
-<p>|                                                                          |                                                                          |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| <img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif" alt="" /> | <img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-2.gif" alt="" /> |</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-1.gif" alt="" /></td>
+<td><img src="https://docs.urpflanze.org/core/assets/images/readme/terminal-2.gif" alt="" /></td>
+</tr>
+</tbody>
+</table>
 <p>Pen plotter</p>
 <p><img src="https://docs.urpflanze.org/core/assets/images/readme/plotter.jpeg" alt="" /></p>

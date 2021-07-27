@@ -11,13 +11,13 @@ import { ShapeLoop } from '../ShapeLoop'
 
 /**
  *
- * @category Core.Types
+ * @category Shapes.Settings
  */
 export type TSpiralType = 'ARCHIMEDE' | 'HYPERBOLIC' | 'FERMAT' | 'LITUUS' | 'LOGARITHMIC'
 
 /**
  *
- * @category Core.Primitive Interfaces
+ * @category Shapes.Settings
  */
 export interface ISpiralProps<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapeLoopProps<PropArguments> {
@@ -42,7 +42,7 @@ export interface ISpiralProps<PropArguments extends IPropArguments = IPropArgume
 
 /**
  *
- * @category Core.Primitive Interfaces
+ * @category Shapes.Settings
  */
 export interface ISpiralSettings<
 	PropArguments extends IPropArguments = IPropArguments,
@@ -53,7 +53,7 @@ export interface ISpiralSettings<
 /**
  * Spiral shape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Spiral
  * @extends {ShapeLoop}
  */

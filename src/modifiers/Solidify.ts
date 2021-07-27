@@ -1,12 +1,25 @@
 import { IBaseRepetition } from '../types'
 import { Modifier } from './Modifier'
 
+/**
+ *
+ * @category Modifiers.Settings
+ * @export
+ * @interface ISolidifySettings
+ */
 export interface ISolidifySettings {
 	thickness?: number | Array<number> | ((bufferRepetition: IBaseRepetition) => number)
 	closed?: boolean
 	error?: number
 }
 
+/**
+ * Try tracing the edges of a path
+ *
+ * @category Modifiers
+ * @class Solidify
+ * @extends {Modifier}
+ */
 class Solidify extends Modifier {
 	private thickness: number | Array<number> | ((bufferRepetition: IBaseRepetition) => number)
 	private closed: boolean

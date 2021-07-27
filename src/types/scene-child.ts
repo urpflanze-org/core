@@ -4,7 +4,7 @@ import { IPropArguments } from './propArguments'
 /**
  * Value or callable
  *
- * @category Core.Types
+ * @category Types & Interfaces.SceneChild
  */
 export type TSceneChildProp<T, PropArguments extends IPropArguments = IPropArguments> =
 	| T
@@ -16,7 +16,7 @@ export type TSceneChildProp<T, PropArguments extends IPropArguments = IPropArgum
  * Props interface.
  * Remember: any size refere to dimension of a scene.
  *
- * @category Core.Props and Settings Interfaces
+ * @category Scene.Settings
  */
 export interface ISceneChildProps<PropArguments extends IPropArguments = IPropArguments> {
 	/**
@@ -163,7 +163,7 @@ export interface ISceneChildProps<PropArguments extends IPropArguments = IPropAr
 
 /**
  *
- * @category Core.Props and Settings Interfaces
+ * @category Scene.Settings
  */
 export interface ISceneChildSettings<PropArguments extends IPropArguments = IPropArguments>
 	extends ISceneChildProps<PropArguments> {
@@ -203,7 +203,7 @@ export interface ISceneChildSettings<PropArguments extends IPropArguments = IPro
  * starting from frameBufferIndex up to frameBuffeIndex + frameLength,
  * the fill or strtoke color of the frame is also present
  *
- * @category Core.Stream
+ * @category Types & Interfaces.Stream
  */
 export interface IStreamArguments<PropArguments extends IPropArguments = IPropArguments> {
 	/**

@@ -7,7 +7,7 @@ import { IShapeBounding } from './shape-base'
 /**
  * Object for index the buffer
  *
- * @category Core.Stream
+ * @category Types & Interfaces.Stream
  */
 export type IBufferIndex<PropArguments extends IPropArguments = IPropArguments> = PropArguments & {
 	/**
@@ -34,7 +34,7 @@ export type IBufferIndex<PropArguments extends IPropArguments = IPropArguments> 
 /**
  * Object for index the buffer
  *
- * @category Core.Stream
+ * @category Types & Interfaces.Stream
  */
 export interface IBufferIndexWithRecursion
 	extends IBufferIndex<
@@ -46,7 +46,7 @@ export interface IBufferIndexWithRecursion
 /**
  * Object for index the buffer
  *
- * @category Core.Stream
+ * @category Types & Interfaces.Stream
  */
 export interface IBufferIndexWithFollow
 	extends IBufferIndex<

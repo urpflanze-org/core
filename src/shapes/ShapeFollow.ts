@@ -16,7 +16,9 @@ import { Shape } from './Shape'
 import { SceneChild } from '../SceneChild'
 
 /**
- * @category Core.Shapes
+ * Repeat `shape` on each point of `follow`
+ *
+ * @category Scene.Containers
  */
 class ShapeFollow<
 	PropArguments extends IPropArguments = IPropArguments,

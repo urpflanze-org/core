@@ -7,7 +7,7 @@ import { IDrawerProps, IShapeBaseSettings } from './shape-base'
 
 /**
  *
- * @category Core.Props and Settings Interfaces
+ * @category Scene.Settings
  */
 export interface IShapePrimitiveProps<PropArguments extends IPropArguments = IPropArguments>
 	extends ISceneChildProps<PropArguments> {
@@ -20,7 +20,7 @@ export interface IShapePrimitiveProps<PropArguments extends IPropArguments = IPr
 
 /**
  *
- * @category Core.Props and Settings Interfaces
+ * @category Scene.Settings
  */
 export interface IShapePrimitiveSettings<
 	PropArguments extends IPropArguments = IPropArguments,
@@ -34,24 +34,29 @@ export interface IShapePrimitiveSettings<
 	bClosed?: boolean
 
 	/**
-	 *
+	 * A list of properties used by the drawer
 	 * @order -15
 	 */
 	drawer?: DrawerProps
 
+	/**
+	 * A list of modifiers for manipulating the buffer
+	 *
+	 * @order -16
+	 */
 	modifiers?: Array<Modifier>
 }
 
 /**
  *
- * @category Core.Props and Settings Interfaces
+ * @category Shapes.Settings
  */
 export interface IShapeBufferProps<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapePrimitiveProps<PropArguments> {}
 
 /**
  *
- * @category Core.Props and Settings Interfaces
+ * @category Shapes.Settings
  */
 export interface IShapeBufferSettings<
 	PropArguments extends IPropArguments = IPropArguments,
@@ -73,7 +78,7 @@ export interface IShapeBufferSettings<
 
 /**
  *
- * @category Core.Types
+ * @category Types & Interfaces.Shapes
  */
 export type TShapeLoopGeneratorFormula<PropArguments extends IPropArguments = IPropArguments> = (
 	shapeLoopRepetition: IShapeLoopRepetition,
@@ -98,7 +103,7 @@ export type TShapeLoopGeneratorFormula<PropArguments extends IPropArguments = IP
  * 	}
  * })
  * ```
- * @category Core.Interfaces
+ * @category Types & Interfaces.Shapes
  */
 export interface IShapeLoopGenerator<PropArguments extends IPropArguments = IPropArguments> {
 	start?: TSceneChildProp<number, PropArguments>
@@ -109,7 +114,7 @@ export interface IShapeLoopGenerator<PropArguments extends IPropArguments = IPro
 
 /**
  *
- * @category Core.Props and Settings Interfaces
+ * @category Shapes.Settings
  */
 export interface IShapeLoopProps<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapePrimitiveProps<PropArguments> {
@@ -122,7 +127,7 @@ export interface IShapeLoopProps<PropArguments extends IPropArguments = IPropArg
 
 /**
  *
- * @category Core.Props and Settings Interfaces
+ * @category Shapes.Settings
  */
 export interface IShapeLoopSettings<
 	PropArguments extends IPropArguments = IPropArguments,

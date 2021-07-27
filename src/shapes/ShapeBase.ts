@@ -30,7 +30,7 @@ const repetitionMatrix = mat4.create()
 /**
  * Main class for shape generation
  *
- * @category Core.Abstract
+ * @category Scene
  * @abstract
  * @class ShapeBase
  * @order 4

@@ -1,10 +1,22 @@
 import { Modifier } from './Modifier'
 
-interface IMirrorSettings {
+/**
+ *
+ * @category Modifiers.Settings
+ * @interface IMirrorSettings
+ */
+export interface IMirrorSettings {
 	x?: boolean
 	y?: boolean
 }
 
+/**
+ * Reflects the shape on the x and y axes
+ *
+ * @category Modifiers
+ * @class Mirror
+ * @extends {Modifier}
+ */
 class Mirror extends Modifier {
 	private x: boolean
 	private y: boolean

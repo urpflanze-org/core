@@ -15,7 +15,9 @@ import { Shape } from './Shape'
 import { SceneChild } from '../SceneChild'
 
 /**
- * @category Core.Shapes
+ * Repeat `shape` on each vertex recursively
+ *
+ * @category Scene.Containers
  */
 class ShapeRecursive<
 	PropArguments extends IPropArguments = IPropArguments,

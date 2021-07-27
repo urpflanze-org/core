@@ -1,6 +1,13 @@
 import { ShapePrimitive } from '../shapes/ShapePrimitive'
 import { Modifier } from './Modifier'
 
+/**
+ * Adds a closing point if it doesn't exist
+ *
+ * @category Modifiers
+ * @class Close
+ * @extends {Modifier}
+ */
 class Close extends Modifier {
 	constructor() {
 		super()

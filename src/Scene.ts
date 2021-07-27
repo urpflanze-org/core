@@ -10,7 +10,7 @@ import { clamp } from './Utilities'
  * The main purpose is to manage the drawing order and update the child buffers
  *
  * @order 1
- * @category Core.Scene
+ * @category Scene
  * @class Scene
  */
 class Scene {

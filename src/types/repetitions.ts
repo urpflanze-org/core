@@ -1,7 +1,7 @@
 /**
  * Repetition type enumerator.
  *
- * @category Core.Repetition
+ * @category Types & Interfaces.Repetitions
  * @internal
  */
 export enum ERepetitionType {
@@ -23,7 +23,7 @@ export enum ERepetitionType {
 /**
  * Base repetition
  *
- * @category Core.Repetition
+ * @category Types & Interfaces.Repetitions
  */
 export interface IBaseRepetition {
 	/**
@@ -48,7 +48,7 @@ export interface IBaseRepetition {
 /**
  *
  *
- * @category Core.Repetition
+ * @category Types & Interfaces.Repetitions
  */
 export interface IShapeLoopRepetition extends IBaseRepetition {
 	/**
@@ -62,7 +62,7 @@ export interface IShapeLoopRepetition extends IBaseRepetition {
 /**
  * Information about propArguments repetition
  *
- * @category Core.Repetition
+ * @category Types & Interfaces.Repetitions
  */
 export interface IRepetition extends IBaseRepetition {
 	/**
@@ -93,7 +93,7 @@ export interface IRepetition extends IBaseRepetition {
 /**
  *
  *
- * @category Core.Repetition
+ * @category Types & Interfaces.Repetitions
  */
 export interface IRecursionRepetition extends IBaseRepetition {
 	/**

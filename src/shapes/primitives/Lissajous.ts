@@ -11,7 +11,7 @@ import {
 
 /**
  * For <mark>wx</mark>, <mark>wy</mark> and <mark>wx</mark> see Lissajous on <a target="_blank" href="https://en.wikipedia.org/wiki/Lissajous_curve">Wikipedia</a>
- * @category Core.Primitive Interfaces
+ * @category Shapes.Settings
  */
 export interface ILissajousProps<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapeLoopProps<PropArguments> {
@@ -37,7 +37,7 @@ export interface ILissajousProps<PropArguments extends IPropArguments = IPropArg
 /**
  * http://paulbourke.net/geometry/supershape/
  *
- * @category Core.Primitive Interfaces
+ * @category Shapes.Settings
  */
 export interface ILissajousSettings<
 	PropArguments extends IPropArguments = IPropArguments,
@@ -48,7 +48,7 @@ export interface ILissajousSettings<
 /**
  * Lissajous shape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Lissajous
  * @extends {ShapeLoop}
  */

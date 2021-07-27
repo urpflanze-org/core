@@ -4,7 +4,7 @@ import { ShapeBuffer } from '../ShapeBuffer'
 
 /**
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeBuffer
  * @class Rect
  * @extends {ShapeBuffer}
  */

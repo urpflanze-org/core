@@ -1,7 +1,7 @@
 /**
  * The object to pass as the argument of a new scene
  *
- * @category Core.Interfaces
+ * @category Scene.Settings
  */
 export interface ISceneSettings {
 	/**

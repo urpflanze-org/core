@@ -2,9 +2,7 @@ import { IShapeBounding } from '../types'
 import { Modifier } from './Modifier'
 
 /**
- *
- *
- * @category Core.Enums
+ * @category Modifiers.Enums
  */
 export enum EAdaptMode {
 	/**
@@ -107,11 +105,23 @@ export const Bounding = {
 	},
 }
 
-interface IAdaptSettings {
+/**
+ *
+ * @category Modifiers.Settings
+ * @interface IAdaptSettings
+ */
+export interface IAdaptSettings {
 	mode?: EAdaptMode
 	rect: IShapeBounding
 }
 
+/**
+ * Fit a buffer into a rectangle based on EAdaptMode
+ *
+ * @category Modifiers
+ * @class Adapt
+ * @extends {Modifier}
+ */
 class Adapt extends Modifier {
 	static MODES = EAdaptMode
 

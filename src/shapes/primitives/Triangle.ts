@@ -5,7 +5,7 @@ import { ShapeBuffer } from '../ShapeBuffer'
 /**
  * Triangle ShapeBuffer
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeBuffer
  */
 class Triangle<
 	PropArgument extends IPropArguments = IPropArguments,

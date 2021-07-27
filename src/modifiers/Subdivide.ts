@@ -1,9 +1,22 @@
 import { Modifier } from './Modifier'
 
+/**
+ *
+ * @category Modifiers.Settings
+ * @export
+ * @interface ISubdivideSettings
+ */
 export interface ISubdivideSettings {
 	level?: number
 }
 
+/**
+ * Adds points on the edges of a shape
+ *
+ * @category Modifiers
+ * @class Subdivide
+ * @extends {Modifier}
+ */
 class Subdivide extends Modifier {
 	private level: number
 

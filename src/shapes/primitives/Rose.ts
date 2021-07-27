@@ -12,7 +12,7 @@ import {
 /**
  * For <mark>n</mark> and <mark>d</mark> see Rose on <a target="_blank" href="https://en.wikipedia.org/wiki/Rose_(mathematics)">Wikipedia</a>
  *
- * @category Core.Primitive Interfaces
+ * @category Shapes.Settings
  */
 export interface IRoseProps<PropArguments extends IPropArguments = IPropArguments>
 	extends IShapeLoopProps<PropArguments> {
@@ -31,7 +31,7 @@ export interface IRoseProps<PropArguments extends IPropArguments = IPropArgument
 
 /**
  *
- * @category Core.Primitive Interfaces
+ * @category Shapes.Settings
  */
 export interface IRoseSettings<
 	PropArguments extends IPropArguments = IPropArguments,
@@ -42,7 +42,7 @@ export interface IRoseSettings<
 /**
  * Rose shape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Rose
  * @extends {ShapeLoop}
  */

@@ -5,7 +5,7 @@ import { ShapeLoop } from '../ShapeLoop'
 
 /**
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Circle
  * @extends {ShapeLoop}
  */

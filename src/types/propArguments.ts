@@ -4,7 +4,7 @@ import { IBaseRepetition, IRecursionRepetition, IRepetition } from './repetition
 /**
  * Object argument for sceneChild props
  *
- * @category Core.Interfaces
+ * @category Types & Interfaces.PropArguments
  */
 export interface IPropArguments<ParentPropArguments = IParentPropArguments> {
 	/**
@@ -31,7 +31,7 @@ interface IParentPropArguments extends IPropArguments<IParentPropArguments> {}
 /**
  *
  *
- * @category Core.Interfaces
+ * @category Types & Interfaces.PropArguments
  */
 export interface IRecursionPropArguments extends IPropArguments {
 	/**
@@ -50,7 +50,7 @@ export interface IRecursionPropArguments extends IPropArguments {
 /**
  *
  *
- * @category Core.Interfaces
+ * @category Types & Interfaces.PropArguments
  */
 export interface IParentRecursionPropArguments extends IPropArguments {
 	/**
@@ -63,7 +63,7 @@ export interface IParentRecursionPropArguments extends IPropArguments {
 /**
  *
  *
- * @category Core.Interfaces
+ * @category Types & Interfaces.PropArguments
  */
 export interface IFollowPropArguments extends IPropArguments {
 	/**
@@ -82,7 +82,7 @@ export interface IFollowPropArguments extends IPropArguments {
 /**
  *
  *
- * @category Core.Interfaces
+ * @category Types & Interfaces.PropArguments
  */
 export interface IParentFollowPropArguments extends IPropArguments {
 	/**

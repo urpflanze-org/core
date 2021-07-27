@@ -2,6 +2,12 @@ import { ISceneChildSettings } from '../types/scene-child'
 import { IPropArguments } from './propArguments'
 import { IBaseRepetition } from './repetitions'
 
+/**
+ *
+ * @category Enums
+ * @export
+ * @enum {number}
+ */
 export enum EBoundingType {
 	/**
 	 * Relative to the real bounding of the shape
@@ -19,7 +25,7 @@ export enum EBoundingType {
 /**
  * Callback to pass at vertextCallback property
  *
- * @category Core.Types
+ * @category Types & Interfaces.Shapes
  */
 export type TVertexCallback<PropArguments extends IPropArguments = IPropArguments> = (
 	vertex: [number, number, number],
@@ -30,7 +36,7 @@ export type TVertexCallback<PropArguments extends IPropArguments = IPropArgument
 /**
  * ShapeBaseSettings
  *
- * @category Core.Props and Settings Interfaces
+ * @category Scene.Settings
  */
 export interface IShapeBaseSettings<PropArguments extends IPropArguments = IPropArguments>
 	extends ISceneChildSettings<PropArguments> {
@@ -57,13 +63,13 @@ export interface IShapeBaseSettings<PropArguments extends IPropArguments = IProp
 /**
  * Generic drawer interface
  *
- * @category Core.Props and Settings Interfaces
+ * @category Types & Interfaces.Drawer
  */
 export type TDrawerProp<T, G extends IPropArguments = IPropArguments> = T | { (propArguments: G): T }
 /**
  * Generic drawer interface
  *
- * @category Core.Props and Settings Interfaces
+ * @category Types & Interfaces.Drawer
  */
 export interface IDrawerProps<G extends IPropArguments = IPropArguments> {
 	[key: string]: TDrawerProp<string | number, G> | undefined
@@ -73,7 +79,7 @@ export interface IDrawerProps<G extends IPropArguments = IPropArguments> {
  * Size of a buffer and its position relative to the scene.
  * cx|y is the center
  *
- * @category Core.Interfaces
+ * @category Types & Interfaces.Shapes
  */
 export interface IShapeBounding {
 	/**

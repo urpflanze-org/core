@@ -28,9 +28,9 @@ export interface ILoopMeta {
 }
 
 /**
- * Shape Loop
+ * Create a shape from loop
  *
- * @category Core.Shapes
+ * @category Shapes.Primitives
  * @public
  * @class ShapeLoop
  * @extends {ShapePrimitive}

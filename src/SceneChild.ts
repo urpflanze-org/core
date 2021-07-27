@@ -23,7 +23,7 @@ let __id = 0
  * The only implementations of this class are <a href="[base_url]/Group">Group</a> and <a href="[base_url]/ShapeBase">ShapeBase</a>
  *
  * @abstract
- * @category Core.Abstract
+ * @category Scene
  * @order 2
  * @class SceneChild
  */
