@@ -64,8 +64,10 @@ tap.deepEqual(
 )
 
 /**
+ * add 4 point
+ *
  * input
- * /**
+ *
  * 1/5 ----- 2
  * |       |
  * |       |
