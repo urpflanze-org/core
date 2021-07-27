@@ -1,5 +1,5 @@
 /*!
- * @license Urpflanze v"0.5.5"
+ * @license Urpflanze v"0.5.6"
  * urpflanze.js
  *
  * Github: https://github.com/urpflanze-org/core
