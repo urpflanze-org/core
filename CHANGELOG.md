@@ -1,3 +1,7 @@
+## 0.5.6 (July 27, 2021)
+
+- Fix drawer type
+
 ## 0.5.5 (July 17, 2021)
 
 - Add anchor to ShapeBase
