@@ -89,7 +89,8 @@ function loadReference(refName) {
 				break
 		}
 
-		const sourcelink = `https://github.com/urpflanze-org/core.git/blob/master/${ref.source.fileName}#L${ref.source.line}`
+		const url = 'https://github.com/urpflanze-org/core.git'.replace('.git', '')
+		const sourcelink = `${url}/blob/master/src/${ref.source.fileName.replace('src/', '')}#L${ref.source.line}`
 		content.innerHTML += `<h2>Source</h2><div class="reference__source_url"><a target="_blank" href="${sourcelink}">${ref.source.fileName}</a></div>`
 	}
 }

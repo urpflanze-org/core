@@ -49,6 +49,10 @@ export function resolveType(type) {
 			return `Array&lt;${resolveType(type.typeArguments[0])}&gt;`
 		}
 
+		if ((type.type === 'Array' || type.type === 'array') && type.elementType) {
+			return `Array&lt;${resolveType(type.elementType)}&gt;`
+		}
+
 		if (type.type === 'stringLiteral' || type.type === 'literal') return `'${type.value}'`
 
 		if (type.type === 'intrinsic' || type.type === 'reference' || type.type === 'typeParameter')
@@ -134,6 +138,10 @@ export function resolveType(type) {
 		}
 		if (type.type === 'intersection' && type.types) {
 			return `${type.types.map(resolveType).join(' & ')}`
+		}
+
+		if (type.type === 'Array' || type.type === 'array') {
+			return `Array`
 		}
 
 		console.warn('cant resolve type', type)
