@@ -1,5 +1,5 @@
 /*!
- * @license Urpflanze v"0.5.6"
+ * @license Urpflanze v"0.5.7"
  * urpflanze.js
  *
  * Github: https://github.com/urpflanze-org/core
@@ -66,7 +66,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Repetition type enumerator.
  *
- * @category Core.Repetition
+ * @category Types & Interfaces.Repetitions
  * @internal
  */
 var ERepetitionType;
@@ -113,6 +113,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "EBoundingType": () => (/* binding */ EBoundingType)
 /* harmony export */ });
+/**
+ *
+ * @category Enums
+ * @export
+ * @enum {number}
+ */
 var EBoundingType;
 (function (EBoundingType) {
     /**
@@ -235,7 +241,7 @@ __webpack_require__.r(__webpack_exports__);
  * The main purpose is to manage the drawing order and update the child buffers
  *
  * @order 1
- * @category Core.Scene
+ * @category Scene
  * @class Scene
  */
 class Scene {
@@ -591,7 +597,7 @@ let __id = 0;
  * The only implementations of this class are <a href="[base_url]/Group">Group</a> and <a href="[base_url]/ShapeBase">ShapeBase</a>
  *
  * @abstract
- * @category Core.Abstract
+ * @category Scene
  * @order 2
  * @class SceneChild
  */
@@ -694,7 +700,7 @@ __webpack_require__.r(__webpack_exports__);
  * A SceneChild container, propagates properties to children
  *
  * @order 3
- * @category Core.Scene
+ * @category Scene.Containers
  * @extends {SceneChild}
  * @example
  * ```javascript
@@ -1031,7 +1037,7 @@ const repetitionMatrix = gl_matrix__WEBPACK_IMPORTED_MODULE_7__.create();
 /**
  * Main class for shape generation
  *
- * @category Core.Abstract
+ * @category Scene
  * @abstract
  * @class ShapeBase
  * @order 4
@@ -1625,7 +1631,7 @@ const MATRIX = new Array(4);
 /**
  * Vec2 operation
  *
- * @category Core.Utilities
+ * @category Math
  */
 const Vec2 = {
     /**
@@ -1842,24 +1848,24 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Return logarith value and base
  *
- * @category Core.Utilities
+ * @category Utilities
  *
  * @param n number
  * @param base number
  */
 const log = (n, base) => Math.log(n) / Math.log(base);
 /**
- * @category Core.Utilities
+ * @category Utilities
  */
 const PI2 = Math.PI * 2;
 /**
- * @category Core.Utilities
+ * @category Utilities
  */
 const PHI = (1 + Math.sqrt(5)) / 2;
 /**
  * Return a positive module of positive or negative value
  *
- * @category Core.Utilities
+ * @category Utilities
  *
  * @param value number
  * @param base number
@@ -1884,9 +1890,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Modifier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
 
 /**
- *
- *
- * @category Core.Enums
+ * @category Modifiers.Enums
  */
 var EAdaptMode;
 (function (EAdaptMode) {
@@ -1986,6 +1990,13 @@ const Bounding = {
         }
     },
 };
+/**
+ * Fit a buffer into a rectangle based on EAdaptMode
+ *
+ * @category Modifiers
+ * @class Adapt
+ * @extends {Modifier}
+ */
 class Adapt extends _Modifier__WEBPACK_IMPORTED_MODULE_0__.Modifier {
     constructor(args) {
         super();
@@ -2055,6 +2066,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Modifier": () => (/* binding */ Modifier)
 /* harmony export */ });
+/**
+ * Manipulate a buffer after generating
+ *
+ * @abstract
+ * @category Modifiers
+ * @class Modifier
+ */
 class Modifier {
 }
 
@@ -2078,9 +2096,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "angleFromRepetition": () => (/* binding */ angleFromRepetition),
 /* harmony export */   "angle2FromRepetition": () => (/* binding */ angle2FromRepetition),
 /* harmony export */   "distanceFromRepetition": () => (/* binding */ distanceFromRepetition),
+/* harmony export */   "distributePointsInBuffer": () => (/* binding */ distributePointsInBuffer),
 /* harmony export */   "prepareBufferForInterpolation": () => (/* binding */ prepareBufferForInterpolation),
-/* harmony export */   "interpolate": () => (/* binding */ interpolate),
-/* harmony export */   "distributePointsInBuffer": () => (/* binding */ distributePointsInBuffer)
+/* harmony export */   "interpolate": () => (/* binding */ interpolate)
 /* harmony export */ });
 /* harmony import */ var simplex_noise__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
 /* harmony import */ var simplex_noise__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(simplex_noise__WEBPACK_IMPORTED_MODULE_0__);
@@ -2089,7 +2107,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// isDef: (object: any): boolean => typeof object !== 'undefined' && object !== null,
 const measurement = typeof performance !== 'undefined' ? performance : Date;
 /**
  * Get current timestamp in milliseconds
@@ -2133,13 +2150,6 @@ function toDegrees(radians) {
 function toRadians(degrees) {
     return (degrees * Math.PI) / 180;
 }
-// perf: (name: string, callback: any, log: boolean = false): number => {
-// 	const t1 = now()
-// 	callback()
-// 	const t2 = now()
-// 	log && console.log('perf ' + name + ': ' + (t2 - t1))
-// 	return t2 - t1
-// }
 /**
  * Linear interpolation from `a` when `i` as 0 an `b` when `i' as 1
  *
@@ -2216,13 +2226,23 @@ function noise(seed = 'random', x = 0, y = 0, z = 0) {
     return noises[seed].noise3D(x, y, z);
 }
 /**
- * Random number generator
+ * @internal
+ * @ignore
  */
 const randoms = {};
 /**
- * random number generator
- * @param seed
- * @returns
+ * Random number generator
+ * @example
+ * ```javascript
+ * 	Urpflanze.random('seed') // 0.9367527104914188
+ * ```
+ *
+ * @category Utilities
+ * @param {string} seed
+ * @param {number} min
+ * @param {number} max
+ * @param {number} decimals
+ * @returns {number}
  */
 function random(seed, min = 0, max = 1, decimals) {
     const key = seed + '';
@@ -2339,62 +2359,22 @@ function distanceFromRepetition(repetition, offsetFromCenter = [0, 0]) {
 }
 /// Interpolation
 /**
+ * Evenly distributes a number of points in a buffer
  *
- * @param from
- * @param to
- * @returns
+ * @category Utilities.Buffer interpolation
+ * @export
+ * @param {Float32Array} buffer current buffer
+ * @param {number} pointsToAdd points to add
+ * @return {*}  {Float32Array}
  */
-function prepareBufferForInterpolation(from, to) {
-    const fromBufferLength = from.length;
-    const toBufferLength = to.length;
-    if (fromBufferLength === toBufferLength) {
-        return [from, to];
-    }
-    const maxBufferLength = fromBufferLength > toBufferLength ? fromBufferLength : toBufferLength;
-    const difference = Math.abs(fromBufferLength - toBufferLength);
-    const minBufferLength = maxBufferLength - difference;
-    /////
-    const b = fromBufferLength < toBufferLength ? to : from;
-    const t = fromBufferLength < toBufferLength ? from : to;
-    const a = distributePointsInBuffer(t, Math.floor(difference / 2));
-    // a[maxBufferLength - 2] = t[minBufferLength - 2]
-    // a[maxBufferLength - 1] = t[minBufferLength - 1]
-    return fromBufferLength > toBufferLength ? [b, a] : [a, b];
-}
-/**
- *
- * @param from
- * @param to
- * @param offset
- * @returns
- */
-function interpolate(from, to, initialOffset = 0.5) {
-    const [a, b] = prepareBufferForInterpolation(from, to);
-    const maxBufferLength = Math.max(a.length, b.length);
-    const offset = typeof initialOffset === 'number' ? [initialOffset] : initialOffset;
-    const maxPoints = maxBufferLength / 2;
-    if (offset.length !== maxPoints) {
-        const tl = offset.length;
-        for (let i = 0; i < maxPoints; i++) {
-            offset[i] = offset[i % tl];
-        }
-    }
-    ////
-    const result = new Float32Array(maxBufferLength);
-    for (let i = 0, off = 0; i < maxBufferLength; i += 2, off++) {
-        result[i] = (1 - offset[off]) * a[i] + offset[off] * b[i];
-        result[i + 1] = (1 - offset[off]) * a[i + 1] + offset[off] * b[i + 1];
-    }
-    return result;
-}
-function distributePointsInBuffer(buffer, count) {
+function distributePointsInBuffer(buffer, pointsToAdd) {
     const bufferLen = buffer.length;
     const pointsLen = bufferLen / 2;
-    const finalBufferLength = (pointsLen + count) * 2;
+    const finalBufferLength = (pointsLen + pointsToAdd) * 2;
     const edges = pointsLen - 1;
     if (edges > 1) {
         const lastPoint = bufferLen - 2;
-        const newPointsOnEdge = Math.floor(count / edges);
+        const newPointsOnEdge = Math.floor(pointsToAdd / edges);
         const bufferWithPointsEveryEdge = bufferLen + newPointsOnEdge * lastPoint;
         let remainingPoints = (finalBufferLength - bufferWithPointsEveryEdge) / 2;
         const edgeRemainingIndex = Math.round(edges / remainingPoints);
@@ -2426,6 +2406,59 @@ function distributePointsInBuffer(buffer, count) {
     for (let i = 0; i < finalBufferLength; i += 2) {
         result[i] = buffer[i % bufferLen];
         result[i + 1] = buffer[(i + 1) % bufferLen];
+    }
+    return result;
+}
+/**
+ * Leads two buffers to have the same number of points
+ *
+ * @category Utilities.Buffer interpolation
+ * @param from
+ * @param to
+ * @returns
+ */
+function prepareBufferForInterpolation(from, to) {
+    const fromBufferLength = from.length;
+    const toBufferLength = to.length;
+    if (fromBufferLength === toBufferLength) {
+        return [from, to];
+    }
+    // const maxBufferLength = fromBufferLength > toBufferLength ? fromBufferLength : toBufferLength
+    const difference = Math.abs(fromBufferLength - toBufferLength);
+    // const minBufferLength = maxBufferLength - difference
+    /////
+    const b = fromBufferLength < toBufferLength ? to : from;
+    const t = fromBufferLength < toBufferLength ? from : to;
+    const a = distributePointsInBuffer(t, Math.floor(difference / 2));
+    // a[maxBufferLength - 2] = t[minBufferLength - 2]
+    // a[maxBufferLength - 1] = t[minBufferLength - 1]
+    return fromBufferLength > toBufferLength ? [b, a] : [a, b];
+}
+/**
+ * Interpolate two buffer
+ *
+ * @category Utilities.Buffer interpolation
+ * @param from
+ * @param to
+ * @param offset
+ * @returns
+ */
+function interpolate(from, to, initialOffset = 0.5) {
+    const [a, b] = prepareBufferForInterpolation(from, to);
+    const maxBufferLength = Math.max(a.length, b.length);
+    const offset = typeof initialOffset === 'number' ? [initialOffset] : initialOffset;
+    const maxPoints = maxBufferLength / 2;
+    if (offset.length !== maxPoints) {
+        const tl = offset.length;
+        for (let i = 0; i < maxPoints; i++) {
+            offset[i] = offset[i % tl];
+        }
+    }
+    ////
+    const result = new Float32Array(maxBufferLength);
+    for (let i = 0, off = 0; i < maxBufferLength; i += 2, off++) {
+        result[i] = (1 - offset[off]) * a[i] + offset[off] * b[i];
+        result[i + 1] = (1 - offset[off]) * a[i + 1] + offset[off] * b[i + 1];
     }
     return result;
 }
@@ -6324,7 +6357,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Container of ShapeBase or Group, it applies transformations on each repetition
  *
- * @category Core.Shapes
+ * @category Scene.Containers
  */
 class Shape extends _ShapeBase__WEBPACK_IMPORTED_MODULE_2__.ShapeBase {
     /**
@@ -6514,7 +6547,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * @category Core.Abstract
+ * @category Scene
  */
 class ShapePrimitive extends _ShapeBase__WEBPACK_IMPORTED_MODULE_1__.ShapeBase {
     /**
@@ -6670,9 +6703,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * Shape Loop
+ * Create a shape from loop
  *
- * @category Core.Shapes
+ * @category Shapes.Primitives
  * @public
  * @class ShapeLoop
  * @extends {ShapePrimitive}
@@ -6901,7 +6934,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * @category Core.Shapes
+ * Create a shape from static buffer
+ *
+ * @category Shapes.Primitives
  */
 class ShapeBuffer extends _shapes_ShapePrimitive__WEBPACK_IMPORTED_MODULE_1__.ShapePrimitive {
     /**
@@ -7039,7 +7074,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
 
 /**
- * @category Core.Shapes
+ * Repeat `shape` on each vertex recursively
+ *
+ * @category Scene.Containers
  */
 class ShapeRecursive extends _Shape__WEBPACK_IMPORTED_MODULE_0__.Shape {
     /**
@@ -7368,7 +7405,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
 
 /**
- * @category Core.Shapes
+ * Repeat `shape` on each point of `follow`
+ *
+ * @category Scene.Containers
  */
 class ShapeFollow extends _Shape__WEBPACK_IMPORTED_MODULE_0__.Shape {
     /**
@@ -7599,7 +7638,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeBuffer
  * @class Line
  * @extends {ShapeBuffer}
  */
@@ -7718,7 +7757,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Triangle ShapeBuffer
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeBuffer
  */
 class Triangle extends _ShapeBuffer__WEBPACK_IMPORTED_MODULE_1__.ShapeBuffer {
     /**
@@ -7753,7 +7792,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeBuffer
  * @class Rect
  * @extends {ShapeBuffer}
  */
@@ -7791,7 +7830,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Polygon shape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Polygon
  * @extends {ShapeLoop}
  */
@@ -7840,7 +7879,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Circle
  * @extends {ShapeLoop}
  */
@@ -7887,7 +7926,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Polygon shape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Polygon
  * @extends {ShapeLoop}
  */
@@ -7947,7 +7986,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Rose shape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Rose
  * @extends {ShapeLoop}
  */
@@ -8026,7 +8065,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Spiral shape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Spiral
  * @extends {ShapeLoop}
  */
@@ -8127,7 +8166,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Lissajous shape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class Lissajous
  * @extends {ShapeLoop}
  */
@@ -8191,7 +8230,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * ShperShape
  *
- * @category Core.Primitives
+ * @category Shapes.ShapeLoop
  * @class SuperShape
  * @extends {ShapeLoop}
  */
@@ -8292,6 +8331,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Modifier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
 
+/**
+ * Reflects the shape on the x and y axes
+ *
+ * @category Modifiers
+ * @class Mirror
+ * @extends {Modifier}
+ */
 class Mirror extends _Modifier__WEBPACK_IMPORTED_MODULE_0__.Modifier {
     constructor(args = { x: true, y: true }) {
         super();
@@ -8359,6 +8405,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * Smooth the corners
+ *
+ * @category Modifiers
+ * @class Smooth
+ * @extends {Modifier}
+ */
 class Smooth extends _Modifier__WEBPACK_IMPORTED_MODULE_2__.Modifier {
     constructor(args = {}) {
         super();
@@ -8437,6 +8490,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Modifier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
 
+/**
+ * Adds a closing point if it doesn't exist
+ *
+ * @category Modifiers
+ * @class Close
+ * @extends {Modifier}
+ */
 class Close extends _Modifier__WEBPACK_IMPORTED_MODULE_0__.Modifier {
     constructor() {
         super();
@@ -8473,6 +8533,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Modifier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
 
+/**
+ * Try tracing the edges of a path
+ *
+ * @category Modifiers
+ * @class Solidify
+ * @extends {Modifier}
+ */
 class Solidify extends _Modifier__WEBPACK_IMPORTED_MODULE_0__.Modifier {
     constructor(args = {}) {
         super();
@@ -8601,6 +8668,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Modifier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
 
+/**
+ * Adds points on the edges of a shape
+ *
+ * @category Modifiers
+ * @class Subdivide
+ * @extends {Modifier}
+ */
 class Subdivide extends _Modifier__WEBPACK_IMPORTED_MODULE_0__.Modifier {
     constructor(args = {}) {
         super();
@@ -8666,6 +8740,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Modifier__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
 
+/**
+ * Takes a part of the buffer
+ *
+ * @category Modifiers
+ * @class Offset
+ * @extends {Modifier}
+ */
 class Offset extends _Modifier__WEBPACK_IMPORTED_MODULE_0__.Modifier {
     constructor(args = { from: 0, to: undefined }) {
         super();
