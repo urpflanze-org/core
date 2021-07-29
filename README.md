@@ -435,6 +435,7 @@ In this example we can also see the use of the interpolation function between bu
  * Repeat a Polygon on the buffer that morphs from Rect to Star
  *
  * for animation using https://github.com/urpflanze-org/animation
+ * and https://github.com/urpflanze-org/drawer-canvas for draw and rendering
  */
 const scene = new Urpflanze.Scene()
 
