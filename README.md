@@ -58,6 +58,7 @@ You can see a preview [here](https://editor.urpflanze.org)
 	- [Group](#group)
 	- [Using repetition property of the encapsulator](#using-repetition-property-of-the-encapsulator)
 - [Recursion](#recursion)
+- [ShapeFollow](#shapefollow)
 - [Vertex Callback](#vertex-callback)
 - [Scene](#scene)
 	- [Simple Drawer](#simple-drawer)
@@ -420,6 +421,71 @@ const container = new Urpflanze.ShapeRecursive({
 ```
 
 ![](https://docs.urpflanze.org/core/assets/images/readme/recursion-1.png)
+
+---
+
+## ShapeFollow
+
+With the `ShapeFollow` you can repeat the `shape` on each point of the `follow`
+
+In this example we can also see the use of the interpolation function between buffers:
+
+```javascript
+/**
+ * Repeat a Polygon on the buffer that morphs from Rect to Star
+ *
+ * for animation using https://github.com/urpflanze-org/animation
+ */
+const scene = new Urpflanze.Scene()
+
+const [from, to] = Urpflanze.prepareBufferForInterpolation(
+	Urpflanze.Rect.getBuffer({
+		modifiers: [new Urpflanze.Modifiers.Smooth({ closed: false, tension: 0.3, level: 4 })],
+	}),
+	Urpflanze.Star.getBuffer({
+		spikes: 6,
+		innerRadius: 1.3,
+		modifiers: [new Urpflanze.Modifiers.Smooth({ closed: false, tension: 0.7, level: 5 })],
+	})
+)
+
+scene.add(
+	new Urpflanze.ShapeFollow({
+		shape: new Urpflanze.Polygon({
+			sideNumber: 6,
+			sideLength: 20,
+			rotateZ: t => {
+				const d = 2000
+				const o = Math.cos(t.parent.follow.offset * Urpflanze.PI2) * 500 // set shapeUseFollor for bind follow IBaseRepetition
+
+				const time = Animation.clock(scene.currentTime, d - o, true, 'normal', o)
+				return Animation.Easings.quadraticOut(time, 0, Urpflanze.PI2, d - o)
+			},
+			drawer: {
+				stroke: '#ffffff22',
+			},
+		}),
+		follow: new Urpflanze.ShapeBuffer({
+			sideLength: 100,
+			shape: () => {
+				// Interpolate Rect (from) and Star (to) with easing
+				return Urpflanze.interpolate(
+					from,
+					to,
+					Animation.Easings.elasticInOut(Animation.clockOffset(scene.currentTime, 2000), 0, 1, 1, 1.2)
+				)
+			},
+		}),
+
+		shapeUseFollow: true, // use follow repetition in Rect (for rotateZ)
+	})
+)
+
+const drawer = new DrawerCanvas(scene, document.body, {}, 4000, 24)
+drawer.startAnimation()
+```
+
+![](https://docs.urpflanze.org/core/assets/images/readme/shape-follow.gif)
 
 ---
 
