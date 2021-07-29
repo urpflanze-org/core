@@ -318,8 +318,8 @@ class ShapeLoop<
 	 * @param sideLength
 	 * @returns
 	 */
-	public static getBuffer<Props extends IShapeLoopProps>(props: Props): Float32Array {
-		const shape = new this({ ...props, sideLength: props.sideLength || 1 })
+	public static getBuffer<Props extends IShapeLoopProps>(props?: Props): Float32Array {
+		const shape = new this({ ...props, sideLength: props?.sideLength || 1 })
 		shape.generate()
 		return shape.getBuffer() || new Float32Array()
 	}
