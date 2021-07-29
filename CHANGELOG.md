@@ -1,5 +1,9 @@
 # Changelog
 
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.5.7](https://github.com/urpflanze-org/core/compare/v0.5.6...v0.5.7) (2021-07-29)
+
 ### 0.5.6 (2021-07-27)
 
 - Fix drawer type
