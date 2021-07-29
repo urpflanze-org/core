@@ -6724,7 +6724,8 @@
 							"type": "reference",
 							"name": "Props"
 						},
-						"order": 9999
+						"order": 9999,
+						"bOptional": true
 					}
 				],
 				"typeParameter": [
