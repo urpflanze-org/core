@@ -4,8 +4,8 @@
 	"description": "Create 2d primitive shapes, encapsulate and repeat them by handling each repetition and generate recursive shapes",
 	"license": "GPL-3.0-or-later",
 	"docs": "https://docs.urpflanze.org/core",
-	"module": "build/esm/urpflanze.min.js",
-	"browser": "build/umd/urpflanze.min.js",
+	"module": "build/esm/urpflanze.js",
+	"browser": "build/umd/urpflanze.js",
 	"main": "dist/cjs/index.js",
 	"types": "dist/cjs/index.d.ts",
 	"files": [
