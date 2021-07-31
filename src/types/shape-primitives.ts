@@ -1,5 +1,6 @@
 import { EAdaptMode } from '../modifiers/Adapt'
 import { Modifier } from '../modifiers/Modifier'
+import { ILoopMeta } from '../shapes/ShapeLoop'
 import { IPropArguments, TSceneChildProp } from '../types'
 import { IShapeLoopRepetition } from './repetitions'
 import { ISceneChildProps } from './scene-child'
@@ -82,7 +83,8 @@ export interface IShapeBufferSettings<
  */
 export type TShapeLoopGeneratorFormula<PropArguments extends IPropArguments = IPropArguments> = (
 	shapeLoopRepetition: IShapeLoopRepetition,
-	propArguments: PropArguments
+	propArguments: PropArguments,
+	loopMeta: ILoopMeta
 ) => [number, number]
 
 /**

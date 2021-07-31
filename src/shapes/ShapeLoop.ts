@@ -227,7 +227,8 @@ class ShapeLoop<
 	 * @returns {Float32Array}
 	 */
 	protected generateLoopBuffer(propArguments: PropArguments): Float32Array {
-		const { start, inc, /*end,*/ count } = this.getLoop(propArguments)
+		const loopMeta = this.getLoop(propArguments)
+		const { start, inc, /*end,*/ count } = loopMeta
 
 		const sideLength = this.getRepetitionSideLength(propArguments)
 		const getVertex = (
@@ -254,7 +255,7 @@ class ShapeLoop<
 			shapeLoop.index = i + 1
 			shapeLoop.offset = offset
 
-			const vertex = getVertex(shapeLoop, propArguments)
+			const vertex = getVertex(shapeLoop, propArguments, loopMeta)
 
 			currentOrSingleLoopBuffer[j] = vertex[0]
 			currentOrSingleLoopBuffer[j + 1] = vertex[1]
