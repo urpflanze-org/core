@@ -16,8 +16,6 @@ import { ShapeBase } from './ShapeBase'
  *
  *
  * @export
- * @internal
- * @ignore
  * @interface ILoopMeta
  */
 export interface ILoopMeta {
