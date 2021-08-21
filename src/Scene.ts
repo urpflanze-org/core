@@ -27,12 +27,20 @@ class Scene {
 	/**
 	 * Refers to the central point of the scene
 	 */
-	public center: [number, number]
+	public center!: [number, number]
 
 	/**
 	 * Refers to the scene anchor point for shape translation
 	 */
-	public anchor: [number, number]
+	public anchor!: [number, number]
+
+	/**
+	 * Settings refers to the scene anchor point for shape translation
+	 *
+	 * @private
+	 * @type {(['left' | 'right' | 'center' | number, 'top' | 'bottom' | 'center' | number])}
+	 */
+	private anchorSettings?: ['left' | 'right' | 'center' | number, 'top' | 'bottom' | 'center' | number]
 
 	/**
 	 * Default background color (black)
@@ -69,22 +77,42 @@ class Scene {
 
 		this.children = []
 
+		this.anchorSettings = settings.anchor
+
+		this.setSize(settings.width || this.width, settings.height || this.height, settings.anchor)
+	}
+
+	/**
+	 * set scene size, center and anchor
+	 *
+	 * @private
+	 * @param {number} width
+	 * @param {number} height
+	 * @param {(['left' | 'right' | 'center' | number, 'top' | 'bottom' | 'center' | number])} [anchor]
+	 */
+	private setSize(
+		width: number,
+		height: number,
+		anchor?: ['left' | 'right' | 'center' | number, 'top' | 'bottom' | 'center' | number]
+	) {
+		this.width = width
+		this.height = height
 		this.center = [this.width / 2, this.height / 2]
 		this.anchor =
-			settings.anchor && Array.isArray(settings.anchor)
+			anchor && Array.isArray(anchor)
 				? [
-						typeof settings.anchor[0] === 'number'
-							? (0.5 + clamp(-1, 1, settings.anchor[0]) * 0.5) * this.width
-							: settings.anchor[0] === 'left'
+						typeof anchor[0] === 'number'
+							? (0.5 + clamp(-1, 1, anchor[0]) * 0.5) * this.width
+							: anchor[0] === 'left'
 							? 0
-							: settings.anchor[0] === 'right'
+							: anchor[0] === 'right'
 							? this.width
 							: this.center[0],
-						typeof settings.anchor[1] === 'number'
-							? (0.5 + clamp(-1, 1, settings.anchor[1]) * 0.5) * this.height
-							: settings.anchor[1] === 'top'
+						typeof anchor[1] === 'number'
+							? (0.5 + clamp(-1, 1, anchor[1]) * 0.5) * this.height
+							: anchor[1] === 'top'
 							? 0
-							: settings.anchor[1] === 'bottom'
+							: anchor[1] === 'bottom'
 							? this.height
 							: this.center[1],
 				  ]
@@ -119,12 +147,7 @@ class Scene {
 	 * @memberof Scene
 	 */
 	public resize(width: number, height: number = width): void {
-		this.width = width
-		this.height = height
-
-		this.center = [this.width / 2, this.height / 2]
-		const anchor = [this.width / this.anchor[0], this.height / this.anchor[1]]
-		this.anchor = [this.width / anchor[0], this.height / anchor[1]]
+		this.setSize(width, height, this.anchorSettings)
 
 		this.children.forEach(sceneChild => sceneChild.clearBuffer(true, false))
 	}
