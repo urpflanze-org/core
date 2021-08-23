@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.8](https://github.com/urpflanze-org/core/compare/v0.5.7...v0.5.8) (2021-08-23)
+
+
+### Features
+
+* add loopMeta to ShapeLoop loop vertex callback ([414a2fd](https://github.com/urpflanze-org/core/commits/414a2fdcee146ee7017bd5b7c2784368c9cd8051))
+* add noise min max value ([71d6523](https://github.com/urpflanze-org/core/commits/71d6523224772ba0c6e197b9c112a4a78740cfb4))
+
+
+### Bug Fixes
+
+* :bug: fix anchor when resize ([13579e0](https://github.com/urpflanze-org/core/commits/13579e0bc52051ab260cfdfa1de53c453029ea16))
+* fix static getBuffer argument ([853cffb](https://github.com/urpflanze-org/core/commits/853cffb6134208cc3a99a4a2e246901f62a07068))
+
 ### [0.5.7](https://github.com/urpflanze-org/core/compare/v0.5.6...v0.5.7) (2021-07-29)
 
 ### 0.5.6 (2021-07-27)
