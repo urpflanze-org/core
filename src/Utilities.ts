@@ -128,7 +128,7 @@ const noises: {
  * @param {number} [max=-1]
  * @returns {number} between -1 and 1
  */
-export function noise(seed = 'random', x = 0, y = 0, z = 0, min: -1, max: 1): number {
+export function noise(seed = 'random', x = 0, y = 0, z = 0, min = -1, max = 1): number {
 	if (typeof noises[seed] === 'undefined') {
 		noises[seed] = new SimplexNoise(seed)
 	}
