@@ -3701,17 +3701,19 @@
 			{
 				"name": "min",
 				"type": {
-					"type": "literal",
-					"value": -1
+					"type": "intrinsic",
+					"name": "number"
 				},
+				"defaultValue": "-1",
 				"order": 9999
 			},
 			{
 				"name": "max",
 				"type": {
-					"type": "literal",
-					"value": 1
+					"type": "intrinsic",
+					"name": "number"
 				},
+				"defaultValue": "1",
 				"order": 9999
 			}
 		],
