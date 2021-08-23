@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.9](https://github.com/urpflanze-org/core/compare/v0.5.8...v0.5.9) (2021-08-23)
+
+
+### Bug Fixes
+
+* **utilities:** :bug: fix noise function ([6c9ac3a](https://github.com/urpflanze-org/core/commits/6c9ac3a959a9b5c1f9b0cac1482873a82d58b470))
+
 ### [0.5.8](https://github.com/urpflanze-org/core/compare/v0.5.7...v0.5.8) (2021-08-23)
 
 
