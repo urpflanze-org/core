@@ -1,6 +1,6 @@
 {
 	"name": "@urpflanze/core",
-	"version": "0.5.9",
+	"version": "0.5.10",
 	"description": "Create 2d primitive shapes, encapsulate and repeat them by handling each repetition and generate recursive shapes",
 	"license": "GPL-3.0-or-later",
 	"docs": "https://docs.urpflanze.org/core",

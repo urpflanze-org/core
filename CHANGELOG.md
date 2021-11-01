@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.10](https://github.com/urpflanze-org/core/compare/v0.5.9...v0.5.10) (2021-11-01)
+
 ### [0.5.9](https://github.com/urpflanze-org/core/compare/v0.5.8...v0.5.9) (2021-08-23)
 
 
