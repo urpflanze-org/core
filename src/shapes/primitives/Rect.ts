@@ -12,7 +12,7 @@ class Rect<
 	PropArguments extends IPropArguments = IPropArguments,
 	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
 > extends ShapeBuffer<PropArguments, DrawerProps> {
-	static buffer: Array<number> = [1, 1, -1, 1, -1, -1, 1, -1]
+	static buffer = Float32Array.from([1, 1, -1, 1, -1, -1, 1, -1])
 
 	/**
 	 * Creates an instance of Rect.

@@ -68,7 +68,7 @@ export interface IShapeBufferSettings<
 	 * [x1,y1, x2,y1-, ...., xn, yn]
 	 * @order -30
 	 */
-	shape?: Float32Array | Array<number> | ((propArguments: PropArguments) => Float32Array | Array<number>)
+	shape?: Float32Array | ((propArguments: PropArguments) => Float32Array)
 
 	/**
 	 * Adapt buffer mode, see <a href="[base_url]/EAdaptMode">EAdaptMode</a> for more details

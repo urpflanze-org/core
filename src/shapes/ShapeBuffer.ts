@@ -18,7 +18,7 @@ class ShapeBuffer<
 	 *
 	 * @type {Float32Array}
 	 */
-	public shape: Float32Array | ((propArguments: PropArguments) => Float32Array | Array<number>)
+	public shape: Float32Array | ((propArguments: PropArguments) => Float32Array)
 
 	/**
 	 * Adapted buffer
@@ -98,7 +98,7 @@ class ShapeBuffer<
 		const sideLength = this.getRepetitionSideLength(propArguments)
 
 		const shapeBuffer = this.applyModifiers(
-			Float32Array.from(typeof this.shape === 'function' ? this.shape(propArguments) : this.shape),
+			typeof this.shape === 'function' ? this.shape(propArguments) : this.shape,
 			propArguments
 		)
 
@@ -150,10 +150,10 @@ class ShapeBuffer<
 	/**
 	 * Set shape
 	 *
-	 * @param {(Float32Array)} [shape]
+	 * @param {(Float32Array | (p: IPropArguments) => Float32Array)} [shape]
 	 */
-	public setShape(shape: Float32Array): void {
-		this.shape = Adapt.adapt(shape, this.adaptMode)
+	public setShape(shape: Float32Array | ((propArguments: IPropArguments) => Float32Array)): void {
+		this.shape = typeof shape === 'function' ? shape : Adapt.adapt(shape, this.adaptMode)
 
 		this.clearBuffer(true)
 	}

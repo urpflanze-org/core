@@ -13,7 +13,7 @@ class Line<
 	PropArguments extends IPropArguments = IPropArguments,
 	DrawerProps extends IDrawerProps<PropArguments> = IDrawerProps<PropArguments>
 > extends ShapeBuffer<PropArguments, DrawerProps> {
-	static buffer = [-1, 0, 1, 0]
+	static buffer = Float32Array.from([-1, 0, 1, 0])
 
 	/**
 	 * Two point, based on ShapeBuffer

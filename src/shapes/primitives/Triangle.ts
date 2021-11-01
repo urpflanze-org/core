@@ -11,7 +11,7 @@ class Triangle<
 	PropArgument extends IPropArguments = IPropArguments,
 	DrawerProps extends IDrawerProps<PropArgument> = IDrawerProps<PropArgument>
 > extends ShapeBuffer<PropArgument, DrawerProps> {
-	static buffer = [1, 0, -1, 1, -1, -1]
+	static buffer = Float32Array.from([1, 0, -1, 1, -1, -1])
 
 	/**
 	 * Creates an instance of Triangleeee.
