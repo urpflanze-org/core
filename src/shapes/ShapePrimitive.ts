@@ -123,7 +123,6 @@ abstract class ShapePrimitive<
 					? modifiers[i]
 					: (modifiers[i] as (propArguments: PropArguments) => Modifier)(propArguments)
 
-			//@ts-ignore
 			modified = modifier.apply(modified, this.bClosed, this)
 		}
 
