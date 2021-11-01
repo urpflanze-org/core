@@ -6,6 +6,8 @@ import { Subdivide } from './Subdivide'
 import { Close } from './Close'
 import { Offset } from './Offset'
 
+export { EAdaptMode } from './Adapt'
+
 const Modifiers = {
 	Adapt,
 	Mirror,
