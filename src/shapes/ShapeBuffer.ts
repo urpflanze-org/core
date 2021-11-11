@@ -98,7 +98,7 @@ class ShapeBuffer<
 		const sideLength = this.getRepetitionSideLength(propArguments)
 
 		const shapeBuffer = this.applyModifiers(
-			typeof this.shape === 'function' ? this.shape(propArguments) : this.shape,
+			(typeof this.shape === 'function' ? this.shape(propArguments) : this.shape).slice(),
 			propArguments
 		)
 
