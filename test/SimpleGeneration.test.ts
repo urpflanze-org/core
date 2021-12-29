@@ -1,75 +1,97 @@
-import tap from 'tap'
 import { Rect } from '../dist/cjs'
 
 ///
 
-let rect = new Rect({
-	sideLength: 10,
+test('check staticity if all props are static (no repetition generation)', () => {
+	const rect = new Rect({
+		sideLength: 10,
+		anchor: [0, 0],
+	})
+
+	rect.generate()
+
+	expect(rect.isStatic()).toBe(true)
 })
 
-rect.generate()
+test('simple generation', () => {
+	const rect = new Rect({
+		sideLength: 10,
+		anchor: [0, 0],
+	})
 
-tap.deepEqual(rect.isStatic(), true, 'check staticity if all props are static (no repetition generation)')
-tap.deepEqual(
-	rect.getBuffer(),
-	Rect.buffer.map((v: number) => v * 10),
-	'simple generation'
-)
+	rect.generate()
+
+	expect(rect.getBuffer()).toEqual(Rect.buffer.map((v: number) => v * 10))
+})
 
 ///
 
-const indexes: Array<number> = []
+test('check staticity when pass a function', () => {
+	const indexes: Array<number> = []
 
-rect = new Rect({
-	repetitions: 10,
-	sideLength: 10,
-	scale: ({ repetition }) => {
-		indexes.push(repetition.index)
-		return repetition.offset
-	},
+	const rect = new Rect({
+		repetitions: 10,
+		sideLength: 10,
+		scale: ({ repetition }) => {
+			indexes.push(repetition.index)
+			return repetition.offset
+		},
+	})
+
+	rect.generate()
+
+	expect(rect.isStatic()).toBe(false)
 })
 
-rect.generate()
+test('check repetition work', () => {
+	const indexes: Array<number> = []
 
-tap.deepEqual(rect.isStatic(), false, 'check staticity when pass a function')
-tap.deepEqual(indexes, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 'check repetition work')
+	const rect = new Rect({
+		repetitions: 10,
+		sideLength: 10,
+		scale: ({ repetition }) => {
+			indexes.push(repetition.index)
+			return repetition.offset
+		},
+	})
+
+	rect.generate()
+
+	expect(indexes).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+})
 
 ///
 
-const verticesLeftTop: Array<number> = []
+test('check anchor point left top', () => {
+	const verticesLeftTop: Array<number> = []
 
-rect = new Rect({
-	repetitions: 1,
-	sideLength: 10,
-	anchor: ['left', 'top'],
-	vertexCallback: (v: [number, number, number]) => {
-		verticesLeftTop.push(v[0], v[1])
-	},
+	const rect = new Rect({
+		repetitions: 1,
+		sideLength: 10,
+		anchor: ['left', 'top'],
+		vertexCallback: (v: [number, number, number]) => {
+			verticesLeftTop.push(v[0], v[1])
+		},
+	})
+
+	rect.generate()
+
+	expect(Float32Array.from(verticesLeftTop)).toEqual(Rect.buffer.map((v: number) => v * 10 + 10))
 })
 
-rect.generate()
+test('check anchor point right bottom', () => {
+	const verticesRightBottom: Array<number> = []
 
-tap.deepEqual(
-	verticesLeftTop,
-	Rect.buffer.map((v: number) => v * 10 + 10),
-	'check anchor point left top'
-)
+	const rect = new Rect({
+		repetitions: 1,
+		sideLength: 10,
+		anchor: ['right', 'bottom'],
+		vertexCallback: (v: [number, number, number]) => {
+			verticesRightBottom.push(v[0], v[1])
+		},
+	})
 
-const verticesRightBottom: Array<number> = []
+	rect.generate()
 
-rect = new Rect({
-	repetitions: 1,
-	sideLength: 10,
-	anchor: ['right', 'bottom'],
-	vertexCallback: (v: [number, number, number]) => {
-		verticesRightBottom.push(v[0], v[1])
-	},
+	expect(Float32Array.from(verticesRightBottom)).toEqual(Rect.buffer.map((v: number) => v * 10 - 10))
 })
-
-rect.generate()
-
-tap.deepEqual(
-	verticesRightBottom,
-	Rect.buffer.map((v: number) => v * 10 - 10),
-	'check anchor point right bottom'
-)

@@ -1,4 +1,3 @@
-import tap from 'tap'
 import { distributePointsInBuffer } from '../dist/cjs'
 
 ///
@@ -19,7 +18,9 @@ const input = Float32Array.from([-1, -1, 1, -1, 1, 1, -1, 1])
  * |       |
  * 5 ----- 4
  */
-tap.deepEqual(distributePointsInBuffer(input, 1), Float32Array.from([-1, -1, 0, -1, 1, -1, 1, 1, -1, 1]), 'add 1 point')
+test('add 1 point', () => {
+	expect(distributePointsInBuffer(input, 1)).toEqual(Float32Array.from([-1, -1, 0, -1, 1, -1, 1, 1, -1, 1]))
+})
 
 /**
  * expected
@@ -29,11 +30,9 @@ tap.deepEqual(distributePointsInBuffer(input, 1), Float32Array.from([-1, -1, 0, 
  * |       |
  * 6 --5-- 4
  */
-tap.deepEqual(
-	distributePointsInBuffer(input, 2),
-	Float32Array.from([-1, -1, 0, -1, 1, -1, 1, 1, 0, 1, -1, 1]),
-	'add 2 points'
-)
+test('add 2 points', () => {
+	expect(distributePointsInBuffer(input, 2)).toEqual(Float32Array.from([-1, -1, 0, -1, 1, -1, 1, 1, 0, 1, -1, 1]))
+})
 
 /**
  * expected
@@ -43,11 +42,9 @@ tap.deepEqual(
  * |       |
  * 7 --6-- 5
  */
-tap.deepEqual(
-	distributePointsInBuffer(input, 3),
-	Float32Array.from([-1, -1, 0, -1, 1, -1, 1, 0, 1, 1, 0, 1, -1, 1]),
-	'add 3 points'
-)
+test('add 3 points', () => {
+	expect(distributePointsInBuffer(input, 3)).toEqual(Float32Array.from([-1, -1, 0, -1, 1, -1, 1, 0, 1, 1, 0, 1, -1, 1]))
+})
 
 /**
  * expected
@@ -57,11 +54,11 @@ tap.deepEqual(
  * |       |
  * 8 --7-- 6
  */
-tap.deepEqual(
-	distributePointsInBuffer(input, 4),
-	Float32Array.from([-1, -1, -(1 / 3), -1, 1 / 3, -1, 1, -1, 1, 0, 1, 1, 0, 1, -1, 1]),
-	'add 4 points'
-)
+test('add 4 points', () => {
+	expect(distributePointsInBuffer(input, 4)).toEqual(
+		Float32Array.from([-1, -1, -(1 / 3), -1, 1 / 3, -1, 1, -1, 1, 0, 1, 1, 0, 1, -1, 1])
+	)
+})
 
 /**
  * add 4 point
@@ -81,8 +78,8 @@ tap.deepEqual(
  * |       |
  * 7 --6-- 5
  */
-tap.deepEqual(
-	distributePointsInBuffer(Float32Array.from([...input, -1, -1]), 4),
-	Float32Array.from([-1, -1, 0, -1, 1, -1, 1, 0, 1, 1, 0, 1, -1, 1, -1, 0, -1, -1]),
-	'add 4 points on close shape'
-)
+test('add 4 points on close shape', () => {
+	expect(distributePointsInBuffer(Float32Array.from([...input, -1, -1]), 4)).toEqual(
+		Float32Array.from([-1, -1, 0, -1, 1, -1, 1, 0, 1, 1, 0, 1, -1, 1, -1, 0, -1, -1])
+	)
+})

@@ -1,41 +1,47 @@
-import tap from 'tap'
 import { Rect, Shape } from '../dist/cjs'
 
 ///
-let called = 0
 
-let rect = new Rect({
-	scale: propArguments => {
-		called++
-		return 1
-	},
+test('check child shape generation', () => {
+	let called = 0
+
+	const rect = new Rect({
+		scale: propArguments => {
+			called++
+			return 1
+		},
+	})
+
+	const container = new Shape({
+		shape: rect,
+		repetitions: 5,
+	})
+
+	container.generate()
+
+	expect(called).toBe(1)
 })
-let container = new Shape({
-	shape: rect,
-	repetitions: 5,
-})
-
-container.generate()
-
-tap.deepEqual(called, 1, 'check child shape generation')
 
 ///
-const parentIndexed: Array<number> = []
 
-rect = new Rect({
-	scale: propArguments => {
-		if (propArguments.parent) {
-			parentIndexed.push(propArguments.parent.repetition.index)
-		}
-		return 1
-	},
+test('check child shape generation when useParent', () => {
+	const parentIndexed: Array<number> = []
+
+	const rect = new Rect({
+		scale: propArguments => {
+			if (propArguments.parent) {
+				parentIndexed.push(propArguments.parent.repetition.index)
+			}
+			return 1
+		},
+	})
+	const container = new Shape({
+		shape: rect,
+		repetitions: 5,
+		shapeUseParent: true,
+	})
+
+	container.generate()
+
+	expect(parentIndexed).toEqual([1, 2, 3, 4, 5])
 })
-container = new Shape({
-	shape: rect,
-	repetitions: 5,
-	shapeUseParent: true,
-})
-
-container.generate()
-
-tap.deepEqual(parentIndexed, [1, 2, 3, 4, 5], 'check child shape generation when useParent')
