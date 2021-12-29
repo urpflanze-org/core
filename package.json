@@ -60,8 +60,8 @@
 		"prepublishOnly": "npm run build",
 		"generate-docs": "npx generate-docs",
 		"release": "standard-version",
-		"release:minor": "standard-version --release-as minor",
 		"release:patch": "standard-version --release-as patch",
+		"release:minor": "standard-version --release-as minor",
 		"release:major": "standard-version --release-as major"
 	},
 	"publishConfig": {},
