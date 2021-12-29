@@ -228,6 +228,16 @@ class Group extends SceneChild {
 	}
 
 	/**
+	 * Return true if all children is generated
+	 *
+	 * @param {number} generateId
+	 * @return {*}  {boolean}
+	 */
+	public isGenerated(generateId: number): boolean {
+		return this.children.every(item => item.isGenerated(generateId))
+	}
+
+	/**
 	 * Sum the children bounding
 	 *
 	 * @return {IShapeBounding}

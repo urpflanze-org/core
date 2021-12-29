@@ -108,12 +108,13 @@ class Shape<
 	 */
 	protected generateBuffer(generateId: number, propArguments: PropArguments): Float32Array {
 		if (this.shape) {
-			if (this.shapeUseParent || this.shape.generateId !== generateId) {
+			if (this.shapeUseParent || !this.shape.isGenerated(generateId)) {
 				if (this.shapeUseParent) {
 					this.shape.clearBuffer(true, false)
 				}
 				this.shape.generate(generateId, false, propArguments)
 			}
+
 			return this.shape.getBuffer() as Float32Array
 		}
 

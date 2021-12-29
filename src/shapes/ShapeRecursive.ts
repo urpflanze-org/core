@@ -139,7 +139,7 @@ class ShapeRecursive<
 			if (
 				typeof this.shapeRecursiveBuffer === 'undefined' ||
 				this.shapeUseParent ||
-				this.shape.generateId !== generateId
+				!this.shape.isGenerated(generateId)
 			) {
 				this.bindBuffer(generateId, propArguments)
 			}

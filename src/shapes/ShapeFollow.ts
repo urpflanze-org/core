@@ -123,8 +123,8 @@ class ShapeFollow<
 			if (
 				typeof this.shapeFollowBuffer === 'undefined' ||
 				this.shapeUseParent ||
-				this.shape.generateId !== generateId ||
-				this.follow.generateId !== generateId
+				!this.shape.isGenerated(generateId) ||
+				!this.follow.isGenerated(generateId)
 			) {
 				this.bindBuffer(generateId, propArguments)
 			}
@@ -220,8 +220,9 @@ class ShapeFollow<
 	 * @returns {number} nextIndex
 	 */
 	protected addIndex(frameLength: number, repetition: IRepetition, singleRepetitionBounding: IShapeBounding): void {
-		if (this.shape) {
-			const propArguments = { repetition, shape: this } as IPropArguments as PropArguments
+		const followBuffer = this.follow.getBuffer()
+		if (this.shape && typeof followBuffer !== 'undefined') {
+			// const propArguments = { repetition, shape: this } as IPropArguments as PropArguments
 
 			const bufferIndex: IBufferIndexWithFollow = {
 				shape: this,
@@ -258,7 +259,7 @@ class ShapeFollow<
 				childIndexed < childIndexedLen;
 				childIndexed++
 			) {
-				const vertexCount = this.follow.getBuffer()!.length / 2 // this.follow.getBufferLength({ ...propArguments, parent: { ...bufferIndex } }) / 2
+				const vertexCount = followBuffer.length / 2 // this.follow.getBufferLength({ ...propArguments, parent: { ...bufferIndex } }) / 2
 
 				for (let j = 0, len = vertexCount; j < len; j++) {
 					const followOffset = len > 1 ? j / (len - 1) : 1

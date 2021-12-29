@@ -209,6 +209,15 @@ abstract class SceneChild<
 	abstract generate(generateId: number, bDirectSceneChild: boolean, parentPropArguments?: IPropArguments): void
 
 	/**
+	 * Check if the shape is generated on id `generateId`
+	 *
+	 * @abstract
+	 * @param {number} generateId
+	 * @return {*}  {boolean}
+	 */
+	abstract isGenerated(generateId: number): boolean
+
+	/**
 	 * Get buffer bounding
 	 *
 	 * @abstract

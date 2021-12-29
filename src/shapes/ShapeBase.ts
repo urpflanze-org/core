@@ -577,6 +577,16 @@ abstract class ShapeBase<
 	}
 
 	/**
+	 *
+	 *
+	 * @param {number} generateId
+	 * @return {*}  {boolean}
+	 */
+	public isGenerated(generateId: number): boolean {
+		return typeof this.buffer !== 'undefined' && this.generateId === generateId
+	}
+
+	/**
 	 * Return current shape (whit repetions) bounding
 	 *
 	 * @return {*}  {IShapeBounding}
