@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.12](https://github.com/urpflanze-org/core/compare/v0.5.11...v0.5.12) (2021-12-29)
+
+
+### Features
+
+* add isGenerated method ([2febdc3](https://github.com/urpflanze-org/core/commits/2febdc37a67e54867200d0f36e5c7fac32257f20))
+
+
+### Bug Fixes
+
+* change script order ([55ed4e3](https://github.com/urpflanze-org/core/commits/55ed4e399bb86af31df04636c3d4bf00e4cea816))
+
 ### [0.5.11](https://github.com/urpflanze-org/core/compare/v0.5.10...v0.5.11) (2021-11-11)
 
 
